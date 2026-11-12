@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.autocuida.app.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigationrail.NavigationRailView
 import com.google.android.material.snackbar.Snackbar
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -49,13 +49,24 @@ fun <T> DialogFragment.recolectarEnDialogo(flujo: Flow<T>, accion: suspend (T) -
  * navegue hacia atrás justo después (por ejemplo, tras guardar un formulario).
  */
 fun Fragment.mostrarMensaje(@StringRes texto: Int, larga: Boolean = false) {
-    val raiz = requireActivity().findViewById<View>(android.R.id.content)
+    val actividad = requireActivity()
+    val raiz = actividad.findViewById<View>(android.R.id.content)
     val snackbar = Snackbar.make(raiz, texto, if (larga) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT)
-    requireActivity().findViewById<View>(R.id.navegacion)
-        ?.takeIf { it.isShown && it is BottomNavigationView }
-        ?.let { snackbar.anchorView = it }
-    snackbar.show()
+    // Se espera a que termine una posible navegación (doble post) para anclar el mensaje encima
+    // del botón flotante o de la barra inferior de la pantalla que quede visible, sin taparlos.
+    raiz.post {
+        raiz.post {
+            val anclaje = ANCLAJES_SNACKBAR.asSequence()
+                .mapNotNull { actividad.findViewById<View>(it) }
+                .firstOrNull { it.isShown && it !is NavigationRailView }
+            snackbar.anchorView = anclaje
+            snackbar.show()
+        }
+    }
 }
+
+/** Vistas sobre las que se coloca un Snackbar, por orden de preferencia. */
+private val ANCLAJES_SNACKBAR = listOf(R.id.fab_anadir, R.id.fab_mantenimiento, R.id.navegacion)
 
 /**
  * Muestra un selector de fecha de Material y devuelve el día epoch elegido.
