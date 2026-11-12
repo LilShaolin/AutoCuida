@@ -1,0 +1,346 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "44aaf72a36e451f3cab572fe30f0bbe0",
+    "entities": [
+      {
+        "tableName": "vehiculos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `marca` TEXT NOT NULL, `modelo` TEXT NOT NULL, `matricula` TEXT NOT NULL, `anio` INTEGER NOT NULL, `combustible` TEXT NOT NULL, `km_actuales` INTEGER NOT NULL, `fecha_itv` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marca",
+            "columnName": "marca",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modelo",
+            "columnName": "modelo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matricula",
+            "columnName": "matricula",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "anio",
+            "columnName": "anio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "combustible",
+            "columnName": "combustible",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kmActuales",
+            "columnName": "km_actuales",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fechaItv",
+            "columnName": "fecha_itv",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_vehiculos_matricula",
+            "unique": true,
+            "columnNames": [
+              "matricula"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_vehiculos_matricula` ON `${TABLE_NAME}` (`matricula`)"
+          }
+        ]
+      },
+      {
+        "tableName": "tipos_mantenimiento",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `intervalo_km` INTEGER, `intervalo_meses` INTEGER, `codigo` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "intervaloKm",
+            "columnName": "intervalo_km",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "intervaloMeses",
+            "columnName": "intervalo_meses",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "codigo",
+            "columnName": "codigo",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_tipos_mantenimiento_nombre",
+            "unique": true,
+            "columnNames": [
+              "nombre"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_tipos_mantenimiento_nombre` ON `${TABLE_NAME}` (`nombre`)"
+          },
+          {
+            "name": "index_tipos_mantenimiento_codigo",
+            "unique": true,
+            "columnNames": [
+              "codigo"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_tipos_mantenimiento_codigo` ON `${TABLE_NAME}` (`codigo`)"
+          }
+        ]
+      },
+      {
+        "tableName": "mantenimientos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `vehiculo_id` INTEGER NOT NULL, `tipo_id` INTEGER NOT NULL, `fecha` INTEGER NOT NULL, `km` INTEGER NOT NULL, `coste` REAL NOT NULL, `taller` TEXT, `notas` TEXT, FOREIGN KEY(`vehiculo_id`) REFERENCES `vehiculos`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`tipo_id`) REFERENCES `tipos_mantenimiento`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehiculoId",
+            "columnName": "vehiculo_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoId",
+            "columnName": "tipo_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fecha",
+            "columnName": "fecha",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "km",
+            "columnName": "km",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coste",
+            "columnName": "coste",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "taller",
+            "columnName": "taller",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "notas",
+            "columnName": "notas",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_mantenimientos_vehiculo_id_fecha",
+            "unique": false,
+            "columnNames": [
+              "vehiculo_id",
+              "fecha"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_mantenimientos_vehiculo_id_fecha` ON `${TABLE_NAME}` (`vehiculo_id`, `fecha`)"
+          },
+          {
+            "name": "index_mantenimientos_tipo_id",
+            "unique": false,
+            "columnNames": [
+              "tipo_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_mantenimientos_tipo_id` ON `${TABLE_NAME}` (`tipo_id`)"
+          },
+          {
+            "name": "index_mantenimientos_fecha",
+            "unique": false,
+            "columnNames": [
+              "fecha"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_mantenimientos_fecha` ON `${TABLE_NAME}` (`fecha`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "vehiculos",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "vehiculo_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "tipos_mantenimiento",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "tipo_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "recordatorios",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `vehiculo_id` INTEGER NOT NULL, `tipo_id` INTEGER NOT NULL, `fecha_limite` INTEGER, `km_limite` INTEGER, `avisado` INTEGER NOT NULL, FOREIGN KEY(`vehiculo_id`) REFERENCES `vehiculos`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`tipo_id`) REFERENCES `tipos_mantenimiento`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehiculoId",
+            "columnName": "vehiculo_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoId",
+            "columnName": "tipo_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fechaLimite",
+            "columnName": "fecha_limite",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "kmLimite",
+            "columnName": "km_limite",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "avisado",
+            "columnName": "avisado",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_recordatorios_vehiculo_id_tipo_id",
+            "unique": true,
+            "columnNames": [
+              "vehiculo_id",
+              "tipo_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_recordatorios_vehiculo_id_tipo_id` ON `${TABLE_NAME}` (`vehiculo_id`, `tipo_id`)"
+          },
+          {
+            "name": "index_recordatorios_tipo_id",
+            "unique": false,
+            "columnNames": [
+              "tipo_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recordatorios_tipo_id` ON `${TABLE_NAME}` (`tipo_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "vehiculos",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "vehiculo_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "tipos_mantenimiento",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "tipo_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '44aaf72a36e451f3cab572fe30f0bbe0')"
+    ]
+  }
+}
