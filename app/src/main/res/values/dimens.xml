@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Escala de espaciado de 4 dp y medidas comunes del sistema de diseño. -->
+<resources>
+    <dimen name="espacio_xxs">2dp</dimen>
+    <dimen name="espacio_xs">4dp</dimen>
+    <dimen name="espacio_s">8dp</dimen>
+    <dimen name="espacio_m">12dp</dimen>
+    <dimen name="espacio_l">16dp</dimen>
+    <dimen name="espacio_xl">24dp</dimen>
+    <dimen name="espacio_xxl">32dp</dimen>
+
+    <dimen name="margen_pantalla">16dp</dimen>
+    <dimen name="ancho_maximo_contenido">720dp</dimen>
+    <dimen name="radio_tarjeta">16dp</dimen>
+    <dimen name="radio_boton">12dp</dimen>
+    <dimen name="radio_chip">10dp</dimen>
+    <dimen name="icono_s">18dp</dimen>
+    <dimen name="icono_m">24dp</dimen>
+    <dimen name="avatar_vehiculo">48dp</dimen>
+    <dimen name="altura_grafica">220dp</dimen>
+    <dimen name="espacio_fab">88dp</dimen>
+    <dimen name="altura_barra_gasto">8dp</dimen>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Columnas de las listas de tarjetas: 1 en vertical, 2 en horizontal o tableta. -->
+    <integer name="columnas_lista">1</integer>
+</resources>

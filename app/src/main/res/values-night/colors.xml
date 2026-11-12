@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Paleta de AutoCuida (tema oscuro). -->
+<resources>
+    <color name="ac_primary">#7FCFEA</color>
+    <color name="ac_on_primary">#003545</color>
+    <color name="ac_primary_container">#004D63</color>
+    <color name="ac_on_primary_container">#C4E7F5</color>
+    <color name="ac_secondary">#B1CBD8</color>
+    <color name="ac_on_secondary">#1C343F</color>
+    <color name="ac_secondary_container">#334A56</color>
+    <color name="ac_on_secondary_container">#CDE6F4</color>
+    <color name="ac_tertiary">#FFB870</color>
+    <color name="ac_on_tertiary">#4A2800</color>
+    <color name="ac_tertiary_container">#693C00</color>
+    <color name="ac_on_tertiary_container">#FFDCBE</color>
+    <color name="ac_error">#FFB4AB</color>
+    <color name="ac_on_error">#690005</color>
+    <color name="ac_error_container">#93000A</color>
+    <color name="ac_on_error_container">#FFDAD6</color>
+    <color name="ac_background">#0F1417</color>
+    <color name="ac_on_background">#DEE3E6</color>
+    <color name="ac_surface">#0F1417</color>
+    <color name="ac_on_surface">#DEE3E6</color>
+    <color name="ac_surface_variant">#40484C</color>
+    <color name="ac_on_surface_variant">#C0C8CC</color>
+    <color name="ac_outline">#8A9296</color>
+    <color name="ac_outline_variant">#40484C</color>
+    <color name="ac_surface_container_lowest">#0A0F12</color>
+    <color name="ac_surface_container_low">#171C1F</color>
+    <color name="ac_surface_container">#1B2023</color>
+    <color name="ac_surface_container_high">#252B2E</color>
+    <color name="ac_surface_container_highest">#303639</color>
+    <color name="ac_inverse_surface">#DEE3E6</color>
+    <color name="ac_inverse_on_surface">#2C3134</color>
+    <color name="ac_inverse_primary">#0B5D7A</color>
+
+    <color name="estado_verde">#7DD99A</color>
+    <color name="estado_verde_contenedor">#12391F</color>
+    <color name="estado_ambar">#FFC36B</color>
+    <color name="estado_ambar_contenedor">#46300A</color>
+    <color name="estado_rojo">#FFB4A8</color>
+    <color name="estado_rojo_contenedor">#5C1710</color>
+    <color name="estado_neutro">#AAB4BA</color>
+    <color name="estado_neutro_contenedor">#2A3135</color>
+</resources>

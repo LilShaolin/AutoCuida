@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Componentes y tipografía del sistema de diseño de AutoCuida. -->
+<resources>
+
+    <!-- Formas -->
+    <style name="ShapeAppearance.AutoCuida.Pequeno" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">@dimen/radio_boton</item>
+    </style>
+
+    <style name="ShapeAppearance.AutoCuida.Mediano" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">@dimen/radio_tarjeta</item>
+    </style>
+
+    <!-- Tipografía: escala de Material 3 con pesos ajustados para la jerarquía de AutoCuida. -->
+    <style name="TextAppearance.AutoCuida.Titular" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.AutoCuida.TituloSeccion" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.AutoCuida.TituloTarjeta" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.AutoCuida.Cuerpo" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="TextAppearance.AutoCuida.Etiqueta" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:letterSpacing">0.04</item>
+    </style>
+
+    <style name="TextAppearance.AutoCuida.Cifra" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:fontFeatureSettings">tnum</item>
+    </style>
+
+    <style name="TextAppearance.AutoCuida.Matricula" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Tarjetas -->
+    <style name="Widget.AutoCuida.Tarjeta" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainerLowest</item>
+        <item name="cardCornerRadius">@dimen/radio_tarjeta</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">?attr/colorOutlineVariant</item>
+    </style>
+
+    <style name="Widget.AutoCuida.Tarjeta.Destacada" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">?attr/colorPrimaryContainer</item>
+        <item name="cardCornerRadius">@dimen/radio_tarjeta</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <!-- Campos de texto -->
+    <style name="Widget.AutoCuida.CampoTexto" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/radio_boton</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radio_boton</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radio_boton</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radio_boton</item>
+        <item name="errorIconDrawable">@drawable/ic_error</item>
+    </style>
+
+    <style name="Widget.AutoCuida.CampoTexto.Desplegable" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxCornerRadiusTopStart">@dimen/radio_boton</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radio_boton</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radio_boton</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radio_boton</item>
+    </style>
+
+    <!-- Botones -->
+    <style name="Widget.AutoCuida.Boton" parent="Widget.Material3.Button">
+        <item name="android:minHeight">52dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.LabelLarge</item>
+    </style>
+
+    <style name="Widget.AutoCuida.Boton.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:minHeight">44dp</item>
+    </style>
+
+    <style name="Widget.AutoCuida.Boton.Texto" parent="Widget.Material3.Button.TextButton" />
+
+    <style name="Widget.AutoCuida.Boton.Peligro" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:textColor">?attr/colorError</item>
+        <item name="iconTint">?attr/colorError</item>
+        <item name="strokeColor">?attr/colorError</item>
+    </style>
+
+    <!-- Barra superior -->
+    <style name="Widget.AutoCuida.Toolbar" parent="Widget.Material3.Toolbar.Surface">
+        <item name="titleTextAppearance">@style/TextAppearance.AutoCuida.TituloSeccion</item>
+    </style>
+
+    <!-- Insignia de estado (color + icono + texto) -->
+    <style name="Widget.AutoCuida.Insignia" parent="">
+        <item name="android:paddingStart">@dimen/espacio_s</item>
+        <item name="android:paddingEnd">@dimen/espacio_m</item>
+        <item name="android:paddingTop">@dimen/espacio_xs</item>
+        <item name="android:paddingBottom">@dimen/espacio_xs</item>
+        <item name="android:drawablePadding">@dimen/espacio_xs</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.LabelMedium</item>
+        <item name="android:background">@drawable/fondo_insignia</item>
+    </style>
+
+    <style name="Widget.AutoCuida.Matricula" parent="">
+        <item name="android:paddingStart">@dimen/espacio_s</item>
+        <item name="android:paddingEnd">@dimen/espacio_s</item>
+        <item name="android:paddingTop">@dimen/espacio_xxs</item>
+        <item name="android:paddingBottom">@dimen/espacio_xxs</item>
+        <item name="android:background">@drawable/fondo_matricula</item>
+        <item name="android:textAppearance">@style/TextAppearance.AutoCuida.Matricula</item>
+    </style>
+</resources>

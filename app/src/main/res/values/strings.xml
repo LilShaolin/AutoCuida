@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AutoCuida</string>
+
+    <!-- Navegación -->
+    <string name="nav_vehiculos">Vehículos</string>
+    <string name="nav_gastos">Gastos</string>
+    <string name="nav_tipos">Tipos</string>
+    <string name="titulo_mis_vehiculos">Mis vehículos</string>
+    <string name="titulo_nuevo_vehiculo">Nuevo vehículo</string>
+    <string name="titulo_editar_vehiculo">Editar vehículo</string>
+    <string name="titulo_detalle_vehiculo">Detalle del vehículo</string>
+    <string name="titulo_nuevo_mantenimiento">Nuevo mantenimiento</string>
+    <string name="titulo_editar_mantenimiento">Editar mantenimiento</string>
+    <string name="titulo_gastos">Gastos</string>
+    <string name="titulo_tipos">Tipos de mantenimiento</string>
+
+    <!-- Acciones comunes -->
+    <string name="accion_guardar">Guardar</string>
+    <string name="accion_cancelar">Cancelar</string>
+    <string name="accion_eliminar">Eliminar</string>
+    <string name="accion_editar">Editar</string>
+    <string name="accion_aceptar">Aceptar</string>
+    <string name="accion_actualizar">Actualizar</string>
+    <string name="accion_permitir">Permitir</string>
+    <string name="accion_ahora_no">Ahora no</string>
+    <string name="accion_ajustes">Ajustes</string>
+
+    <!-- Estados -->
+    <string name="estado_al_dia">Al día</string>
+    <string name="estado_proximo">Próximo</string>
+    <string name="estado_vencido">Vencido</string>
+    <string name="estado_sin_referencia">Sin referencia</string>
+    <string name="estado_sin_datos">Sin datos</string>
+    <string name="estado_general_al_dia">Mantenimiento al día</string>
+    <string name="estado_general_proximo">Hay mantenimientos próximos</string>
+    <string name="estado_general_vencido">Hay mantenimientos vencidos</string>
+    <string name="estado_general_sin_referencia">Registra mantenimientos para calcular vencimientos</string>
+
+    <!-- Lista de vehículos -->
+    <string name="vehiculos_vacio_titulo">Aún no hay vehículos</string>
+    <string name="vehiculos_vacio_texto">Añade tu primer vehículo para controlar su mantenimiento, la ITV y los gastos.</string>
+    <string name="vehiculos_anadir">Añadir vehículo</string>
+    <string name="vehiculo_subtitulo">%1$d · %2$s</string>
+    <string name="vehiculo_proximo_aviso">%1$s: %2$s</string>
+    <string name="vehiculo_itv_fecha">ITV %s</string>
+    <string name="vehiculo_sin_avisos">Sin vencimientos calculados</string>
+    <plurals name="resumen_vehiculos">
+        <item quantity="one">%d vehículo</item>
+        <item quantity="other">%d vehículos</item>
+    </plurals>
+    <plurals name="resumen_avisos">
+        <item quantity="one">%d aviso pendiente</item>
+        <item quantity="other">%d avisos pendientes</item>
+    </plurals>
+    <string name="resumen_sin_avisos">Todo al día</string>
+
+    <!-- Formulario de vehículo -->
+    <string name="campo_marca">Marca</string>
+    <string name="campo_modelo">Modelo</string>
+    <string name="campo_matricula">Matrícula</string>
+    <string name="campo_anio">Año</string>
+    <string name="campo_combustible">Combustible</string>
+    <string name="campo_km_actuales">Kilómetros actuales</string>
+    <string name="campo_fecha_itv">Fecha de la próxima ITV</string>
+    <string name="ayuda_matricula">Sin espacios ni guiones, por ejemplo 1234ABC</string>
+    <string name="ayuda_fecha_itv">Fecha límite de la ITV vigente. Puedes modificarla tras cada inspección.</string>
+    <string name="sufijo_km">km</string>
+    <string name="vehiculo_guardado">Vehículo guardado</string>
+    <string-array name="combustibles">
+        <item>Gasolina</item>
+        <item>Diésel</item>
+        <item>Híbrido</item>
+        <item>Híbrido enchufable</item>
+        <item>Eléctrico</item>
+        <item>GLP</item>
+        <item>GNC</item>
+        <item>Otro</item>
+    </string-array>
+    <string name="seccion_datos_vehiculo">Datos del vehículo</string>
+    <string name="seccion_estado_actual">Estado actual</string>
+
+    <!-- Errores de validación -->
+    <string name="error_obligatorio">Campo obligatorio</string>
+    <string name="error_longitud">El texto es demasiado largo</string>
+    <string name="error_matricula_formato">Usa entre 4 y 10 letras o números</string>
+    <string name="error_matricula_duplicada">Ya existe un vehículo con esta matrícula</string>
+    <string name="error_anio_rango">Introduce un año entre 1900 y %d</string>
+    <string name="error_numero">Introduce un número válido</string>
+    <string name="error_km_negativos">Los kilómetros no pueden ser negativos</string>
+    <string name="error_km_excesivos">El valor supera el máximo admitido</string>
+    <string name="error_km_inferiores_anterior">Hay un mantenimiento anterior con más kilómetros (%s)</string>
+    <string name="error_km_superiores_posterior">Hay un mantenimiento posterior con menos kilómetros (%s)</string>
+    <string name="error_km_inferiores_historial">No puede ser inferior al mayor kilometraje del historial (%s)</string>
+    <string name="error_km_retroceso">El valor es inferior al actual. Marca la casilla si es una corrección.</string>
+    <string name="error_coste_negativo">El coste no puede ser negativo</string>
+    <string name="error_coste_excesivo">El coste supera el máximo admitido</string>
+    <string name="error_fecha_futura">La fecha no puede ser posterior a hoy</string>
+    <string name="error_fecha_itv_anterior">Debe ser posterior a la fecha de la inspección</string>
+    <string name="error_intervalo_requerido">Indica al menos un intervalo</string>
+    <string name="error_intervalo_positivo">El intervalo debe ser mayor que cero</string>
+    <string name="error_intervalo_excesivo">El intervalo es demasiado grande</string>
+    <string name="error_nombre_duplicado">Ya existe un tipo con este nombre</string>
+    <string name="error_generico">No se pudo completar la operación. Inténtalo de nuevo.</string>
+    <string name="error_revisa_campos">Revisa los campos marcados</string>
+
+    <!-- Detalle de vehículo -->
+    <string name="detalle_km_actuales">Kilómetros actuales</string>
+    <string name="detalle_actualizar_km">Actualizar km</string>
+    <string name="detalle_itv">ITV</string>
+    <string name="detalle_itv_fecha">Próxima inspección: %s</string>
+    <string name="detalle_cambiar_fecha_itv">Cambiar fecha</string>
+    <string name="detalle_proximos">Próximos vencimientos</string>
+    <string name="detalle_historial">Historial</string>
+    <string name="detalle_historial_vacio">Todavía no hay mantenimientos registrados.</string>
+    <string name="detalle_historial_vacio_filtro">No hay mantenimientos de este tipo.</string>
+    <string name="detalle_registrar_mantenimiento">Registrar mantenimiento</string>
+    <string name="detalle_registrar_ultimo">Registrar último</string>
+    <string name="filtro_todos">Todos</string>
+    <string name="eliminar_vehiculo_titulo">¿Eliminar vehículo?</string>
+    <string name="eliminar_vehiculo_mensaje">Se eliminarán %1$s y todo su historial de mantenimientos. Esta acción no se puede deshacer.</string>
+    <string name="vehiculo_eliminado">Vehículo eliminado</string>
+    <string name="fecha_itv_actualizada">Fecha de ITV actualizada</string>
+    <string name="vehiculo_no_encontrado">El vehículo ya no existe</string>
+
+    <!-- Textos de vencimiento -->
+    <string name="venc_proximo_km_fecha">Próximo: %1$s o %2$s</string>
+    <string name="venc_proximo_km">Próximo: %1$s</string>
+    <string name="venc_proximo_fecha">Próximo: %1$s</string>
+    <string name="venc_sin_referencia">No hay un mantenimiento previo registrado</string>
+    <string name="venc_faltan_km">faltan %s</string>
+    <string name="venc_superado_km">superado en %s</string>
+    <string name="venc_vence_hoy">vence hoy</string>
+    <plurals name="venc_faltan_dias">
+        <item quantity="one">falta %d día</item>
+        <item quantity="other">faltan %d días</item>
+    </plurals>
+    <plurals name="venc_vencido_dias">
+        <item quantity="one">venció hace %d día</item>
+        <item quantity="other">venció hace %d días</item>
+    </plurals>
+    <string name="venc_separador">" · "</string>
+
+    <!-- Actualizar kilómetros -->
+    <string name="km_dialogo_titulo">Actualizar kilómetros</string>
+    <string name="km_dialogo_actuales">Kilómetros registrados: %s</string>
+    <string name="km_dialogo_nuevos">Nuevos kilómetros</string>
+    <string name="km_dialogo_correccion">Corregir un error de lectura (permite un valor menor)</string>
+    <string name="km_actualizados">Kilómetros actualizados</string>
+
+    <!-- Formulario de mantenimiento -->
+    <string name="campo_tipo">Tipo de mantenimiento</string>
+    <string name="campo_fecha">Fecha</string>
+    <string name="campo_km">Kilómetros</string>
+    <string name="campo_coste">Coste</string>
+    <string name="campo_taller">Taller (opcional)</string>
+    <string name="campo_notas">Notas (opcional)</string>
+    <string name="campo_proxima_itv">Fecha de la próxima ITV (opcional)</string>
+    <string name="ayuda_proxima_itv">Si la indicas, se actualizará la fecha de ITV del vehículo.</string>
+    <string name="sufijo_euro">€</string>
+    <string name="ayuda_km_mantenimiento">Si superan los kilómetros actuales, se actualizará el cuentakilómetros.</string>
+    <string name="mantenimiento_guardado">Mantenimiento guardado</string>
+    <string name="mantenimiento_eliminado">Mantenimiento eliminado</string>
+    <string name="eliminar_mantenimiento_titulo">¿Eliminar mantenimiento?</string>
+    <string name="eliminar_mantenimiento_mensaje">El registro se eliminará y los vencimientos se recalcularán.</string>
+    <string name="mantenimiento_vehiculo">Vehículo: %s</string>
+
+    <!-- Historial -->
+    <string name="historial_km_taller">%1$s · %2$s</string>
+    <string name="historial_coste_cero">Sin coste</string>
+
+    <!-- Gastos -->
+    <string name="gastos_periodo">Periodo</string>
+    <string name="gastos_vehiculo">Vehículo</string>
+    <string name="gastos_todo_historial">Todo el historial</string>
+    <string name="gastos_todos_vehiculos">Todos los vehículos</string>
+    <string name="gastos_total_anio">Gasto total %d</string>
+    <string name="gastos_total_historial">Gasto total del historial</string>
+    <plurals name="gastos_registros">
+        <item quantity="one">%d mantenimiento</item>
+        <item quantity="other">%d mantenimientos</item>
+    </plurals>
+    <string name="gastos_grafica_mensual">Gasto por mes</string>
+    <string name="gastos_grafica_anual">Gasto por año</string>
+    <string name="gastos_por_tipo">Por tipo</string>
+    <string name="gastos_por_vehiculo">Por vehículo</string>
+    <string name="gastos_historial">Historial del periodo</string>
+    <string name="gastos_vacio_titulo">Sin gastos en este periodo</string>
+    <string name="gastos_vacio_texto">Los gastos se calculan a partir de los mantenimientos registrados.</string>
+    <string name="gastos_porcentaje">%1$s · %2$d %%</string>
+    <string-array name="meses_cortos">
+        <item>Ene</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Abr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Ago</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dic</item>
+    </string-array>
+
+    <!-- Tipos -->
+    <string name="tipos_info">Los intervalos iniciales son valores de partida. Ajústalos según el manual de tu vehículo.</string>
+    <string name="tipos_anadir">Nuevo tipo</string>
+    <string name="tipo_cada_km_meses">Cada %1$s o %2$d meses</string>
+    <string name="tipo_cada_km">Cada %s</string>
+    <plurals name="tipo_cada_meses">
+        <item quantity="one">Cada %d mes</item>
+        <item quantity="other">Cada %d meses</item>
+    </plurals>
+    <plurals name="tipo_uso">
+        <item quantity="one">%d registro</item>
+        <item quantity="other">%d registros</item>
+    </plurals>
+    <string name="tipo_sin_registros">Sin registros</string>
+    <string name="tipo_itv_nota">La ITV vence en la fecha indicada en cada vehículo; el intervalo solo propone la siguiente fecha.</string>
+    <string name="tipo_dialogo_nuevo">Nuevo tipo</string>
+    <string name="tipo_dialogo_editar">Editar tipo</string>
+    <string name="campo_nombre">Nombre</string>
+    <string name="campo_intervalo_km">Intervalo en kilómetros</string>
+    <string name="campo_intervalo_meses">Intervalo en meses</string>
+    <string name="sufijo_meses">meses</string>
+    <string name="ayuda_intervalos">Deja vacío el intervalo que no quieras usar. Se necesita al menos uno.</string>
+    <string name="tipo_guardado">Tipo guardado</string>
+    <string name="tipo_eliminado">Tipo eliminado</string>
+    <string name="eliminar_tipo_titulo">¿Eliminar tipo?</string>
+    <string name="eliminar_tipo_mensaje">Se eliminará «%s». Esta acción no se puede deshacer.</string>
+    <string name="tipo_en_uso">No se puede eliminar: tiene %d mantenimientos registrados. Elimina antes esos registros.</string>
+    <string name="tipo_protegido">La ITV no se puede eliminar porque se usa para el control de inspecciones.</string>
+
+    <!-- Notificaciones -->
+    <string name="canal_vencimientos_nombre">Vencimientos de mantenimiento</string>
+    <string name="canal_vencimientos_descripcion">Avisos de mantenimientos e ITV próximos o vencidos</string>
+    <string name="notif_titulo_proximo">%1$s próximo · %2$s</string>
+    <string name="notif_titulo_vencido">%1$s vencido · %2$s</string>
+    <string name="notif_titulo_itv_proxima">ITV próxima · %s</string>
+    <string name="notif_titulo_itv_vencida">ITV vencida · %s</string>
+    <string name="permiso_notif_titulo">Activar avisos</string>
+    <string name="permiso_notif_mensaje">AutoCuida usa notificaciones para avisarte de los mantenimientos y la ITV próximos o vencidos. No se envía ningún dato fuera del dispositivo.</string>
+    <string name="permiso_notif_denegado">Sin permiso de notificaciones no recibirás avisos de vencimientos.</string>
+
+    <!-- Accesibilidad -->
+    <string name="cd_estado">Estado: %s</string>
+    <string name="cd_icono_vehiculo">Vehículo</string>
+    <string name="cd_editar_tipo">Editar %s</string>
+    <string name="cd_eliminar_tipo">Eliminar %s</string>
+    <string name="cd_tipo_protegido">Tipo protegido</string>
+    <string name="cd_seleccionar_fecha">Seleccionar fecha</string>
+</resources>

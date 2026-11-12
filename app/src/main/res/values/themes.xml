@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.AutoCuida" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/ac_primary</item>
+        <item name="colorOnPrimary">@color/ac_on_primary</item>
+        <item name="colorPrimaryContainer">@color/ac_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/ac_on_primary_container</item>
+        <item name="colorSecondary">@color/ac_secondary</item>
+        <item name="colorOnSecondary">@color/ac_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/ac_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/ac_on_secondary_container</item>
+        <item name="colorTertiary">@color/ac_tertiary</item>
+        <item name="colorOnTertiary">@color/ac_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/ac_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/ac_on_tertiary_container</item>
+        <item name="colorError">@color/ac_error</item>
+        <item name="colorOnError">@color/ac_on_error</item>
+        <item name="colorErrorContainer">@color/ac_error_container</item>
+        <item name="colorOnErrorContainer">@color/ac_on_error_container</item>
+        <item name="android:colorBackground">@color/ac_background</item>
+        <item name="colorOnBackground">@color/ac_on_background</item>
+        <item name="colorSurface">@color/ac_surface</item>
+        <item name="colorOnSurface">@color/ac_on_surface</item>
+        <item name="colorSurfaceVariant">@color/ac_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/ac_on_surface_variant</item>
+        <item name="colorOutline">@color/ac_outline</item>
+        <item name="colorOutlineVariant">@color/ac_outline_variant</item>
+        <item name="colorSurfaceContainerLowest">@color/ac_surface_container_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/ac_surface_container_low</item>
+        <item name="colorSurfaceContainer">@color/ac_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/ac_surface_container_high</item>
+        <item name="colorSurfaceContainerHighest">@color/ac_surface_container_highest</item>
+        <item name="colorSurfaceInverse">@color/ac_inverse_surface</item>
+        <item name="colorOnSurfaceInverse">@color/ac_inverse_on_surface</item>
+        <item name="colorPrimaryInverse">@color/ac_inverse_primary</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.AutoCuida.Pequeno</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.AutoCuida.Mediano</item>
+        <item name="materialCardViewStyle">@style/Widget.AutoCuida.Tarjeta</item>
+        <item name="textInputStyle">@style/Widget.AutoCuida.CampoTexto</item>
+        <item name="materialButtonStyle">@style/Widget.AutoCuida.Boton</item>
+        <item name="toolbarStyle">@style/Widget.AutoCuida.Toolbar</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">@bool/barra_estado_clara</item>
+    </style>
+
+    <style name="Theme.AutoCuida" parent="Base.Theme.AutoCuida" />
+
+</resources>
