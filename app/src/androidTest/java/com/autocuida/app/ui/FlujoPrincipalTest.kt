@@ -86,8 +86,18 @@ class FlujoPrincipalTest {
                 .check(matches(hasDescendant(allOf(withId(R.id.insignia), withText(R.string.estado_proximo), isDisplayed()))))
         }
 
-        // 7. Eliminación con confirmación
-        onView(withId(R.id.accion_eliminar)).perform(click())
+        // 7. Gastos: el registro aparece en el historial del año con la matrícula del vehículo
+        androidx.test.espresso.Espresso.pressBack()
+        onView(withId(R.id.gastosFragment)).perform(click())
+        esperar {
+            onView(withId(R.id.lista_historial)).perform(scrollTo())
+            onView(withId(R.id.lista_historial)).check(matches(hasDescendant(withText(matricula))))
+        }
+        onView(withId(R.id.listaVehiculosFragment)).perform(click())
+        esperar { onView(allOf(withId(R.id.matricula), withText(matricula))).perform(click()) }
+
+        // 8. Eliminación con confirmación
+        esperar { onView(withId(R.id.accion_eliminar)).perform(click()) }
         onView(withText(R.string.accion_eliminar)).inRoot(isDialog()).perform(click())
         esperar { onView(withId(R.id.fab_anadir)).check(matches(isDisplayed())) }
     }
