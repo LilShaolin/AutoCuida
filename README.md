@@ -70,7 +70,7 @@ Diagramas en [`documentacion/diagramas`](documentacion/diagramas): entidad-relac
 
 ## Instalación del APK
 
-1. Descarga el archivo APK de la sección *Releases* del repositorio.
+1. Descarga el archivo APK de la sección [Releases](https://github.com/LilShaolin/AutoCuida/releases) del repositorio.
 2. Abre el archivo en el teléfono. Si Android lo solicita, permite la instalación de aplicaciones desde esa fuente.
 3. Pulsa **Instalar** y, al terminar, **Abrir**.
 4. En Android 13 o superior, acepta el permiso de notificaciones para recibir los avisos.
@@ -80,7 +80,7 @@ El manual de instalación completo está en [`documentacion/manual_instalacion`]
 ## Compilación y ejecución
 
 ```bash
-git clone <url-del-repositorio>
+git clone https://github.com/LilShaolin/AutoCuida.git
 cd AutoCuida
 ```
 
