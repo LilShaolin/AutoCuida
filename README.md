@@ -130,10 +130,10 @@ AutoCuida/
 ├── app/                    Proyecto Android
 ├── capturas/               Capturas reales de la aplicación
 ├── documentacion/          Informe técnico, diagramas, mockups, manuales, bibliografía y diario
-├── presentacion/           Presentación y notas de exposición
+├── presentacion/           Presentación, guion de la exposición y preguntas técnicas
 ├── pruebas/                Informes de pruebas y de Lint
 ├── release/                Notas de la versión (el APK se adjunta a la Release de GitHub)
-└── video/                  Guion y configuración de grabación
+└── video/                  Guía de grabación con OBS y clip de demostración
 ```
 
 ## Licencia y datos
