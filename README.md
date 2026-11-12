@@ -65,7 +65,7 @@ Diagramas en [`documentacion/diagramas`](documentacion/diagramas): entidad-relac
 
 ## Requisitos
 
-- **Para usar la aplicación**: Android 8.0 (API 26) o superior. El APK de la versión release ocupa 2,4 MB.
+- **Para usar la aplicación**: Android 8.0 (API 26) o superior y unos 10 MB libres. El APK de la versión release ocupa 2,4 MB.
 - **Para compilar**: Android Studio (el proyecto se ha compilado con el JDK y el SDK de Android Studio 2025.3, compilación 253.32098.37), JDK 17 o superior (se usa el JBR 21 incluido en Android Studio) y Android SDK Platform 36.1.
 
 ## Instalación del APK
@@ -132,6 +132,7 @@ AutoCuida/
 ├── documentacion/          Informe técnico, diagramas, mockups, manuales, bibliografía y diario
 ├── presentacion/           Presentación y notas de exposición
 ├── pruebas/                Informes de pruebas y de Lint
+├── release/                Notas de la versión (el APK se adjunta a la Release de GitHub)
 └── video/                  Guion y configuración de grabación
 ```
 
