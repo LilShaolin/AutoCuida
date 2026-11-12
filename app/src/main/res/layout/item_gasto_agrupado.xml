@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/espacio_l"
+    android:paddingTop="@dimen/espacio_m"
+    android:paddingEnd="@dimen/espacio_l"
+    android:paddingBottom="@dimen/espacio_xs">
+
+    <TextView
+        android:id="@+id/nombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/espacio_s"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintEnd_toStartOf="@id/importe"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Aceite" />
+
+    <TextView
+        android:id="@+id/importe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintBaseline_toBaselineOf="@id/nombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="320,00 €" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/proporcion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/espacio_xs"
+        android:max="1000"
+        app:indicatorColor="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nombre"
+        app:trackColor="?attr/colorSurfaceContainerHigh"
+        app:trackCornerRadius="4dp"
+        app:trackThickness="@dimen/altura_barra_gasto" />
+
+    <TextView
+        android:id="@+id/detalle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/espacio_xxs"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/proporcion"
+        tools:text="3 mantenimientos · 26 %" />
+</androidx.constraintlayout.widget.ConstraintLayout>

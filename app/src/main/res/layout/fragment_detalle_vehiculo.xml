@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/contenido"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/margen_pantalla"
+                android:paddingTop="@dimen/espacio_s"
+                android:paddingEnd="@dimen/margen_pantalla"
+                android:paddingBottom="@dimen/espacio_fab"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="@dimen/ancho_maximo_contenido">
+
+                <!-- Cabecera con datos generales y kilómetros -->
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.AutoCuida.Tarjeta.Destacada"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/espacio_l">
+
+                        <TextView
+                            android:id="@+id/titulo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AutoCuida.Titular"
+                            android:textColor="?attr/colorOnPrimaryContainer"
+                            app:layout_constraintEnd_toStartOf="@id/matricula"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Seat León" />
+
+                        <TextView
+                            android:id="@+id/matricula"
+                            style="@style/Widget.AutoCuida.Matricula"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@id/titulo"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/titulo"
+                            tools:text="1234ABC" />
+
+                        <TextView
+                            android:id="@+id/subtitulo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/espacio_xxs"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textColor="?attr/colorOnPrimaryContainer"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/titulo"
+                            tools:text="2018 · Gasolina" />
+
+                        <TextView
+                            android:id="@+id/etiqueta_km"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/espacio_l"
+                            android:text="@string/detalle_km_actuales"
+                            android:textAppearance="@style/TextAppearance.AutoCuida.Etiqueta"
+                            android:textColor="?attr/colorOnPrimaryContainer"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/subtitulo" />
+
+                        <TextView
+                            android:id="@+id/km"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AutoCuida.Cifra"
+                            android:textColor="?attr/colorOnPrimaryContainer"
+                            app:layout_constraintEnd_toStartOf="@id/boton_km"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/etiqueta_km"
+                            tools:text="84.250 km" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/boton_km"
+                            style="@style/Widget.AutoCuida.Boton.Tonal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/detalle_actualizar_km"
+                            app:icon="@drawable/ic_velocimetro"
+                            app:layout_constraintBottom_toBottomOf="@id/km"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/etiqueta_km" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Estado general -->
+                <TextView
+                    android:id="@+id/estado_general"
+                    style="@style/Widget.AutoCuida.Insignia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/espacio_m"
+                    android:paddingStart="@dimen/espacio_m"
+                    android:paddingTop="@dimen/espacio_s"
+                    android:paddingBottom="@dimen/espacio_s"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    tools:text="Mantenimiento al día" />
+
+                <!-- ITV -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/espacio_m">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="@dimen/espacio_l"
+                        android:paddingTop="@dimen/espacio_l"
+                        android:paddingEnd="@dimen/espacio_s"
+                        android:paddingBottom="@dimen/espacio_s">
+
+                        <ImageView
+                            android:id="@+id/itv_icono"
+                            android:layout_width="@dimen/icono_m"
+                            android:layout_height="@dimen/icono_m"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_insignia_itv"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:id="@+id/itv_titulo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/espacio_m"
+                            android:text="@string/detalle_itv"
+                            android:textAppearance="@style/TextAppearance.AutoCuida.TituloTarjeta"
+                            app:layout_constraintBottom_toBottomOf="@id/itv_icono"
+                            app:layout_constraintEnd_toStartOf="@id/itv_insignia"
+                            app:layout_constraintStart_toEndOf="@id/itv_icono"
+                            app:layout_constraintTop_toTopOf="@id/itv_icono" />
+
+                        <TextView
+                            android:id="@+id/itv_insignia"
+                            style="@style/Widget.AutoCuida.Insignia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/espacio_s"
+                            app:layout_constraintBottom_toBottomOf="@id/itv_icono"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/itv_icono"
+                            tools:text="Al día" />
+
+                        <TextView
+                            android:id="@+id/itv_fecha"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/espacio_s"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                            android:textColor="?attr/colorOnSurface"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/itv_titulo"
+                            app:layout_constraintTop_toBottomOf="@id/itv_icono"
+                            tools:text="Próxima inspección: 12/05/2027" />
+
+                        <TextView
+                            android:id="@+id/itv_restante"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AutoCuida.Cuerpo"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/itv_titulo"
+                            app:layout_constraintTop_toBottomOf="@id/itv_fecha"
+                            tools:text="Faltan 180 días" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/boton_itv"
+                            style="@style/Widget.AutoCuida.Boton.Texto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/detalle_cambiar_fecha_itv"
+                            app:icon="@drawable/ic_calendario"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/itv_restante" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Próximos vencimientos -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/espacio_xl"
+                    android:layout_marginBottom="@dimen/espacio_s"
+                    android:text="@string/detalle_proximos"
+                    android:textAppearance="@style/TextAppearance.AutoCuida.TituloSeccion" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/lista_vencimientos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_vencimiento" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Historial -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/espacio_xl"
+                    android:text="@string/detalle_historial"
+                    android:textAppearance="@style/TextAppearance.AutoCuida.TituloSeccion" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/espacio_xs"
+                    android:scrollbars="none">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/filtros"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:selectionRequired="true"
+                        app:singleLine="true"
+                        app:singleSelection="true" />
+                </HorizontalScrollView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/tarjeta_historial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/espacio_s">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/lista_historial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_mantenimiento" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/historial_vacio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/espacio_s"
+                    android:drawablePadding="@dimen/espacio_s"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/espacio_l"
+                    android:text="@string/detalle_historial_vacio"
+                    android:textAppearance="@style/TextAppearance.AutoCuida.Cuerpo"
+                    android:visibility="gone"
+                    app:drawableStartCompat="@drawable/ic_historial"
+                    app:drawableTint="?attr/colorOnSurfaceVariant" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_mantenimiento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/margen_pantalla"
+        android:text="@string/detalle_registrar_mantenimiento"
+        app:icon="@drawable/ic_llave" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

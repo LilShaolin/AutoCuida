@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/espacio_l"
+    android:paddingTop="@dimen/espacio_m"
+    android:paddingEnd="@dimen/espacio_l"
+    android:paddingBottom="@dimen/espacio_m">
+
+    <ImageView
+        android:id="@+id/icono"
+        android:layout_width="@dimen/icono_m"
+        android:layout_height="@dimen/icono_m"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_check_circle" />
+
+    <TextView
+        android:id="@+id/nombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/espacio_m"
+        android:layout_marginEnd="@dimen/espacio_s"
+        android:textAppearance="@style/TextAppearance.AutoCuida.TituloTarjeta"
+        app:layout_constraintEnd_toStartOf="@id/insignia"
+        app:layout_constraintStart_toEndOf="@id/icono"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Aceite" />
+
+    <TextView
+        android:id="@+id/insignia"
+        style="@style/Widget.AutoCuida.Insignia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Próximo" />
+
+    <TextView
+        android:id="@+id/restante"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/espacio_xxs"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/nombre"
+        app:layout_constraintTop_toBottomOf="@id/insignia"
+        tools:text="Faltan 800 km · faltan 120 días" />
+
+    <TextView
+        android:id="@+id/limites"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AutoCuida.Cuerpo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/nombre"
+        app:layout_constraintTop_toBottomOf="@id/restante"
+        tools:text="Próximo: 85.000 km o 12/03/2027" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/boton_registrar"
+        style="@style/Widget.AutoCuida.Boton.Texto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-12dp"
+        android:text="@string/detalle_registrar_ultimo"
+        android:visibility="gone"
+        app:icon="@drawable/ic_add"
+        app:layout_constraintStart_toStartOf="@id/nombre"
+        app:layout_constraintTop_toBottomOf="@id/limites"
+        tools:visibility="visible" />
+</androidx.constraintlayout.widget.ConstraintLayout>

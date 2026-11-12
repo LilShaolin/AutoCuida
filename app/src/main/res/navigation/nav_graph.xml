@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listaVehiculosFragment">
+
+    <fragment
+        android:id="@+id/listaVehiculosFragment"
+        android:name="com.autocuida.app.ui.vehiculos.ListaVehiculosFragment"
+        android:label="@string/titulo_mis_vehiculos"
+        tools:layout="@layout/fragment_lista_vehiculos">
+        <action
+            android:id="@+id/action_lista_to_formVehiculo"
+            app:destination="@id/formVehiculoFragment" />
+        <action
+            android:id="@+id/action_lista_to_detalle"
+            app:destination="@id/detalleVehiculoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/formVehiculoFragment"
+        android:name="com.autocuida.app.ui.vehiculos.FormVehiculoFragment"
+        android:label="@string/titulo_nuevo_vehiculo"
+        tools:layout="@layout/fragment_form_vehiculo">
+        <argument
+            android:name="vehiculoId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detalleVehiculoFragment"
+        android:name="com.autocuida.app.ui.vehiculos.DetalleVehiculoFragment"
+        android:label="@string/titulo_detalle_vehiculo"
+        tools:layout="@layout/fragment_detalle_vehiculo">
+        <argument
+            android:name="vehiculoId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_detalle_to_formVehiculo"
+            app:destination="@id/formVehiculoFragment" />
+        <action
+            android:id="@+id/action_detalle_to_formMantenimiento"
+            app:destination="@id/formMantenimientoFragment" />
+        <action
+            android:id="@+id/action_detalle_to_actualizarKm"
+            app:destination="@id/actualizarKmDialog" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/formMantenimientoFragment"
+        android:name="com.autocuida.app.ui.mantenimiento.FormMantenimientoFragment"
+        android:label="@string/titulo_nuevo_mantenimiento"
+        tools:layout="@layout/fragment_form_mantenimiento">
+        <argument
+            android:name="vehiculoId"
+            app:argType="long" />
+        <argument
+            android:name="mantenimientoId"
+            android:defaultValue="0L"
+            app:argType="long" />
+        <argument
+            android:name="tipoId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/actualizarKmDialog"
+        android:name="com.autocuida.app.ui.vehiculos.ActualizarKmDialogFragment"
+        android:label="@string/km_dialogo_titulo">
+        <argument
+            android:name="vehiculoId"
+            app:argType="long" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/gastosFragment"
+        android:name="com.autocuida.app.ui.gastos.GastosFragment"
+        android:label="@string/titulo_gastos"
+        tools:layout="@layout/fragment_gastos">
+        <action
+            android:id="@+id/action_gastos_to_formMantenimiento"
+            app:destination="@id/formMantenimientoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tiposFragment"
+        android:name="com.autocuida.app.ui.tipos.TiposFragment"
+        android:label="@string/titulo_tipos"
+        tools:layout="@layout/fragment_tipos">
+        <action
+            android:id="@+id/action_tipos_to_editarTipo"
+            app:destination="@id/editarTipoDialog" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/editarTipoDialog"
+        android:name="com.autocuida.app.ui.tipos.EditarTipoDialogFragment"
+        android:label="@string/tipo_dialogo_editar">
+        <argument
+            android:name="tipoId"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </dialog>
+</navigation>

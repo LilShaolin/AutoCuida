@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingStart="@dimen/espacio_l"
+    android:paddingTop="@dimen/espacio_m"
+    android:paddingEnd="@dimen/espacio_l"
+    android:paddingBottom="@dimen/espacio_m">
+
+    <FrameLayout
+        android:id="@+id/avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/fondo_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_llave"
+            app:tint="?attr/colorOnPrimaryContainer" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tipo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/espacio_m"
+        android:layout_marginEnd="@dimen/espacio_s"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.AutoCuida.TituloTarjeta"
+        app:layout_constraintEnd_toStartOf="@id/coste"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Aceite" />
+
+    <TextView
+        android:id="@+id/coste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintBaseline_toBaselineOf="@id/tipo"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="89,90 €" />
+
+    <TextView
+        android:id="@+id/fecha_km"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tipo"
+        app:layout_constraintTop_toBottomOf="@id/tipo"
+        tools:text="12/03/2026 · 84.250 km" />
+
+    <TextView
+        android:id="@+id/detalle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.AutoCuida.Cuerpo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tipo"
+        app:layout_constraintTop_toBottomOf="@id/fecha_km"
+        tools:text="Talleres García · Cambio de aceite 5W30" />
+</androidx.constraintlayout.widget.ConstraintLayout>

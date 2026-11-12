@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tarjeta"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/espacio_s"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/espacio_l">
+
+        <FrameLayout
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/avatar_vehiculo"
+            android:layout_height="@dimen/avatar_vehiculo"
+            android:background="@drawable/fondo_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="@dimen/icono_m"
+                android:layout_height="@dimen/icono_m"
+                android:layout_gravity="center"
+                android:contentDescription="@string/cd_icono_vehiculo"
+                android:src="@drawable/ic_coche"
+                app:tint="?attr/colorOnPrimaryContainer" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/espacio_m"
+            android:layout_marginEnd="@dimen/espacio_s"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.AutoCuida.TituloTarjeta"
+            app:layout_constraintEnd_toStartOf="@id/insignia"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintTop_toTopOf="@id/avatar"
+            tools:text="Seat León" />
+
+        <TextView
+            android:id="@+id/matricula"
+            style="@style/Widget.AutoCuida.Matricula"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacio_xs"
+            app:layout_constraintStart_toStartOf="@id/titulo"
+            app:layout_constraintTop_toBottomOf="@id/titulo"
+            tools:text="1234ABC" />
+
+        <TextView
+            android:id="@+id/subtitulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/espacio_s"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.AutoCuida.Cuerpo"
+            app:layout_constraintBaseline_toBaselineOf="@id/matricula"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/matricula"
+            tools:text="2018 · Gasolina" />
+
+        <TextView
+            android:id="@+id/insignia"
+            style="@style/Widget.AutoCuida.Insignia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Al día" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divisor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacio_m"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/avatar" />
+
+        <TextView
+            android:id="@+id/km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/espacio_m"
+            android:drawablePadding="@dimen/espacio_xs"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            app:drawableStartCompat="@drawable/ic_velocimetro"
+            app:drawableTint="?attr/colorOnSurfaceVariant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divisor"
+            tools:text="84.250 km" />
+
+        <TextView
+            android:id="@+id/itv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/espacio_l"
+            android:drawablePadding="@dimen/espacio_xs"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            app:drawableStartCompat="@drawable/ic_insignia_itv"
+            app:layout_constraintBaseline_toBaselineOf="@id/km"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/km"
+            tools:text="ITV 12/05/2027" />
+
+        <ImageView
+            android:id="@+id/aviso_icono"
+            android:layout_width="@dimen/icono_s"
+            android:layout_height="@dimen/icono_s"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@id/aviso"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/aviso"
+            tools:src="@drawable/ic_warning" />
+
+        <TextView
+            android:id="@+id/aviso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/espacio_xs"
+            android:layout_marginTop="@dimen/espacio_s"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            android:textColor="?attr/colorOnSurface"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/aviso_icono"
+            app:layout_constraintTop_toBottomOf="@id/km"
+            tools:text="Aceite: faltan 800 km" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

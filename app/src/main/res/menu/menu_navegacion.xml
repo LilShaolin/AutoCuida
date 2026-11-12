@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/listaVehiculosFragment"
+        android:icon="@drawable/ic_coche"
+        android:title="@string/nav_vehiculos" />
+    <item
+        android:id="@+id/gastosFragment"
+        android:icon="@drawable/ic_grafica"
+        android:title="@string/nav_gastos" />
+    <item
+        android:id="@+id/tiposFragment"
+        android:icon="@drawable/ic_ajustes"
+        android:title="@string/nav_tipos" />
+</menu>
