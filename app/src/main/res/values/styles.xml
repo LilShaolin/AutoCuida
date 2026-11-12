@@ -92,12 +92,6 @@
 
     <style name="Widget.AutoCuida.Boton.Texto" parent="Widget.Material3.Button.TextButton" />
 
-    <style name="Widget.AutoCuida.Boton.Peligro" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:textColor">?attr/colorError</item>
-        <item name="iconTint">?attr/colorError</item>
-        <item name="strokeColor">?attr/colorError</item>
-    </style>
-
     <!-- Barra superior -->
     <style name="Widget.AutoCuida.Toolbar" parent="Widget.Material3.Toolbar.Surface">
         <item name="titleTextAppearance">@style/TextAppearance.AutoCuida.TituloSeccion</item>

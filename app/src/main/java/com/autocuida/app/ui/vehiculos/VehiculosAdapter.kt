@@ -34,7 +34,7 @@ class VehiculosAdapter(
         fun mostrar(resumen: ResumenVehiculo) {
             val contexto = b.root.context
             val v = resumen.vehiculo
-            b.titulo.text = "${v.marca} ${v.modelo}"
+            b.titulo.text = contexto.getString(R.string.vehiculo_nombre, v.marca, v.modelo)
             b.matricula.text = v.matricula
             b.subtitulo.text = contexto.getString(R.string.vehiculo_subtitulo, v.anio, v.combustible)
             b.km.text = Formatos.km(v.kmActuales)

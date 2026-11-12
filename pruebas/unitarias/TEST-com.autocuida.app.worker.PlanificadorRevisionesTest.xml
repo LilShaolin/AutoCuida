@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.autocuida.app.worker.PlanificadorRevisionesTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-12T17:37:03.529Z" hostname="DESKTOP-RD60M01" time="0.002">
+<testsuite name="com.autocuida.app.worker.PlanificadorRevisionesTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-12T17:56:15.827Z" hostname="DESKTOP-RD60M01" time="0.003">
   <properties/>
   <testcase name="justoALaHora_seProgramaParaElDiaSiguiente" classname="com.autocuida.app.worker.PlanificadorRevisionesTest" time="0.002"/>
-  <testcase name="antesDeLaHora_seProgramaParaEseMismoDia" classname="com.autocuida.app.worker.PlanificadorRevisionesTest" time="0.0"/>
+  <testcase name="antesDeLaHora_seProgramaParaEseMismoDia" classname="com.autocuida.app.worker.PlanificadorRevisionesTest" time="0.001"/>
   <testcase name="despuesDeLaHora_seProgramaParaElDiaSiguiente" classname="com.autocuida.app.worker.PlanificadorRevisionesTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-12T17:37:03.514Z" hostname="DESKTOP-RD60M01" time="0.004">
+<testsuite name="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-12T17:56:15.812Z" hostname="DESKTOP-RD60M01" time="0.005">
   <properties/>
   <testcase name="tipoObligatorio" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.001"/>
-  <testcase name="fechaFutura_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.0"/>
-  <testcase name="costeNegativo_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.001"/>
-  <testcase name="costeAdmiteComaPuntoYVacio" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.001"/>
-  <testcase name="proximaItvDebeSerPosteriorALaInspeccion" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.001"/>
+  <testcase name="fechaFutura_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.001"/>
+  <testcase name="costeNegativo_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.0"/>
+  <testcase name="costeAdmiteComaPuntoYVacio" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.002"/>
+  <testcase name="proximaItvDebeSerPosteriorALaInspeccion" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.0"/>
   <testcase name="kmInferioresAUnMantenimientoAnterior_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.0"/>
   <testcase name="kmSuperioresAUnMantenimientoPosterior_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.0"/>
   <testcase name="kmIgualesALosLimites_sonValidos" classname="com.autocuida.app.domain.validacion.ValidadorMantenimientoTest" time="0.0"/>

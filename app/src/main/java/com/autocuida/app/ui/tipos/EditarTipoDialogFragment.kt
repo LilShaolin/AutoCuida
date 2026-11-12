@@ -2,7 +2,6 @@ package com.autocuida.app.ui.tipos
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
@@ -39,7 +38,7 @@ class EditarTipoDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = DialogEditarTipoBinding.inflate(LayoutInflater.from(requireContext()))
+        _binding = DialogEditarTipoBinding.inflate(layoutInflater)
         return MaterialAlertDialogBuilder(requireContext())
             .setIcon(R.drawable.ic_ajustes)
             .setTitle(if (viewModel.esEdicion) R.string.tipo_dialogo_editar else R.string.tipo_dialogo_nuevo)

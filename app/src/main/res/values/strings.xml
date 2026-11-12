@@ -20,7 +20,6 @@
     <string name="accion_cancelar">Cancelar</string>
     <string name="accion_eliminar">Eliminar</string>
     <string name="accion_editar">Editar</string>
-    <string name="accion_aceptar">Aceptar</string>
     <string name="accion_actualizar">Actualizar</string>
     <string name="accion_permitir">Permitir</string>
     <string name="accion_ahora_no">Ahora no</string>
@@ -43,6 +42,7 @@
     <string name="vehiculos_anadir">Añadir vehículo</string>
     <string name="vehiculo_subtitulo">%1$d · %2$s</string>
     <string name="vehiculo_proximo_aviso">%1$s: %2$s</string>
+    <string name="vehiculo_nombre">%1$s %2$s</string>
     <string name="vehiculo_itv_fecha">ITV %s</string>
     <string name="vehiculo_sin_avisos">Sin vencimientos calculados</string>
     <plurals name="resumen_vehiculos">
@@ -78,7 +78,6 @@
         <item>Otro</item>
     </string-array>
     <string name="seccion_datos_vehiculo">Datos del vehículo</string>
-    <string name="seccion_estado_actual">Estado actual</string>
 
     <!-- Errores de validación -->
     <string name="error_obligatorio">Campo obligatorio</string>
@@ -102,7 +101,6 @@
     <string name="error_intervalo_excesivo">El intervalo es demasiado grande</string>
     <string name="error_nombre_duplicado">Ya existe un tipo con este nombre</string>
     <string name="error_generico">No se pudo completar la operación. Inténtalo de nuevo.</string>
-    <string name="error_revisa_campos">Revisa los campos marcados</string>
 
     <!-- Detalle de vehículo -->
     <string name="detalle_km_actuales">Kilómetros actuales</string>
@@ -206,7 +204,10 @@
     <!-- Tipos -->
     <string name="tipos_info">Los intervalos iniciales son valores de partida. Ajústalos según el manual de tu vehículo.</string>
     <string name="tipos_anadir">Nuevo tipo</string>
-    <string name="tipo_cada_km_meses">Cada %1$s o %2$d meses</string>
+    <plurals name="tipo_cada_km_meses">
+        <item quantity="one">Cada %1$s o %2$d mes</item>
+        <item quantity="other">Cada %1$s o %2$d meses</item>
+    </plurals>
     <string name="tipo_cada_km">Cada %s</string>
     <plurals name="tipo_cada_meses">
         <item quantity="one">Cada %d mes</item>
@@ -229,7 +230,7 @@
     <string name="tipo_eliminado">Tipo eliminado</string>
     <string name="eliminar_tipo_titulo">¿Eliminar tipo?</string>
     <string name="eliminar_tipo_mensaje">Se eliminará «%s». Esta acción no se puede deshacer.</string>
-    <string name="tipo_en_uso">No se puede eliminar: tiene %d mantenimientos registrados. Elimina antes esos registros.</string>
+    <string name="tipo_en_uso">No se puede eliminar: hay mantenimientos registrados de este tipo (%d). Elimina antes esos registros.</string>
     <string name="tipo_protegido">La ITV no se puede eliminar porque se usa para el control de inspecciones.</string>
 
     <!-- Notificaciones -->

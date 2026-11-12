@@ -59,7 +59,7 @@ class TiposAdapter(
             val km = tipo.intervaloKm
             val meses = tipo.intervaloMeses
             return when {
-                km != null && meses != null -> contexto.getString(R.string.tipo_cada_km_meses, Formatos.km(km), meses)
+                km != null && meses != null -> contexto.resources.getQuantityString(R.plurals.tipo_cada_km_meses, meses, Formatos.km(km), meses)
                 km != null -> contexto.getString(R.string.tipo_cada_km, Formatos.km(km))
                 meses != null -> contexto.resources.getQuantityString(R.plurals.tipo_cada_meses, meses, meses)
                 else -> ""

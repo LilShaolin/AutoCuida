@@ -2,7 +2,6 @@ package com.autocuida.app.ui.vehiculos
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
@@ -36,7 +35,7 @@ class ActualizarKmDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        _binding = DialogActualizarKmBinding.inflate(LayoutInflater.from(requireContext()))
+        _binding = DialogActualizarKmBinding.inflate(layoutInflater)
         return MaterialAlertDialogBuilder(requireContext())
             .setIcon(R.drawable.ic_velocimetro)
             .setTitle(R.string.km_dialogo_titulo)

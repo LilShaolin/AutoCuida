@@ -17,6 +17,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.autocuida.app.R
 import com.autocuida.app.data.entity.TipoMantenimiento
@@ -91,6 +92,7 @@ class DetalleVehiculoFragment : Fragment() {
         }
 
         requireActivity().addMenuProvider(menu, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        findNavController().addOnDestinationChangedListener(alCambiarDestino)
 
         recolectar(viewModel.estado) { estado ->
             val v = estado.vehiculo
@@ -98,8 +100,8 @@ class DetalleVehiculoFragment : Fragment() {
                 if (!estado.cargando) salir()
                 return@recolectar
             }
-            (activity as? AppCompatActivity)?.supportActionBar?.title = "${v.marca} ${v.modelo}"
-            binding.titulo.text = "${v.marca} ${v.modelo}"
+            ponerTitulo()
+            binding.titulo.text = getString(R.string.vehiculo_nombre, v.marca, v.modelo)
             binding.matricula.text = v.matricula
             binding.subtitulo.text = getString(R.string.vehiculo_subtitulo, v.anio, v.combustible)
             binding.km.text = Formatos.km(v.kmActuales)
@@ -135,6 +137,16 @@ class DetalleVehiculoFragment : Fragment() {
                 is EventoUi.Guardado -> Unit
             }
         }
+    }
+
+    // Al volver de un diálogo, NavigationUI restaura la etiqueta del destino: se vuelve a poner el nombre.
+    private val alCambiarDestino = NavController.OnDestinationChangedListener { _, destino, _ ->
+        if (destino.id == R.id.detalleVehiculoFragment) ponerTitulo()
+    }
+
+    private fun ponerTitulo() {
+        val v = viewModel.estado.value.vehiculo ?: return
+        (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.vehiculo_nombre, v.marca, v.modelo)
     }
 
     /** Crea los chips de filtro solo cuando cambian los tipos disponibles. */
@@ -224,6 +236,7 @@ class DetalleVehiculoFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        findNavController().removeOnDestinationChangedListener(alCambiarDestino)
         tiposEnFiltro = null
         _binding = null
     }

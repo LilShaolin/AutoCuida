@@ -13,6 +13,7 @@
         android:id="@+id/icono"
         android:layout_width="@dimen/icono_m"
         android:layout_height="@dimen/icono_m"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/ic_check_circle" />

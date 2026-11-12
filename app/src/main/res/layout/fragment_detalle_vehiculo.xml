@@ -115,6 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/espacio_m"
                     android:paddingStart="@dimen/espacio_m"
+                    android:paddingEnd="@dimen/espacio_m"
                     android:paddingTop="@dimen/espacio_s"
                     android:paddingBottom="@dimen/espacio_s"
                     android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
