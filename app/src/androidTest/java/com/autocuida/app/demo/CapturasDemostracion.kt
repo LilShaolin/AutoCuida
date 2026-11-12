@@ -44,7 +44,9 @@ import java.time.LocalDate
 class CapturasDemostracion {
 
     @get:Rule
-    val permiso: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS)
+    val permiso: GrantPermissionRule =
+        if (android.os.Build.VERSION.SDK_INT >= 33) GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS)
+        else GrantPermissionRule.grant()
 
     private val instrumentacion get() = InstrumentationRegistry.getInstrumentation()
     private val hoy = LocalDate.now()

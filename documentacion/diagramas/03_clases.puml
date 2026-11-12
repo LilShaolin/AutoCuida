@@ -1,0 +1,180 @@
+@startuml 03_clases
+!include estilo.iuml
+title Diagrama de clases de AutoCuida (paquete com.autocuida.app)
+skinparam linetype ortho
+skinparam ClassAttributeFontSize 11
+
+package "ui" {
+  class ListaVehiculosFragment
+  class DetalleVehiculoFragment
+  class FormVehiculoFragment
+  class FormMantenimientoFragment
+  class GastosFragment
+  class TiposFragment
+  class ListaVehiculosViewModel {
+    + estado : StateFlow<UiState>
+  }
+  class DetalleVehiculoViewModel {
+    + estado : StateFlow<UiState>
+    + filtrar(tipoId)
+    + actualizarFechaItv(epochDay)
+    + eliminarVehiculo()
+  }
+  class FormVehiculoViewModel {
+    + guardar(entrada)
+  }
+  class FormMantenimientoViewModel {
+    + guardar(km, coste, taller, notas)
+    + eliminar()
+  }
+  class GastosViewModel {
+    + seleccionarPeriodo(periodo)
+    + seleccionarVehiculo(id)
+  }
+  class TiposViewModel {
+    + eliminar(tipo)
+  }
+}
+
+package "domain" {
+  class CalculadoraMantenimiento <<object>> {
+    + UMBRAL_KM = 1000
+    + UMBRAL_DIAS = 30
+    + calcularProximo(ref, intervaloKm, intervaloMeses) : ProximoVencimiento?
+    + calcular(ref, intervaloKm, intervaloMeses, kmActuales, hoy) : EvaluacionVencimiento
+    + evaluar(proximo, kmActuales, hoy, ...) : EvaluacionVencimiento
+    + evaluarItv(fechaItv, hoy) : EvaluacionVencimiento
+    + estadoGeneral(evaluaciones) : EstadoMantenimiento
+  }
+  enum EstadoMantenimiento {
+    SIN_REFERENCIA
+    AL_DIA
+    PROXIMO
+    VENCIDO
+  }
+  class EvaluadorAvisos <<object>> {
+    + decidir(estado, nivelAvisado) : Decision
+  }
+  class "Validadores\n(Vehiculo, Mantenimiento,\nKilometros, Tipo)" as Validadores <<object>>
+}
+
+package "data.repository" {
+  class VehiculoRepository {
+    + guardar(v) : ResultadoGuardado
+    + actualizarKm(id, km)
+    + eliminar(v)
+  }
+  class MantenimientoRepository {
+    + guardar(m, nuevaFechaItv)
+    + eliminar(m)
+    + limitesKm(...) : LimitesKm
+  }
+  class TipoMantenimientoRepository {
+    + guardar(t) : ResultadoGuardado
+    + eliminar(t) : ResultadoEliminacion
+  }
+  class RecordatorioRepository {
+    + recalcularVehiculo(id)
+    + recalcularTodos()
+  }
+  class GastosRepository {
+    + observarTotal(periodo, vehiculoId)
+    + observarSerie(periodo, vehiculoId)
+  }
+}
+
+package "dao + db" {
+  class AppDatabase <<RoomDatabase>> {
+    + CallbackInicial
+  }
+  interface VehiculoDao <<@Dao>>
+  interface MantenimientoDao <<@Dao>>
+  interface TipoMantenimientoDao <<@Dao>>
+  interface RecordatorioDao <<@Dao>>
+}
+
+package "data.entity" {
+  class Vehiculo <<@Entity>> {
+    id : Long
+    marca, modelo, matricula : String
+    anio : Int
+    combustible : String
+    kmActuales : Int
+    fechaItv : Long
+  }
+  class TipoMantenimiento <<@Entity>> {
+    id : Long
+    nombre : String
+    intervaloKm : Int?
+    intervaloMeses : Int?
+    codigo : String?
+  }
+  class Mantenimiento <<@Entity>> {
+    id, vehiculoId, tipoId : Long
+    fecha : Long
+    km : Int
+    coste : Double
+    taller, notas : String?
+  }
+  class Recordatorio <<@Entity>> {
+    id, vehiculoId, tipoId : Long
+    fechaLimite : Long?
+    kmLimite : Int?
+    avisado : Int
+  }
+}
+
+package "worker" {
+  class RevisionVencimientosWorker <<CoroutineWorker>> {
+    + doWork() : Result
+  }
+  class PlanificadorRevisiones <<object>> {
+    + programarRevisionDiaria(ctx)
+    + revisarAhora(ctx)
+  }
+}
+
+ListaVehiculosFragment --> ListaVehiculosViewModel
+DetalleVehiculoFragment --> DetalleVehiculoViewModel
+FormVehiculoFragment --> FormVehiculoViewModel
+FormMantenimientoFragment --> FormMantenimientoViewModel
+GastosFragment --> GastosViewModel
+TiposFragment --> TiposViewModel
+
+ListaVehiculosViewModel --> VehiculoRepository
+DetalleVehiculoViewModel --> VehiculoRepository
+DetalleVehiculoViewModel --> MantenimientoRepository
+FormVehiculoViewModel --> Validadores
+FormMantenimientoViewModel --> MantenimientoRepository
+FormMantenimientoViewModel --> Validadores
+GastosViewModel --> GastosRepository
+TiposViewModel --> TipoMantenimientoRepository
+DetalleVehiculoViewModel ..> CalculadoraMantenimiento
+
+VehiculoRepository --> RecordatorioRepository
+MantenimientoRepository --> RecordatorioRepository
+TipoMantenimientoRepository --> RecordatorioRepository
+RecordatorioRepository ..> CalculadoraMantenimiento
+CalculadoraMantenimiento ..> EstadoMantenimiento
+
+VehiculoRepository --> AppDatabase
+RecordatorioRepository --> AppDatabase
+GastosRepository --> AppDatabase
+AppDatabase *-- VehiculoDao
+AppDatabase *-- MantenimientoDao
+AppDatabase *-- TipoMantenimientoDao
+AppDatabase *-- RecordatorioDao
+
+VehiculoDao ..> Vehiculo
+MantenimientoDao ..> Mantenimiento
+TipoMantenimientoDao ..> TipoMantenimiento
+RecordatorioDao ..> Recordatorio
+Vehiculo "1" -- "0..*" Mantenimiento
+TipoMantenimiento "1" -- "0..*" Mantenimiento
+Vehiculo "1" -- "0..*" Recordatorio
+TipoMantenimiento "1" -- "0..*" Recordatorio
+
+PlanificadorRevisiones ..> RevisionVencimientosWorker : programa
+RevisionVencimientosWorker --> RecordatorioRepository
+RevisionVencimientosWorker ..> EvaluadorAvisos
+@enduml

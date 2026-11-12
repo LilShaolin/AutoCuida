@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>AutoCuida · Mockups</title>
+<style>
+  :root {
+    --tinta: #1d2327; --suave: #6b747a; --linea: #c9d0d4; --fondo: #f3f5f6; --tarjeta: #ffffff;
+    --marca: #0B5D7A; --marca-clara: #d6ebf3; --rojo: #c42b1c; --ambar: #9a5800; --verde: #1e7b3a; --gris: #8a9296;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, Helvetica, sans-serif; background: #e7eaec; color: var(--tinta); padding: 24px; }
+  .rejilla { display: flex; flex-wrap: wrap; gap: 28px; }
+  .bloque { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .rotulo { font-weight: bold; color: var(--marca); font-size: 15px; }
+  .movil { width: 360px; height: 760px; background: var(--fondo); border: 10px solid #2b3135; border-radius: 34px;
+           overflow: hidden; display: flex; flex-direction: column; position: relative; }
+  .estado { height: 22px; font-size: 10px; color: var(--suave); padding: 4px 16px; }
+  .barra { height: 50px; display: flex; align-items: center; gap: 14px; padding: 0 16px; font-weight: bold; font-size: 15px; }
+  .barra .acc { margin-left: auto; display: flex; gap: 12px; }
+  .contenido { flex: 1; overflow: hidden; padding: 4px 14px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .nav { height: 58px; background: #e9eef1; display: flex; justify-content: space-around; align-items: center; font-size: 11px; color: var(--suave); }
+  .nav div { text-align: center; } .nav .on { color: var(--tinta); font-weight: bold; }
+  .nav .pil { width: 44px; height: 22px; border-radius: 11px; margin: 0 auto 3px; background: #d4d9dc; }
+  .nav .on .pil { background: var(--marca-clara); }
+  .tarjeta { background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 14px; padding: 12px; }
+  .destacada { background: var(--marca-clara); border: none; }
+  .fila { display: flex; align-items: center; gap: 8px; }
+  .entre { justify-content: space-between; }
+  .ic { width: 18px; height: 18px; border-radius: 50%; background: var(--linea); flex: none; }
+  .ic.cuadro { border-radius: 4px; }
+  .av { width: 38px; height: 38px; border-radius: 50%; background: var(--marca-clara); flex: none; }
+  .t { font-weight: bold; font-size: 14px; } .s { font-size: 11.5px; color: var(--suave); } .n { font-size: 12.5px; }
+  .grande { font-size: 24px; font-weight: bold; }
+  .placa { border: 1px solid var(--gris); border-radius: 4px; padding: 1px 6px; font-family: monospace; font-weight: bold; font-size: 11px; background: #eef1f3; }
+  .ins { border-radius: 8px; padding: 3px 8px; font-size: 10.5px; font-weight: bold; display: inline-flex; gap: 4px; align-items: center; }
+  .ins::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
+  .rojo { color: var(--rojo); background: #fde3e0; } .ambar { color: var(--ambar); background: #ffefd2; }
+  .verde { color: var(--verde); background: #ddf3e2; } .gris { color: #5f6b72; background: #e6ebee; }
+  .div { height: 1px; background: var(--linea); margin: 8px 0; }
+  .campo { border: 1px solid var(--gris); border-radius: 10px; height: 44px; padding: 0 12px; display: flex; align-items: center;
+           justify-content: space-between; font-size: 13px; position: relative; background: transparent; }
+  .campo .et { position: absolute; top: -7px; left: 10px; background: var(--fondo); padding: 0 4px; font-size: 10px; color: var(--suave); }
+  .campo.error { border: 2px solid var(--rojo); } .ayuda { font-size: 10.5px; color: var(--suave); margin: -6px 0 0 12px; }
+  .ayuda.err { color: var(--rojo); }
+  .boton { background: var(--marca); color: #fff; border-radius: 24px; height: 44px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 13px; }
+  .tonal { background: #bfdbe7; color: var(--tinta); border-radius: 20px; padding: 7px 12px; font-size: 11.5px; font-weight: bold; }
+  .texto { color: var(--marca); font-weight: bold; font-size: 12px; }
+  .fab { position: absolute; right: 14px; bottom: 72px; background: #c7e3ee; border-radius: 16px; padding: 14px 16px; font-weight: bold; font-size: 12.5px; box-shadow: 0 3px 8px rgba(0,0,0,.18); }
+  .fab.alto { bottom: 14px; }
+  .chip { border: 1px solid var(--gris); border-radius: 8px; padding: 5px 10px; font-size: 11.5px; }
+  .chip.on { background: var(--marca-clara); border-color: var(--marca-clara); font-weight: bold; }
+  .barras { display: flex; align-items: flex-end; gap: 6px; height: 110px; border-bottom: 1px solid var(--linea); padding: 0 4px; }
+  .barras div { flex: 1; background: var(--marca); border-radius: 2px 2px 0 0; }
+  .meses { display: flex; gap: 6px; font-size: 8.5px; color: var(--suave); padding: 2px 4px; } .meses span { flex: 1; text-align: center; }
+  .prog { height: 7px; border-radius: 4px; background: #e2e7ea; overflow: hidden; } .prog div { height: 100%; background: var(--marca); }
+  .info { background: #cde6f4; border-radius: 10px; padding: 10px; font-size: 11.5px; display: flex; gap: 8px; }
+  .titsec { font-weight: bold; font-size: 14px; margin-top: 4px; }
+  .solo-una .bloque { display: none; } .solo-una .bloque.visible { display: flex; }
+</style>
+</head>
+<body>
+<div class="rejilla" id="rejilla">
+
+  <!-- P1 · Mis vehículos -->
+  <div class="bloque" data-p="1">
+    <div class="rotulo">P1 · Mis vehículos</div>
+    <div class="movil">
+      <div class="estado">9:41</div>
+      <div class="barra">AutoCuida</div>
+      <div class="contenido">
+        <div class="fila entre"><span class="s">3 vehículos</span><span class="ins ambar">3 avisos pendientes</span></div>
+        <div class="tarjeta">
+          <div class="fila entre"><div class="fila"><div class="av"></div><div><div class="t">Renault Clio dCi</div><div class="fila"><span class="placa">9087HJT</span><span class="s">2015 · Diésel</span></div></div></div><span class="ins rojo">Vencido</span></div>
+          <div class="div"></div>
+          <div class="fila entre n"><span>◔ 158.900 km</span><span style="color:var(--rojo)">ITV 05/11/2026</span></div>
+          <div class="n" style="margin-top:6px">● ITV: venció hace 7 días</div>
+        </div>
+        <div class="tarjeta">
+          <div class="fila entre"><div class="fila"><div class="av"></div><div><div class="t">Seat León 1.5 TSI</div><div class="fila"><span class="placa">4821KLM</span><span class="s">2019 · Gasolina</span></div></div></div><span class="ins rojo">Vencido</span></div>
+          <div class="div"></div>
+          <div class="fila entre n"><span>◔ 86.300 km</span><span>ITV 18/03/2027</span></div>
+          <div class="n" style="margin-top:6px">● Frenos: venció hace 151 días</div>
+        </div>
+        <div class="tarjeta">
+          <div class="fila entre"><div class="fila"><div class="av"></div><div><div class="t">Toyota Corolla Hybrid</div><div class="fila"><span class="placa">2156MNB</span><span class="s">2022 · Híbrido</span></div></div></div><span class="ins ambar">Próximo</span></div>
+        </div>
+      </div>
+      <div class="fab">＋ Añadir vehículo</div>
+      <div class="nav"><div class="on"><div class="pil"></div>Vehículos</div><div><div class="pil"></div>Gastos</div><div><div class="pil"></div>Tipos</div></div>
+    </div>
+  </div>
+
+  <!-- P2 · Alta y edición -->
+  <div class="bloque" data-p="2">
+    <div class="rotulo">P2 · Alta y edición</div>
+    <div class="movil">
+      <div class="estado">9:41</div>
+      <div class="barra">← &nbsp;Nuevo vehículo</div>
+      <div class="contenido" style="gap:14px">
+        <div class="titsec">Datos del vehículo</div>
+        <div class="campo"><span class="et">Marca</span>Seat</div>
+        <div class="campo"><span class="et">Modelo</span>León 1.5 TSI</div>
+        <div class="campo"><span class="et">Matrícula</span>4821KLM</div>
+        <div class="ayuda">Sin espacios ni guiones, por ejemplo 1234ABC</div>
+        <div class="fila" style="gap:8px"><div class="campo error" style="flex:2"><span class="et" style="color:var(--rojo)">Año</span><span></span><span style="color:var(--rojo)">!</span></div><div class="campo" style="flex:3"><span class="et">Combustible</span>Gasolina<span>▾</span></div></div>
+        <div class="ayuda err">Campo obligatorio</div>
+        <div class="campo"><span class="et">Kilómetros actuales</span>◔ 86300<span class="s">km</span></div>
+        <div class="campo"><span class="et">Fecha de la próxima ITV</span>18/03/2027<span>▦</span></div>
+        <div class="ayuda">Fecha límite de la ITV vigente.</div>
+        <div class="boton" style="margin-top:8px">Guardar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3 · Detalle -->
+  <div class="bloque" data-p="3">
+    <div class="rotulo">P3 · Detalle del vehículo</div>
+    <div class="movil">
+      <div class="estado">9:41</div>
+      <div class="barra">← &nbsp;Seat León 1.5 TSI<span class="acc">✎ &nbsp;🗑</span></div>
+      <div class="contenido">
+        <div class="tarjeta destacada">
+          <div class="fila entre"><span class="t" style="font-size:18px">Seat León 1.5 TSI</span><span class="placa">4821KLM</span></div>
+          <div class="s">2019 · Gasolina</div>
+          <div class="fila entre" style="margin-top:8px"><div><div class="s">Kilómetros actuales</div><div class="grande">86.300 km</div></div><span class="tonal">◔ Actualizar km</span></div>
+        </div>
+        <div class="ins rojo" style="padding:8px 10px;font-size:12px">Hay mantenimientos vencidos</div>
+        <div class="tarjeta">
+          <div class="fila entre"><span class="t">ITV</span><span class="ins verde">Al día</span></div>
+          <div class="n">Próxima inspección: 18/03/2027</div><div class="s">Faltan 126 días</div>
+          <div style="text-align:right" class="texto">▦ Cambiar fecha</div>
+        </div>
+        <div class="titsec">Próximos vencimientos</div>
+        <div class="tarjeta">
+          <div class="fila entre"><span class="t">Frenos</span><span class="ins rojo">Vencido</span></div>
+          <div class="n">Venció hace 151 días · superado en 300 km</div>
+          <div class="div"></div>
+          <div class="fila entre"><span class="t">Aceite</span><span class="ins ambar">Próximo</span></div>
+          <div class="n">Faltan 8 días · faltan 1.100 km</div>
+          <div class="div"></div>
+          <div class="fila entre"><span class="t">Distribución</span><span class="ins gris">Sin referencia</span></div>
+          <div class="texto">＋ Registrar último</div>
+        </div>
+        <div class="titsec">Historial</div>
+        <div class="fila"><span class="chip on">✓ Todos</span><span class="chip">Aceite</span><span class="chip">Frenos</span></div>
+      </div>
+      <div class="fab alto">🔧 Registrar mantenimiento</div>
+    </div>
+  </div>
+
+  <!-- P4 · Nuevo mantenimiento -->
+  <div class="bloque" data-p="4">
+    <div class="rotulo">P4 · Nuevo mantenimiento</div>
+    <div class="movil">
+      <div class="estado">9:41</div>
+      <div class="barra">← &nbsp;Nuevo mantenimiento</div>
+      <div class="contenido" style="gap:14px">
+        <div class="titsec">Vehículo: Seat León 1.5 TSI (4821KLM)</div>
+        <div class="campo"><span class="et">Tipo de mantenimiento</span>Aceite<span>▾</span></div>
+        <div class="campo"><span class="et">Fecha</span>12/11/2026<span>▦</span></div>
+        <div class="fila" style="gap:8px"><div class="campo" style="flex:1"><span class="et">Kilómetros</span>86300<span class="s">km</span></div><div class="campo" style="flex:1"><span class="et">Coste</span>85,00<span class="s">€</span></div></div>
+        <div class="ayuda">Si superan los km actuales, se actualizará el cuentakilómetros.</div>
+        <div class="campo"><span class="et">Taller (opcional)</span>Talleres Ruiz</div>
+        <div class="campo" style="height:80px;align-items:flex-start;padding-top:12px"><span class="et">Notas (opcional)</span>Aceite 5W30 y filtro</div>
+        <div class="ayuda">Tipo ITV: campo adicional «Fecha de la próxima ITV».</div>
+        <div class="boton">Guardar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P5 · Gastos -->
+  <div class="bloque" data-p="5">
+    <div class="rotulo">P5 · Gastos</div>
+    <div class="movil">
+      <div class="estado">9:41</div>
+      <div class="barra">Gastos</div>
+      <div class="contenido">
+        <div class="fila" style="gap:8px"><div class="campo" style="flex:1"><span class="et">Periodo</span>2026<span>▾</span></div><div class="campo" style="flex:1.4"><span class="et">Vehículo</span>Todos<span>▾</span></div></div>
+        <div class="tarjeta destacada"><div class="s">Gasto total 2026</div><div class="grande">943,60 €</div><div class="n">4 mantenimientos</div></div>
+        <div class="tarjeta">
+          <div class="t">Gasto por mes</div>
+          <div class="barras" style="margin-top:8px"><div style="height:0"></div><div style="height:85%"></div><div style="height:24%"></div><div style="height:98%"></div><div style="height:30%"></div><div style="height:0"></div><div style="height:0"></div><div style="height:0"></div><div style="height:0"></div><div style="height:0"></div><div style="height:0"></div><div style="height:0"></div></div>
+          <div class="meses"><span>E</span><span>F</span><span>M</span><span>A</span><span>M</span><span>J</span><span>J</span><span>A</span><span>S</span><span>O</span><span>N</span><span>D</span></div>
+        </div>
+        <div class="tarjeta">
+          <div class="t">Por tipo</div>
+          <div class="fila entre n" style="margin-top:6px"><span>Neumáticos</span><b>729,60 €</b></div><div class="prog"><div style="width:77%"></div></div>
+          <div class="fila entre n" style="margin-top:6px"><span>Aceite</span><b>214,00 €</b></div><div class="prog"><div style="width:23%"></div></div>
+        </div>
+        <div class="titsec">Por vehículo · Historial del periodo</div>
+      </div>
+      <div class="nav"><div><div class="pil"></div>Vehículos</div><div class="on"><div class="pil"></div>Gastos</div><div><div class="pil"></div>Tipos</div></div>
+    </div>
+  </div>
+
+  <!-- P6 · Tipos -->
+  <div class="bloque" data-p="6">
+    <div class="rotulo">P6 · Tipos de mantenimiento</div>
+    <div class="movil">
+      <div class="estado">9:41</div>
+      <div class="barra">Tipos de mantenimiento</div>
+      <div class="contenido">
+        <div class="info"><span>ⓘ</span>Los intervalos iniciales son valores de partida. Ajústalos según el manual de tu vehículo.</div>
+        <div class="tarjeta fila entre"><div class="fila"><div class="av"></div><div><div class="t">Aceite</div><div class="n">Cada 15.000 km o 12 meses</div><div class="s">4 registros</div></div></div><span>✎ &nbsp;🗑</span></div>
+        <div class="tarjeta fila entre"><div class="fila"><div class="av"></div><div><div class="t">Filtros</div><div class="n">Cada 30.000 km o 24 meses</div><div class="s">1 registro</div></div></div><span>✎ &nbsp;🗑</span></div>
+        <div class="tarjeta fila entre"><div class="fila"><div class="av"></div><div><div class="t">Distribución</div><div class="n">Cada 100.000 km o 60 meses</div><div class="s">Sin registros</div></div></div><span>✎ &nbsp;🗑</span></div>
+        <div class="tarjeta fila entre"><div class="fila"><div class="av"></div><div><div class="t">ITV</div><div class="n">Cada 12 meses</div><div class="s">Propone la siguiente fecha</div></div></div><span>✎ &nbsp;🔒</span></div>
+      </div>
+      <div class="fab">＋ Nuevo tipo</div>
+      <div class="nav"><div><div class="pil"></div>Vehículos</div><div><div class="pil"></div>Gastos</div><div class="on"><div class="pil"></div>Tipos</div></div>
+    </div>
+  </div>
+</div>
+<script>
+  // ?p=N muestra solo la pantalla N, para exportarla como imagen independiente.
+  const p = new URLSearchParams(location.search).get('p');
+  if (p) {
+    document.body.classList.add('solo-una');
+    document.querySelector('.bloque[data-p="' + p + '"]').classList.add('visible');
+  }
+</script>
+</body>
+</html>

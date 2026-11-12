@@ -1,0 +1,35 @@
+@startuml 05_arquitectura_mvvm
+!include estilo.iuml
+title Arquitectura por capas (MVVM) de AutoCuida
+skinparam componentStyle rectangle
+
+package "Presentación (ui)" {
+  [Fragments + layouts XML\nViewBinding, RecyclerView, Material] as Vista
+  [ViewModels\nStateFlow + eventos (Channel)] as VM
+}
+package "Dominio (domain)" {
+  [CalculadoraMantenimiento\nEvaluadorAvisos\nValidadores] as Dom
+}
+package "Datos (data)" {
+  [Repositories\n(transacciones Room)] as Repo
+  [DAO\n(@Query parametrizadas, Flow, suspend)] as DAO
+  database "SQLite\nautocuida.db" as BD
+}
+package "Segundo plano (worker)" {
+  [RevisionVencimientosWorker\n(WorkManager, diaria)] as W
+}
+[ContenedorDependencias\n(inyección manual)] as DI
+
+Vista --> VM : eventos de usuario
+VM --> Vista : estado observable
+VM --> Repo : funciones suspend
+Repo --> VM : Flow<T>
+VM ..> Dom : validación
+Repo ..> Dom : cálculo de vencimientos
+Repo --> DAO
+DAO --> BD
+W --> Repo
+W ..> Dom : decisión de aviso
+DI ..> Repo : crea
+DI ..> VM : vía factorías
+@enduml

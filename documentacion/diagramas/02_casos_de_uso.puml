@@ -1,0 +1,41 @@
+@startuml 02_casos_de_uso
+!include estilo.iuml
+title Diagrama de casos de uso de AutoCuida
+left to right direction
+
+actor "Usuario" as U
+actor "Sistema\n(WorkManager)" as S
+
+rectangle "AutoCuida" {
+  usecase "CU-01 Gestionar vehículos\n(alta, consulta, edición, borrado)" as CU1
+  usecase "CU-02 Consultar detalle\ny vencimientos" as CU2
+  usecase "CU-03 Registrar\nmantenimiento" as CU3
+  usecase "CU-04 Consultar y filtrar\nhistorial" as CU4
+  usecase "CU-05 Actualizar\nkilómetros" as CU5
+  usecase "CU-06 Gestionar ITV" as CU6
+  usecase "CU-07 Consultar gastos\ny estadísticas" as CU7
+  usecase "CU-08 Configurar tipos\nde mantenimiento" as CU8
+  usecase "CU-09 Calcular vencimientos\n(CalculadoraMantenimiento)" as CU9
+  usecase "CU-10 Revisar vencimientos\ny notificar" as CU10
+  usecase "CU-11 Abrir detalle desde\nuna notificación" as CU11
+}
+
+U --> CU1
+U --> CU2
+U --> CU3
+U --> CU4
+U --> CU5
+U --> CU6
+U --> CU7
+U --> CU8
+U --> CU11
+S --> CU10
+
+CU2 ..> CU9 : <<include>>
+CU3 ..> CU9 : <<include>>
+CU5 ..> CU9 : <<include>>
+CU8 ..> CU9 : <<include>>
+CU10 ..> CU9 : <<include>>
+CU6 ..> CU3 : <<extend>>\n(inspección registrada)
+CU11 ..> CU2 : <<include>>
+@enduml

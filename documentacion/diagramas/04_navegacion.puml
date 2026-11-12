@@ -1,0 +1,30 @@
+@startuml 04_navegacion
+!include estilo.iuml
+title Diagrama de navegación (nav_graph.xml)
+hide empty description
+
+state "MainActivity\n(NavHostFragment + barra de navegación)" as Main {
+  state "P1 · Mis vehículos\nlistaVehiculosFragment" as Lista
+  state "P2 · Alta y edición\nformVehiculoFragment" as FormV
+  state "P3 · Detalle del vehículo\ndetalleVehiculoFragment" as Detalle
+  state "P4 · Nuevo mantenimiento\nformMantenimientoFragment" as FormM
+  state "Diálogo · Actualizar km\nactualizarKmDialog" as Km
+  state "P5 · Gastos\ngastosFragment" as Gastos
+  state "P6 · Tipos de mantenimiento\ntiposFragment" as Tipos
+  state "Diálogo · Editar tipo\neditarTipoDialog" as EditTipo
+
+  [*] --> Lista : inicio
+  Lista --> FormV : Añadir vehículo
+  Lista --> Detalle : pulsar tarjeta\n(vehiculoId)
+  Detalle --> FormV : Editar\n(vehiculoId)
+  Detalle --> FormM : Registrar mantenimiento /\nRegistrar último / historial
+  Detalle --> Km : Actualizar km
+  Gastos --> FormM : pulsar registro\n(edición)
+  Tipos --> EditTipo : Nuevo tipo / Editar\n(tipoId)
+  Lista -[#0B5D7A,bold]-> Gastos : barra inferior
+  Gastos -[#0B5D7A,bold]-> Tipos : barra inferior
+}
+
+state "Notificación de vencimiento" as Notif
+Notif --> Detalle : NavDeepLinkBuilder\n(vehiculoId)
+@enduml

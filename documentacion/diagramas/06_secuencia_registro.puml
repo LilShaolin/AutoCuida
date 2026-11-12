@@ -1,0 +1,39 @@
+@startuml 06_secuencia_registro
+!include estilo.iuml
+!pragma layout smetana
+title Secuencia: registrar un mantenimiento
+skinparam ParticipantBackgroundColor #FFFFFF
+skinparam ParticipantBorderColor #0B5D7A
+
+actor Usuario
+participant "FormMantenimiento\nFragment" as F
+participant "FormMantenimiento\nViewModel" as VM
+participant "Validador\nMantenimiento" as Val
+participant "Mantenimiento\nRepository" as MR
+participant "Recordatorio\nRepository" as RR
+participant "Calculadora\nMantenimiento" as C
+database "Room" as DB
+participant "WorkManager" as WM
+
+Usuario -> F : Guardar
+F -> VM : guardar(km, coste, taller, notas)
+VM -> MR : limitesKm(vehiculo, fecha)
+MR -> DB : MAX/MIN km antes y después
+VM -> Val : validar(entrada, contexto)
+alt datos no válidos
+  Val --> VM : errores por campo
+  VM --> F : estado con errores
+else datos válidos
+  VM -> MR : guardar(mantenimiento, nuevaFechaItv)
+  activate MR
+  MR -> DB : withTransaction { INSERT/UPDATE }
+  MR -> DB : actualizar km / fecha ITV si procede
+  MR -> RR : recalcularVehiculo(id)
+  RR -> C : calcularProximo(ultimo, intervalos)
+  RR -> DB : INSERT/UPDATE/DELETE recordatorios
+  deactivate MR
+  VM -> WM : revisarAhora()
+  VM --> F : evento Guardado
+  F --> Usuario : mensaje y vuelta al detalle
+end
+@enduml

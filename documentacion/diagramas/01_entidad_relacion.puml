@@ -1,0 +1,59 @@
+@startuml 01_entidad_relacion
+!include estilo.iuml
+title Modelo entidad-relación de AutoCuida (Room / SQLite, versión 1)
+left to right direction
+
+entity "vehiculos" as V {
+  * **id** : INTEGER <<PK, autoincremento>>
+  --
+  * marca : TEXT
+  * modelo : TEXT
+  * matricula : TEXT <<UNIQUE>>
+  * anio : INTEGER
+  * combustible : TEXT
+  * km_actuales : INTEGER  (≥ 0, trigger)
+  * fecha_itv : INTEGER  (día epoch)
+}
+
+entity "tipos_mantenimiento" as T {
+  * **id** : INTEGER <<PK, autoincremento>>
+  --
+  * nombre : TEXT <<UNIQUE>>
+  intervalo_km : INTEGER  (nullable)
+  intervalo_meses : INTEGER  (nullable)
+  codigo : TEXT <<UNIQUE>>  (nullable)
+  ..
+  trigger: al menos un intervalo > 0
+}
+
+entity "mantenimientos" as M {
+  * **id** : INTEGER <<PK, autoincremento>>
+  --
+  * vehiculo_id : INTEGER <<FK → vehiculos.id, ON DELETE CASCADE>>
+  * tipo_id : INTEGER <<FK → tipos_mantenimiento.id, ON DELETE RESTRICT>>
+  * fecha : INTEGER  (día epoch)
+  * km : INTEGER  (≥ 0, trigger)
+  * coste : REAL  (≥ 0, trigger)
+  taller : TEXT  (nullable)
+  notas : TEXT  (nullable)
+  ..
+  índices: (vehiculo_id, fecha), tipo_id, fecha
+}
+
+entity "recordatorios" as R {
+  * **id** : INTEGER <<PK, autoincremento>>
+  --
+  * vehiculo_id : INTEGER <<FK → vehiculos.id, ON DELETE CASCADE>>
+  * tipo_id : INTEGER <<FK → tipos_mantenimiento.id, ON DELETE CASCADE>>
+  fecha_limite : INTEGER  (nullable, día epoch)
+  km_limite : INTEGER  (nullable)
+  * avisado : INTEGER  (0 ninguno, 1 próximo, 2 vencido)
+  ..
+  UNIQUE (vehiculo_id, tipo_id)
+}
+
+V ||--o{ M : "1 : N\ntiene"
+T ||--o{ M : "1 : N\nclasifica"
+V ||--o{ R : "1 : N\ngenera"
+T ||--o{ R : "1 : N\ndefine"
+@enduml

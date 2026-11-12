@@ -1,0 +1,33 @@
+' Estilo común de los diagramas de AutoCuida
+!pragma layout smetana
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontSize 13
+skinparam shadowing false
+skinparam roundCorner 10
+skinparam ArrowColor #4A6370
+skinparam ArrowFontColor #40484C
+skinparam ArrowFontSize 11
+skinparam ClassBackgroundColor #FFFFFF
+skinparam ClassBorderColor #0B5D7A
+skinparam ClassHeaderBackgroundColor #C4E7F5
+skinparam ClassFontStyle bold
+skinparam ClassAttributeFontSize 12
+skinparam PackageBorderColor #70787D
+skinparam PackageBackgroundColor #F6F9FB
+skinparam PackageFontColor #0B5D7A
+skinparam EntityBackgroundColor #FFFFFF
+skinparam EntityBorderColor #0B5D7A
+skinparam UsecaseBackgroundColor #C4E7F5
+skinparam UsecaseBorderColor #0B5D7A
+skinparam ActorBorderColor #0B5D7A
+skinparam ActorBackgroundColor #FFFFFF
+skinparam NoteBackgroundColor #FFEFD2
+skinparam NoteBorderColor #9A5800
+skinparam StateBackgroundColor #FFFFFF
+skinparam StateBorderColor #0B5D7A
+skinparam ComponentBackgroundColor #FFFFFF
+skinparam ComponentBorderColor #0B5D7A
+skinparam TitleFontSize 16
+skinparam TitleFontColor #0B5D7A
+hide circle
