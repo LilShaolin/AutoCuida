@@ -108,7 +108,7 @@ Después ejecuta `./gradlew assembleRelease`. Sin ese archivo se genera un APK r
 
 ```bash
 ./gradlew testDebugUnitTest              # 58 pruebas unitarias (JUnit 4)
-./gradlew connectedDebugAndroidTest      # 38 pruebas de integración y de interfaz (requiere emulador o dispositivo)
+./gradlew connectedDebugAndroidTest      # 41 pruebas de integración, del Worker y de interfaz (requiere emulador o dispositivo)
 ./gradlew lintDebug                      # análisis estático
 ```
 
@@ -117,8 +117,8 @@ Resultados de la última ejecución (12/11/2026):
 | Conjunto | Entorno | Resultado |
 |---|---|---|
 | Unitarias (calculadora, avisos, validadores, planificador) | JVM | 58 / 58 superadas |
-| Integración Room + prueba Espresso del flujo principal | Emulador Pixel 6, Android 13 (API 33) | 38 / 38 superadas |
-| Integración Room + prueba Espresso del flujo principal | Emulador Android 8.0 (API 26) | 38 / 38 superadas |
+| Integración Room, Worker de notificaciones y pruebas Espresso | Emulador Pixel 6, Android 13 (API 33) | 41 / 41 superadas |
+| Integración Room, Worker de notificaciones y pruebas Espresso | Emulador Android 8.0 (API 26) | 41 / 41 superadas |
 | Lint | — | 0 errores |
 
 Los informes se guardan en [`pruebas`](pruebas).
