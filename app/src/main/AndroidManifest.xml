@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Único permiso solicitado: avisos locales en Android 13 y posteriores. -->
+    <!-- Único permiso que se pide al usuario: avisos locales en Android 13 y posteriores. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!--
+        WorkManager añade además WAKE_LOCK y RECEIVE_BOOT_COMPLETED (necesarios para ejecutar y
+        reprogramar la revisión diaria). Se eliminan los que AutoCuida no utiliza: no hay
+        restricciones de red ni trabajos en primer plano.
+    -->
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE"
+        tools:node="remove" />
 
     <application
         android:name=".AutoCuidaApp"
