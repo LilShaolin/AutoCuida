@@ -22,9 +22,6 @@ Primera versión de AutoCuida, aplicación Android para gestionar el mantenimien
 
 Requisitos: Android 8.0 o superior. Instrucciones de instalación en `documentacion/manual_instalacion`.
 
-## Publicación en GitHub (pasos pendientes)
+## Publicación
 
-1. Crear el repositorio público y subir la rama `main` (`git remote add origin <url>` y `git push -u origin main`).
-2. Crear la etiqueta: `git tag -a v1.0.0 -m "AutoCuida 1.0.0"` y `git push origin v1.0.0`.
-3. En GitHub, **Releases › Draft a new release**, elegir la etiqueta `v1.0.0`, pegar estas notas y adjuntar `AutoCuida-1.0.0.apk` (el archivo APK no se versiona en el repositorio).
-4. Sustituir `[URL del repositorio en GitHub]` en la diapositiva 12 y en el README por la dirección real.
+Publicada en https://github.com/LilShaolin/AutoCuida/releases/tag/v1.0.0 con el APK adjunto.
