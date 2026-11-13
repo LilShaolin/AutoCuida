@@ -129,7 +129,7 @@ Los informes se guardan en [`pruebas`](pruebas).
 AutoCuida/
 ├── app/                    Proyecto Android
 ├── capturas/               Capturas reales de la aplicación
-├── documentacion/          Informe técnico, diagramas, mockups, manuales, bibliografía y diario
+├── documentacion/          Trabajo escrito, diagramas, mockups, manuales, bibliografía y diario
 ├── presentacion/           Presentación, guion de la exposición y preguntas técnicas
 ├── pruebas/                Informes de pruebas y de Lint
 ├── release/                Notas de la versión (el APK se adjunta a la Release de GitHub)

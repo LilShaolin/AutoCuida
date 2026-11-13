@@ -1,6 +1,6 @@
 # Bibliografía (APA 7)
 
-Referencias citadas en el informe técnico de AutoCuida. Todas las fuentes se consultaron y verificaron el 12 de noviembre de 2026; el detalle de la verificación de cada una está en `investigacion_verificada.md`.
+Referencias citadas en el trabajo escrito de AutoCuida. Todas las fuentes se consultaron y verificaron el 12 de noviembre de 2026; el detalle de la verificación de cada una está en `investigacion_verificada.md`.
 
 - AECA-ITV. (2026, 25 de febrero). *El riesgo de los turismos: elevada antigüedad, retraso en la ITV y con una alta siniestralidad mortal* [Nota de prensa]. https://www.aeca-itv.com/wp-content/uploads/2026/02/2026_02_25-NP-Antiguedad-ITV-y-seguridad-turismos-OK.pdf
 - Android Developers. (s. f.-a). *Create dynamic lists with RecyclerView*. Recuperado el 12 de noviembre de 2026, de https://developer.android.com/develop/ui/views/layout/recyclerview

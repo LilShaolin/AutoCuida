@@ -1,5 +1,5 @@
 @startgantt 07_gantt
-title Planificación estimada de AutoCuida (dedicación prevista: 4 h por día laborable)
+title Planificación temporal de AutoCuida por etapas (4 h por día laborable; entrega: 06/12/2026)
 skinparam defaultFontName Arial
 language es
 printscale daily zoom 2
@@ -7,45 +7,30 @@ saturday are closed
 sunday are closed
 Project starts 2026-11-12
 
--- Fase 1 · Análisis --
-[F1 Análisis de requisitos y matriz] as [A1] lasts 2 days
-[F1 Arquitectura, BD y navegación] as [A2] lasts 1 day
-[A2] starts at [A1]'s end
+-- Etapa 1 · Inicio del proyecto --
+[Análisis de requisitos y estudio de mercado] as [A1] lasts 2 days
 
--- Fase 2 · Diseño --
-[F2 Identidad visual y sistema de diseño] as [D1] lasts 2 days
-[D1] starts at [A2]'s end
-[F2 Mockups y diagramas iniciales] as [D2] lasts 2 days
+-- Etapa 2 · Diseño de la solución --
+[Arquitectura, base de datos y navegación] as [D1] lasts 1 day
+[D1] starts at [A1]'s end
+[Sistema de diseño, mockups y diagramas] as [D2] lasts 2 days
 [D2] starts at [D1]'s end
 
--- Fase 3 · Implementación --
-[F3 Proyecto, Gradle y Room] as [I1] lasts 3 days
+-- Etapa 3 · Fase de desarrollo --
+[Capa de datos y lógica de dominio] as [I1] lasts 2 days
 [I1] starts at [D2]'s end
-[F3 Calculadora y repositorios] as [I2] lasts 3 days
+[Pantallas y navegación] as [I2] lasts 2 days
 [I2] starts at [I1]'s end
-[F3 Pantallas y navegación] as [I3] lasts 6 days
+[Notificaciones y gastos] as [I3] lasts 1 day
 [I3] starts at [I2]'s end
-[F3 Notificaciones y gastos] as [I4] lasts 3 days
+[Pruebas y compatibilidad] as [I4] lasts 2 days
 [I4] starts at [I3]'s end
 
--- Fase 4 · Pruebas --
-[F4 Pruebas unitarias e integración] as [P1] lasts 3 days
-[P1] starts at [I2]'s end
-[F4 Pruebas funcionales y compatibilidad] as [P2] lasts 2 days
-[P2] starts at [I4]'s end
-
--- Fase 5 · Documentación --
-[F5 Informe técnico y diagramas] as [C1] lasts 6 days
-[C1] starts at [P2]'s end
-[F5 Manuales, README y bibliografía] as [C2] lasts 2 days
-[C2] starts at [C1]'s end
-
--- Fase 6 · Presentación --
-[F6 Presentación y guion de vídeo] as [V1] lasts 3 days
-[V1] starts at [C2]'s end
-
--- Fase 7 · Cierre --
-[F7 Revisión, APK y release] as [Z1] lasts 2 days
-[Z1] starts at [V1]'s end
-[Entrega] happens at [Z1]'s end
+-- Etapa 4 · Fase final --
+[Trabajo escrito, manuales y diagramas definitivos] as [F1] lasts 3 days
+[F1] starts at [I4]'s end
+[Presentación y vídeo] as [F2] lasts 1 day
+[F2] starts at [F1]'s end
+[Revisión final, versión firmada y entrega] as [F3] lasts 1 day
+[F3] starts at [F2]'s end
 @endgantt
