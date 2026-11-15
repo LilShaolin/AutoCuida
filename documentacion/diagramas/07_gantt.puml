@@ -2,7 +2,8 @@
 title Planificación temporal de AutoCuida por etapas (4 h por día laborable; entrega: 06/12/2026)
 skinparam defaultFontName Arial
 language es
-printscale daily zoom 2
+hide footbox
+printscale daily zoom 1.2
 saturday are closed
 sunday are closed
 Project starts 2026-11-12

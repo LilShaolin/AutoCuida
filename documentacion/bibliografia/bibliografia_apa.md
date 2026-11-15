@@ -1,6 +1,6 @@
 # Bibliografía (APA 7)
 
-Referencias citadas en el trabajo escrito de AutoCuida. Todas las fuentes se consultaron y verificaron el 12 de noviembre de 2026; el detalle de la verificación de cada una está en `investigacion_verificada.md`.
+Referencias citadas en el trabajo escrito de AutoCuida. Las fuentes web se consultaron el 12 de noviembre de 2026.
 
 - AECA-ITV. (2026, 25 de febrero). *El riesgo de los turismos: elevada antigüedad, retraso en la ITV y con una alta siniestralidad mortal* [Nota de prensa]. https://www.aeca-itv.com/wp-content/uploads/2026/02/2026_02_25-NP-Antiguedad-ITV-y-seguridad-turismos-OK.pdf
 - Android Developers. (s. f.-a). *Create dynamic lists with RecyclerView*. Recuperado el 12 de noviembre de 2026, de https://developer.android.com/develop/ui/views/layout/recyclerview
@@ -10,7 +10,8 @@ Referencias citadas en el trabajo escrito de AutoCuida. Todas las fuentes se con
 - Android Developers. (s. f.-e). *Navigation*. Recuperado el 12 de noviembre de 2026, de https://developer.android.com/guide/navigation
 - Android Developers. (s. f.-f). *Notification runtime permission*. Recuperado el 12 de noviembre de 2026, de https://developer.android.com/develop/ui/compose/notifications/notification-permission
 - Android Developers. (s. f.-g). *Save data in a local database using Room*. Recuperado el 12 de noviembre de 2026, de https://developer.android.com/training/data-storage/room
-- ANFAC. (2026a, 26 de febrero). *La edad media de los turismos en España sigue envejeciendo hasta los 14,6 años de antigüedad*. https://anfac.com/la-edad-media-de-los-turismos-en-espana-sigue-envejeciendo-hasta-los-146-anos-de-antiguedad/
+- ANFAC. (2026, 26 de febrero). *La edad media de los turismos en España sigue envejeciendo hasta los 14,6 años de antigüedad*. https://anfac.com/la-edad-media-de-los-turismos-en-espana-sigue-envejeciendo-hasta-los-146-anos-de-antiguedad/
+- Anthropic. (2026). *Claude Code* [Asistente de programación basado en inteligencia artificial]. https://claude.com/claude-code
 - Dirección General de Tráfico. (2022, 26 de octubre). *El 56% de los conductores sancionados no llevaba la ITV en vigor* [Nota de prensa]. https://www.dgt.es/comunicacion/notas-de-prensa/el-56-de-los-conductores-sancionados-no-llevaba-la-itv-en-vigor
 - Dirección General de Tráfico. (s. f.). *Anuario estadístico general 2025*. Recuperado el 12 de noviembre de 2026, de https://www.dgt.es/export/sites/web-DGT/.galleries/downloads/dgt-en-cifras/publicaciones/Anuario_Estadistico_General/Anuario-General-2025.pdf
 - Gamma, E., Helm, R., Johnson, R. y Vlissides, J. (1994). *Design patterns: Elements of reusable object-oriented software*. Addison-Wesley.

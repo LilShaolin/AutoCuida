@@ -107,18 +107,18 @@ Después ejecuta `./gradlew assembleRelease`. Sin ese archivo se genera un APK r
 ## Pruebas
 
 ```bash
-./gradlew testDebugUnitTest              # 58 pruebas unitarias (JUnit 4)
-./gradlew connectedDebugAndroidTest      # 41 pruebas de integración, del Worker y de interfaz (requiere emulador o dispositivo)
+./gradlew testDebugUnitTest              # 74 pruebas unitarias (JUnit 4)
+./gradlew connectedDebugAndroidTest      # 43 pruebas de integración, del Worker y de interfaz (requiere emulador o dispositivo)
 ./gradlew lintDebug                      # análisis estático
 ```
 
-Resultados de la última ejecución (12/11/2026):
+Resultados de la última ejecución (15/11/2026, versión 1.0.1):
 
 | Conjunto | Entorno | Resultado |
 |---|---|---|
-| Unitarias (calculadora, avisos, validadores, planificador) | JVM | 58 / 58 superadas |
-| Integración Room, Worker de notificaciones y pruebas Espresso | Emulador Pixel 6, Android 13 (API 33) | 41 / 41 superadas |
-| Integración Room, Worker de notificaciones y pruebas Espresso | Emulador Android 8.0 (API 26) | 41 / 41 superadas |
+| Unitarias (calculadora, avisos, validadores, planificador) | JVM | 74 / 74 superadas |
+| Integración Room, Worker de notificaciones y pruebas Espresso | Emulador Pixel 6, Android 13 (API 33) | 43 / 43 superadas |
+| Integración Room, Worker de notificaciones y pruebas Espresso | Emulador Android 8.0 (API 26) | 43 / 43 superadas |
 | Lint | — | 0 errores |
 
 Los informes se guardan en [`pruebas`](pruebas).
@@ -130,10 +130,9 @@ AutoCuida/
 ├── app/                    Proyecto Android
 ├── capturas/               Capturas reales de la aplicación
 ├── documentacion/          Trabajo escrito, diagramas, mockups, manuales, bibliografía y diario
-├── presentacion/           Presentación, guion de la exposición y preguntas técnicas
+├── presentacion/           Diapositivas del vídeo de presentación
 ├── pruebas/                Informes de pruebas y de Lint
-├── release/                Notas de la versión (el APK se adjunta a la Release de GitHub)
-└── video/                  Guía de grabación con OBS y clip de demostración
+└── release/                Notas de la versión (el APK se adjunta a la Release de GitHub)
 ```
 
 ## Licencia y datos

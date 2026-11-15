@@ -1,6 +1,6 @@
 # Matriz de requisitos de AutoCuida
 
-Versión del producto: **1.0.0** (`versionCode 1`).
+Versión del producto: **1.0.1** (`versionCode 2`).
 
 Esta matriz vincula cada requisito funcional y no funcional con su implementación, los archivos afectados, los elementos de base de datos implicados, las pruebas asociadas y el lugar de la documentación en el que se describe. Las rutas de código son relativas a `app/src/main/java/com/autocuida/app/`.
 
@@ -20,7 +20,7 @@ Abreviaturas de documentación: **TE** = trabajo escrito (apartado), **MU** = ma
 | RF-08 | Tipos de mantenimiento configurables | Lista, alta, edición y borrado seguro | `ui/tipos/TiposFragment.kt`, `EditarTipoDialogFragment.kt`, `TiposViewModel.kt`, `EditarTipoViewModel.kt`, `domain/validacion/ValidadorTipo.kt` | `tipos_mantenimiento`, triggers de intervalos, FK RESTRICT | `ValidadorTipoTest`, `TipoMantenimientoDaoTest`, `FlujoTiposTest`, PF-11 | TE 5.5, MU 10 |
 | RF-09 | Precarga de seis tipos | `RoomDatabase.Callback.onCreate` | `data/db/AppDatabase.kt`, `data/db/DatosIniciales.kt` | `tipos_mantenimiento` | `TipoMantenimientoDaoTest.precargaCreaSeisTipos` | TE 5.2 |
 | RF-10 | Cálculo de próximos vencimientos | `CalculadoraMantenimiento` independiente de Android | `domain/CalculadoraMantenimiento.kt` | `recordatorios` (`km_limite`, `fecha_limite`) | `CalculadoraMantenimientoTest`, PF-06 | TE 7.2 |
-| RF-11 | Estados verde, ámbar y rojo | Enumeración `EstadoMantenimiento`, insignia con icono y texto | `domain/CalculadoraMantenimiento.kt`, `ui/comun/EstadoUi.kt` | — | `CalculadoraMantenimientoTest`, PF-08 | TE 5.1 y 5.3.1, MU 7 |
+| RF-11 | Estados verde, ámbar y rojo | Enumeración `EstadoMantenimiento`, insignia con icono y texto | `domain/CalculadoraMantenimiento.kt`, `ui/comun/EstadoUi.kt` | — | `CalculadoraMantenimientoTest`, PF-08 | TE 5.1 y 5.4, MU 7 |
 | RF-12 | Ausencia de historial | Estado `SIN_REFERENCIA` y acceso a registrar el último mantenimiento conocido | `CalculadoraMantenimiento.kt`, `ui/vehiculos/VencimientosAdapter.kt` | Sin fila en `recordatorios` | `CalculadoraMantenimientoTest.sinReferencia_elEstadoEsSinReferenciaYNoSeInventanLimites` | TE 7.2, MU 13 |
 | RF-13 | Control de ITV | Fecha editable, cuenta atrás, estado y actualización al registrar una inspección | `FormVehiculoFragment.kt`, `DetalleVehiculoFragment.kt`, `FormMantenimientoViewModel.kt`, `RecordatorioRepository.kt` | `vehiculos.fecha_itv`, `recordatorios` | `CalculadoraMantenimientoTest.itv_evaluaSoloPorFecha`, `RecordatorioTest.itvRegistrada_actualizaLaFechaDelVehiculoYSuRecordatorio` | TE 7.2, MU 4 |
 | RF-14 | Actualización de kilómetros | Diálogo con validación de retrocesos | `ui/vehiculos/ActualizarKmDialogFragment.kt`, `ActualizarKmViewModel.kt`, `domain/validacion/ValidadorKilometros.kt`, `VehiculoRepository.kt` | `vehiculos.km_actuales` | `ValidadorKilometrosTest`, `FlujoPrincipalTest`, PF-07 | TE 7.2, MU 8 |
@@ -29,15 +29,15 @@ Abreviaturas de documentación: **TE** = trabajo escrito (apartado), **MU** = ma
 | RF-17 | Evitar avisos duplicados | Nivel avisado (0, 1, 2) por recordatorio e identificador de notificación estable | `domain/EvaluadorAvisos.kt`, `RevisionVencimientosWorker.kt` | `recordatorios.avisado` | `EvaluadorAvisosTest`, `RevisionVencimientosWorkerTest.itvVencida_seNotificaUnaSolaVez` | TE 7.2 |
 | RF-18 | Estadísticas de gastos | Total, por tipo, por vehículo, serie, historial y filtros | `ui/gastos/GastosFragment.kt`, `GastosViewModel.kt`, `GastoAgrupadoAdapter.kt`, `data/repository/GastosRepository.kt` | Consultas agregadas en `MantenimientoDao` | `GastosDaoTest`, PF-10 | TE 7.2, MU 9 |
 | RF-19 | Gráfica de barras | MPAndroidChart `BarChart` mensual o anual | `ui/gastos/GraficoGastos.kt` | — | PF-10 (revisión de capturas) | TE 7.2, MU 9 |
-| RF-20 | Acceso desde la notificación al detalle | `NavDeepLinkBuilder` hacia `detalleVehiculoFragment` | `util/Notificaciones.kt`, `MainActivity.onNewIntent` | — | PF-13 (prueba manual en emulador) | TE 5.2 y 5.3.5, MU 11 |
+| RF-20 | Acceso desde la notificación al detalle | `NavDeepLinkBuilder` hacia `detalleVehiculoFragment` | `util/Notificaciones.kt`, `MainActivity.onNewIntent` | — | PF-13 (prueba manual en emulador) | TE 5.2 y 5.4, MU 11 |
 
 ## Requisitos no funcionales
 
 | ID | Requisito | Implementación | Pruebas o comprobación | Documentación |
 |---|---|---|---|---|
 | RNF-01 | Almacenamiento local sin cuenta | Room/SQLite, sin permiso de Internet | Revisión del manifiesto combinado | TE 4.1 |
-| RNF-02 | Android 8.0 (API 26) mínimo | `minSdk = 26`, `java.time` nativo | 41 pruebas instrumentadas superadas en un emulador con API 26 | TE 7.5 |
-| RNF-03 | Arquitectura MVVM por capas | Paquetes `data`, `domain`, `ui`, `worker`, `util` | Revisión de dependencias; el dominio se prueba en la JVM sin Android | TE 5.2 y 5.2 |
+| RNF-02 | Android 8.0 (API 26) mínimo | `minSdk = 26`, `java.time` nativo | 43 pruebas instrumentadas superadas en un emulador con API 26 | TE 7.5 |
+| RNF-03 | Arquitectura MVVM por capas | Paquetes `data`, `domain`, `ui`, `worker`, `util` | Revisión de dependencias; el dominio se prueba en la JVM sin Android | TE 5.2 y 5.3 |
 | RNF-04 | Operaciones de datos fuera del hilo principal | Funciones `suspend` y `Flow` de Room | Room impide por defecto el acceso en el hilo principal | TE 5.2 |
 | RNF-05 | Consultas parametrizadas | Anotaciones `@Query` con parámetros | Revisión del código | TE 7.2 |
 | RNF-06 | Integridad de datos | FK, UNIQUE, triggers y validadores | Pruebas de integración de DAO y repositorios | TE 5.5 |
