@@ -154,7 +154,7 @@
     <string name="campo_taller">Taller (opcional)</string>
     <string name="campo_notas">Notas (opcional)</string>
     <string name="campo_proxima_itv">Fecha de la próxima ITV (opcional)</string>
-    <string name="ayuda_proxima_itv">Si la indicas, se actualizará la fecha de ITV del vehículo.</string>
+    <string name="ayuda_proxima_itv">Si la indicas y es posterior a la actual, se actualizará la fecha de ITV del vehículo.</string>
     <string name="sufijo_euro">€</string>
     <string name="ayuda_km_mantenimiento">Si superan los kilómetros actuales, se actualizará el cuentakilómetros.</string>
     <string name="mantenimiento_guardado">Mantenimiento guardado</string>

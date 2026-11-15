@@ -34,11 +34,22 @@ object ValidadorMantenimiento {
         val kmMinimoPosterior: Int?
     )
 
-    /** Convierte el texto del coste aceptando coma o punto decimal. Vacío equivale a 0. */
+    /** Número con puntos como separador de miles y sin decimales: "1.500", "12.000", "1.250.000". */
+    private val PATRON_MILES = Regex("^[1-9]\\d{0,2}(\\.\\d{3})+$")
+
+    /**
+     * Convierte el texto del coste aceptando coma o punto decimal. Vacío equivale a 0.
+     * Sin coma, un punto seguido de exactamente tres dígitos se interpreta como separador de miles
+     * ("1.500" son 1500 €); en otro caso es decimal ("45.90" son 45,90 €).
+     */
     fun parsearCoste(texto: String): Double? {
         val limpio = texto.trim().replace(" ", "").replace("€", "")
         if (limpio.isEmpty()) return 0.0
-        val normalizado = if (limpio.contains(',')) limpio.replace(".", "").replace(',', '.') else limpio
+        val normalizado = when {
+            limpio.contains(',') -> limpio.replace(".", "").replace(',', '.')
+            PATRON_MILES.matches(limpio) -> limpio.replace(".", "")
+            else -> limpio
+        }
         return normalizado.toDoubleOrNull()
     }
 

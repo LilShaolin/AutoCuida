@@ -115,46 +115,51 @@ class FormMantenimientoViewModel(
     fun guardar(km: String, coste: String, taller: String, notas: String) {
         val e = _estado.value
         if (e.guardando || !e.cargado) return
+        // Se marca antes de lanzar la corrutina para ignorar una segunda pulsación durante la validación.
+        _estado.update { it.copy(guardando = true) }
         viewModelScope.launch {
-            val entrada = ValidadorMantenimiento.Entrada(
-                tipoId = e.tipoId, fechaEpochDay = e.fecha, km = km, coste = coste,
-                taller = taller, notas = notas, proximaItvEpochDay = e.proximaItv, esItv = e.esItv
-            )
-            val limites = e.fecha?.let { mantenimientoRepository.limitesKm(vehiculoId, it, mantenimientoId) }
-            val contexto = ValidadorMantenimiento.Contexto(
-                hoyEpochDay = Fechas.hoyEpochDay(),
-                kmMaximoAnterior = limites?.maximoAnterior,
-                kmMinimoPosterior = limites?.minimoPosterior
-            )
-            val resultado = ValidadorMantenimiento.validar(entrada, contexto)
-            if (!resultado.esValido) {
-                val referencia = when (resultado.error(ValidadorMantenimiento.Campo.KM)) {
-                    ErrorValidacion.KM_INFERIORES_A_ANTERIOR -> limites?.maximoAnterior
-                    ErrorValidacion.KM_SUPERIORES_A_POSTERIOR -> limites?.minimoPosterior
-                    else -> null
-                }
-                _estado.update { it.copy(errores = resultado.errores, kmReferenciaError = referencia) }
-                return@launch
-            }
-            val mantenimiento = Mantenimiento(
-                id = mantenimientoId,
-                vehiculoId = vehiculoId,
-                tipoId = requireNotNull(e.tipoId),
-                fecha = requireNotNull(e.fecha),
-                km = km.trim().toInt(),
-                coste = requireNotNull(ValidadorMantenimiento.parsearCoste(coste)),
-                taller = taller.trim().ifEmpty { null },
-                notas = notas.trim().ifEmpty { null }
-            )
-            _estado.update { it.copy(guardando = true, errores = emptyMap()) }
+            var guardado = false
             try {
+                val entrada = ValidadorMantenimiento.Entrada(
+                    tipoId = e.tipoId, fechaEpochDay = e.fecha, km = km, coste = coste,
+                    taller = taller, notas = notas, proximaItvEpochDay = e.proximaItv, esItv = e.esItv
+                )
+                val limites = e.fecha?.let { mantenimientoRepository.limitesKm(vehiculoId, it, mantenimientoId) }
+                val contexto = ValidadorMantenimiento.Contexto(
+                    hoyEpochDay = Fechas.hoyEpochDay(),
+                    kmMaximoAnterior = limites?.maximoAnterior,
+                    kmMinimoPosterior = limites?.minimoPosterior
+                )
+                val resultado = ValidadorMantenimiento.validar(entrada, contexto)
+                if (!resultado.esValido) {
+                    val referencia = when (resultado.error(ValidadorMantenimiento.Campo.KM)) {
+                        ErrorValidacion.KM_INFERIORES_A_ANTERIOR -> limites?.maximoAnterior
+                        ErrorValidacion.KM_SUPERIORES_A_POSTERIOR -> limites?.minimoPosterior
+                        else -> null
+                    }
+                    _estado.update { it.copy(errores = resultado.errores, kmReferenciaError = referencia) }
+                    return@launch
+                }
+                val mantenimiento = Mantenimiento(
+                    id = mantenimientoId,
+                    vehiculoId = vehiculoId,
+                    tipoId = requireNotNull(e.tipoId),
+                    fecha = requireNotNull(e.fecha),
+                    km = km.trim().toInt(),
+                    coste = requireNotNull(ValidadorMantenimiento.parsearCoste(coste)),
+                    taller = taller.trim().ifEmpty { null },
+                    notas = notas.trim().ifEmpty { null }
+                )
+                _estado.update { it.copy(errores = emptyMap()) }
                 mantenimientoRepository.guardar(mantenimiento, nuevaFechaItv = if (e.esItv) e.proximaItv else null)
+                guardado = true
                 avisos.revisarAhora()
                 _eventos.send(EventoUi.Guardado(R.string.mantenimiento_guardado))
             } catch (ex: Exception) {
                 _eventos.send(EventoUi.Mensaje(R.string.error_generico))
             } finally {
-                _estado.update { it.copy(guardando = false) }
+                // Tras guardar se vuelve atrás: el botón solo se reactiva si hay errores.
+                if (!guardado) _estado.update { it.copy(guardando = false) }
             }
         }
     }

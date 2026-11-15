@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.autocuida.app.domain.EvaluadorAvisosTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-12T17:56:15.794Z" hostname="DESKTOP-RD60M01" time="0.002">
+<testsuite name="com.autocuida.app.domain.EvaluadorAvisosTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-15T00:42:48.822Z" hostname="DESKTOP-RD60M01" time="0.004">
   <properties/>
-  <testcase name="siElEstadoMejora_seRebajaElNivelSinNotificar" classname="com.autocuida.app.domain.EvaluadorAvisosTest" time="0.001"/>
+  <testcase name="siElEstadoMejora_seRebajaElNivelSinNotificar" classname="com.autocuida.app.domain.EvaluadorAvisosTest" time="0.003"/>
   <testcase name="primerAvisoProximo_seNotifica" classname="com.autocuida.app.domain.EvaluadorAvisosTest" time="0.0"/>
-  <testcase name="mismoNivelYaAvisado_noSeRepite" classname="com.autocuida.app.domain.EvaluadorAvisosTest" time="0.0"/>
+  <testcase name="mismoNivelYaAvisado_noSeRepite" classname="com.autocuida.app.domain.EvaluadorAvisosTest" time="0.001"/>
   <testcase name="vencidoYaAvisado_noSeRepiteCadaDia" classname="com.autocuida.app.domain.EvaluadorAvisosTest" time="0.0"/>
-  <testcase name="pasarDeProximoAVencido_seNotificaDeNuevo" classname="com.autocuida.app.domain.EvaluadorAvisosTest" time="0.001"/>
+  <testcase name="pasarDeProximoAVencido_seNotificaDeNuevo" classname="com.autocuida.app.domain.EvaluadorAvisosTest" time="0.0"/>
   <testcase name="alDiaOSinReferencia_nuncaNotifican" classname="com.autocuida.app.domain.EvaluadorAvisosTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

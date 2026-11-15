@@ -1,7 +1,10 @@
 package com.autocuida.app.ui.comun
 
+import android.os.Bundle
 import android.view.View
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.navigation.fragment.findNavController
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.autocuida.app.R
@@ -69,19 +72,32 @@ fun Fragment.mostrarMensaje(@StringRes texto: Int, larga: Boolean = false) {
 private val ANCLAJES_SNACKBAR = listOf(R.id.fab_anadir, R.id.fab_mantenimiento, R.id.navegacion)
 
 /**
+ * Navega con una acción solo si existe desde el destino actual. Evita el cierre de la aplicación
+ * cuando una doble pulsación intenta navegar de nuevo desde el destino al que ya se ha llegado.
+ */
+fun Fragment.navegar(@IdRes accion: Int, argumentos: Bundle? = null) {
+    val nav = findNavController()
+    if (nav.currentDestination?.getAction(accion) != null) nav.navigate(accion, argumentos)
+}
+
+/**
  * Muestra un selector de fecha de Material y devuelve el día epoch elegido.
  *
+ * @param etiqueta identifica el selector de cada campo; se usa en [reengancharSelectorFecha].
  * @param soloPasado si es `true`, no permite elegir fechas posteriores a hoy.
  */
 fun Fragment.seleccionarFecha(
+    etiqueta: String,
     titulo: CharSequence,
     epochDayInicial: Long?,
     soloPasado: Boolean = false,
     alSeleccionar: (Long) -> Unit
 ) {
+    if (childFragmentManager.findFragmentByTag(etiqueta) != null) return
     val restricciones = CalendarConstraints.Builder().apply {
         if (soloPasado) {
-            setValidator(DateValidatorPointBackward.before(Fechas.epochDayAUtcMillis(Fechas.hoyEpochDay() + 1)))
+            // El validador admite las fechas anteriores o iguales al punto indicado: hoy es el último día válido.
+            setValidator(DateValidatorPointBackward.before(Fechas.epochDayAUtcMillis(Fechas.hoyEpochDay())))
             setEnd(Fechas.epochDayAUtcMillis(Fechas.hoyEpochDay()))
         }
     }.build()
@@ -91,5 +107,17 @@ fun Fragment.seleccionarFecha(
         .setCalendarConstraints(restricciones)
         .build()
     selector.addOnPositiveButtonClickListener { millis -> alSeleccionar(Fechas.utcMillisAEpochDay(millis)) }
-    selector.show(childFragmentManager, "selector_fecha")
+    selector.show(childFragmentManager, etiqueta)
+}
+
+/**
+ * Vuelve a conectar la acción de un selector de fecha que sigue abierto tras recrearse el fragmento
+ * (por ejemplo, al girar la pantalla): MaterialDatePicker no conserva sus listeners. Se llama en
+ * `onViewCreated` con la misma etiqueta y acción que [seleccionarFecha].
+ */
+fun Fragment.reengancharSelectorFecha(etiqueta: String, alSeleccionar: (Long) -> Unit) {
+    @Suppress("UNCHECKED_CAST")
+    val selector = childFragmentManager.findFragmentByTag(etiqueta) as? MaterialDatePicker<Long> ?: return
+    selector.clearOnPositiveButtonClickListeners()
+    selector.addOnPositiveButtonClickListener { millis -> alSeleccionar(Fechas.utcMillisAEpochDay(millis)) }
 }

@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.autocuida.app.domain.CalculadoraMantenimientoTest" tests="25" skipped="0" failures="0" errors="0" timestamp="2026-11-12T17:56:15.757Z" hostname="DESKTOP-RD60M01" time="0.034">
+<testsuite name="com.autocuida.app.domain.CalculadoraMantenimientoTest" tests="28" skipped="0" failures="0" errors="0" timestamp="2026-11-15T00:42:48.771Z" hostname="DESKTOP-RD60M01" time="0.048">
   <properties/>
-  <testcase name="estadoRojo_tienePrioridadAunqueElOtroCriterioEsteAlDia" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.022"/>
-  <testcase name="soloIntervaloMeses_ignoraLosKilometros" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.001"/>
+  <testcase name="estadoRojo_tienePrioridadAunqueElOtroCriterioEsteAlDia" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.028"/>
+  <testcase name="soloIntervaloMeses_ignoraLosKilometros" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.003"/>
   <testcase name="soloIntervaloKm_ignoraLaFecha" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.001"/>
   <testcase name="limiteExacto_999KmRestantesEsAmbar" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="limiteExacto_30DiasRestantesEsVerde" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
-  <testcase name="calculoPorAmbosIntervalos_devuelveLosDosLimites" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
+  <testcase name="calculoPorAmbosIntervalos_devuelveLosDosLimites" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.001"/>
+  <testcase name="margenRelativo_conAmbosLimites_tomaElMenor" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="estadoAmbar_porFecha" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
-  <testcase name="limiteExacto_elDiaDelVencimientoEsAmbarYElSiguienteRojo" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
+  <testcase name="limiteExacto_elDiaDelVencimientoEsAmbarYElSiguienteRojo" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.001"/>
   <testcase name="calculoPorFecha_finDeMesSeAjustaAlUltimoDiaValido" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="estadoRojo_vencidoPorFecha" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="limiteExacto_1000KmRestantesEsVerde" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
+  <testcase name="margenRelativo_superado_esNegativoYSinReferencia_esNulo" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="sinIntervalos_noHayProximoVencimiento" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
-  <testcase name="estadoGeneral_esElMasGraveIgnorandoSinReferencia" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
-  <testcase name="ambosIntervalos_seConsideraElVencimientoQueLlegaAntes" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.001"/>
+  <testcase name="estadoGeneral_esElMasGraveIgnorandoSinReferencia" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.001"/>
+  <testcase name="ambosIntervalos_seConsideraElVencimientoQueLlegaAntes" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="calculoPorKilometros_sumaElIntervaloAlUltimoKilometraje" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="limiteExacto_0KmRestantesEsAmbarYUnoMasEsRojo" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="intervaloNoPositivo_seTrataComoNoDefinido" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="estadoVerde_cuandoQuedaMargenEnAmbosCriterios" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="calculoPorFecha_sumaLosMesesALaUltimaFecha" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
-  <testcase name="estadoRojo_vencidoPorKilometros" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.001"/>
+  <testcase name="estadoRojo_vencidoPorKilometros" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="itv_evaluaSoloPorFecha" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
-  <testcase name="estadoAmbar_porKilometros" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
+  <testcase name="estadoAmbar_porKilometros" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.001"/>
+  <testcase name="margenRelativo_igualaMilKmATreintaDias" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="sinReferencia_elEstadoEsSinReferenciaYNoSeInventanLimites" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
-  <testcase name="ambosIntervalosEnMismoEstado_elCriterioEsElDeMenorFraccionRestante" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.001"/>
+  <testcase name="ambosIntervalosEnMismoEstado_elCriterioEsElDeMenorFraccionRestante" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <testcase name="limiteExacto_29DiasRestantesEsAmbar" classname="com.autocuida.app.domain.CalculadoraMantenimientoTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

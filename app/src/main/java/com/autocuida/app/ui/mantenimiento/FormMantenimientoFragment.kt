@@ -28,6 +28,7 @@ import com.autocuida.app.ui.comun.contenedor
 import com.autocuida.app.ui.comun.mensaje
 import com.autocuida.app.ui.comun.mostrarMensaje
 import com.autocuida.app.ui.comun.recolectar
+import com.autocuida.app.ui.comun.reengancharSelectorFecha
 import com.autocuida.app.ui.comun.seleccionarFecha
 import com.autocuida.app.util.Fechas
 import com.autocuida.app.util.Formatos
@@ -41,6 +42,8 @@ class FormMantenimientoFragment : Fragment() {
         const val ARG_VEHICULO_ID = "vehiculoId"
         const val ARG_MANTENIMIENTO_ID = "mantenimientoId"
         const val ARG_TIPO_ID = "tipoId"
+        private const val SELECTOR_FECHA = "selector_fecha_mantenimiento"
+        private const val SELECTOR_PROXIMA_ITV = "selector_fecha_proxima_itv"
     }
 
     private var _binding: FragmentFormMantenimientoBinding? = null
@@ -72,19 +75,26 @@ class FormMantenimientoFragment : Fragment() {
         )
         if (viewModel.esEdicion) requireActivity().addMenuProvider(menu, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        val alElegirFecha: (Long) -> Unit = { viewModel.seleccionarFecha(it) }
+        val alElegirProximaItv: (Long) -> Unit = { viewModel.seleccionarProximaItv(it) }
+        reengancharSelectorFecha(SELECTOR_FECHA, alElegirFecha)
+        reengancharSelectorFecha(SELECTOR_PROXIMA_ITV, alElegirProximaItv)
+
         val abrirFecha = View.OnClickListener {
-            seleccionarFecha(getString(R.string.campo_fecha), viewModel.estado.value.fecha, soloPasado = true) {
-                viewModel.seleccionarFecha(it)
-            }
+            seleccionarFecha(
+                SELECTOR_FECHA, getString(R.string.campo_fecha), viewModel.estado.value.fecha,
+                soloPasado = true, alSeleccionar = alElegirFecha
+            )
         }
         binding.etFecha.setOnClickListener(abrirFecha)
         binding.tilFecha.setEndIconOnClickListener(abrirFecha)
 
         binding.etProximaItv.setOnClickListener {
             val estado = viewModel.estado.value
-            seleccionarFecha(getString(R.string.campo_fecha_itv), estado.proximaItv ?: estado.fecha) {
-                viewModel.seleccionarProximaItv(it)
-            }
+            seleccionarFecha(
+                SELECTOR_PROXIMA_ITV, getString(R.string.campo_fecha_itv), estado.proximaItv ?: estado.fecha,
+                alSeleccionar = alElegirProximaItv
+            )
         }
         binding.tilProximaItv.setEndIconOnClickListener { viewModel.seleccionarProximaItv(null) }
 

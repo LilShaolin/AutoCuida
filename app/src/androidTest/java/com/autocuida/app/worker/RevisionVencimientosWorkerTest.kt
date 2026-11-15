@@ -64,6 +64,18 @@ class RevisionVencimientosWorkerTest {
         TestListenableWorkerBuilder<RevisionVencimientosWorker>(context).build().doWork()
     }
 
+    /** El sistema publica y retira las notificaciones de forma asíncrona: se espera hasta un máximo. */
+    private fun esperarHasta(maxMs: Long = 3_000, condicion: () -> Boolean): Boolean {
+        val limite = System.currentTimeMillis() + maxMs
+        while (!condicion()) {
+            if (System.currentTimeMillis() > limite) return false
+            Thread.sleep(100)
+        }
+        return true
+    }
+
+    private fun notificacionVisible(id: Int) = gestor.activeNotifications.any { it.id == id }
+
     private suspend fun recordatorioItv() = contenedor.recordatorioRepository.obtenerTodosConDetalle()
         .first { it.recordatorio.vehiculoId == vehiculoId && it.tipoCodigo == TipoMantenimiento.CODIGO_ITV }
 
@@ -85,10 +97,24 @@ class RevisionVencimientosWorkerTest {
     @Test
     fun nuevaFechaItv_reiniciaElAvisoYDejaElEstadoAlDia() = runBlocking {
         ejecutarWorker()
+        val idNotificacion = 1_000 + recordatorioItv().recordatorio.id.toInt()
+        assertTrue(esperarHasta { notificacionVisible(idNotificacion) })
         val v = contenedor.vehiculoRepository.obtenerPorId(vehiculoId)!!
         contenedor.vehiculoRepository.guardar(v.copy(fechaItv = LocalDate.now().plusYears(1).toEpochDay()))
         assertEquals(EvaluadorAvisos.NIVEL_NINGUNO, recordatorioItv().recordatorio.avisado)
         ejecutarWorker()
         assertEquals(EvaluadorAvisos.NIVEL_NINGUNO, recordatorioItv().recordatorio.avisado)
+        // El aviso de la ITV vencida se retira al volver a estar al día.
+        assertTrue(esperarHasta { !notificacionVisible(idNotificacion) })
+    }
+
+    @Test
+    fun eliminarVehiculo_retiraSusNotificaciones() = runBlocking {
+        ejecutarWorker()
+        val idNotificacion = 1_000 + recordatorioItv().recordatorio.id.toInt()
+        assertTrue(esperarHasta { notificacionVisible(idNotificacion) })
+        contenedor.vehiculoRepository.eliminar(contenedor.vehiculoRepository.obtenerPorId(vehiculoId)!!)
+        ejecutarWorker()
+        assertTrue(esperarHasta { !notificacionVisible(idNotificacion) })
     }
 }

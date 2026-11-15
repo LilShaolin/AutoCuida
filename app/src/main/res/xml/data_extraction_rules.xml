@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copia de seguridad y transferencia entre dispositivos (Android 12 y posteriores). -->
+<!--
+    Copia de seguridad y transferencia entre dispositivos (Android 12 y posteriores): solo la base de
+    datos de AutoCuida y su registro WAL, sin la base de datos interna de WorkManager.
+-->
 <data-extraction-rules>
     <cloud-backup>
-        <include domain="database" path="." />
+        <include domain="database" path="autocuida.db" />
+        <include domain="database" path="autocuida.db-wal" />
     </cloud-backup>
     <device-transfer>
-        <include domain="database" path="." />
+        <include domain="database" path="autocuida.db" />
+        <include domain="database" path="autocuida.db-wal" />
     </device-transfer>
 </data-extraction-rules>

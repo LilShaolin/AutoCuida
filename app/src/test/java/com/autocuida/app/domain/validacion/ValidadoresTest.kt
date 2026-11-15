@@ -53,6 +53,29 @@ class ValidadorVehiculoTest {
         assertEquals(ErrorValidacion.NUMERO_NO_VALIDO, ValidadorVehiculo.validarKm("12a"))
         assertNull(ValidadorVehiculo.validarKm("0"))
     }
+
+    @Test
+    fun edicionConKmPorDebajoDelHistorial_devuelveError() {
+        val r = ValidadorVehiculo.validar(valida.copy(km = "50000"), 2026, kmMaximoHistorial = 120_000)
+        assertEquals(ErrorValidacion.KM_INFERIORES_A_HISTORIAL, r.error(ValidadorVehiculo.Campo.KM))
+    }
+
+    @Test
+    fun edicionConKmIgualesOSuperioresAlHistorial_esValida() {
+        assertTrue(ValidadorVehiculo.validar(valida.copy(km = "120000"), 2026, kmMaximoHistorial = 120_000).esValido)
+        assertTrue(ValidadorVehiculo.validar(valida.copy(km = "130000"), 2026, kmMaximoHistorial = 120_000).esValido)
+    }
+
+    @Test
+    fun edicionSinHistorial_admiteCualquierKmValido() {
+        assertTrue(ValidadorVehiculo.validar(valida.copy(km = "0"), 2026, kmMaximoHistorial = null).esValido)
+    }
+
+    @Test
+    fun edicionConKmNoNumericos_priorizaElErrorDeFormato() {
+        val r = ValidadorVehiculo.validar(valida.copy(km = "12a"), 2026, kmMaximoHistorial = 120_000)
+        assertEquals(ErrorValidacion.NUMERO_NO_VALIDO, r.error(ValidadorVehiculo.Campo.KM))
+    }
 }
 
 class ValidadorMantenimientoTest {
@@ -75,6 +98,28 @@ class ValidadorMantenimientoTest {
         assertEquals(1234.5, ValidadorMantenimiento.parsearCoste("1.234,50")!!, 0.001)
         assertEquals(0.0, ValidadorMantenimiento.parsearCoste("")!!, 0.0)
         assertNull(ValidadorMantenimiento.parsearCoste("abc"))
+    }
+
+    @Test
+    fun costeConPuntoDeMiles_seInterpretaComoMiles() {
+        assertEquals(1500.0, ValidadorMantenimiento.parsearCoste("1.500")!!, 0.001)
+        assertEquals(12_000.0, ValidadorMantenimiento.parsearCoste("12.000")!!, 0.001)
+        assertEquals(1_250_000.0, ValidadorMantenimiento.parsearCoste("1.250.000")!!, 0.001)
+    }
+
+    @Test
+    fun costeConPuntoSinTresDigitos_seInterpretaComoDecimal() {
+        assertEquals(1.5, ValidadorMantenimiento.parsearCoste("1.5")!!, 0.001)
+        assertEquals(45.9, ValidadorMantenimiento.parsearCoste("45.90")!!, 0.001)
+        assertEquals(1.5, ValidadorMantenimiento.parsearCoste("1.5000")!!, 0.001)
+        // Un cero inicial no es una agrupación de miles.
+        assertEquals(0.5, ValidadorMantenimiento.parsearCoste("0.500")!!, 0.001)
+    }
+
+    @Test
+    fun costeConPuntoDeMiles_superiorAlMaximo_devuelveError() {
+        val r = ValidadorMantenimiento.validar(entrada.copy(coste = "1.250.000"), sinHistorial)
+        assertEquals(ErrorValidacion.COSTE_EXCESIVO, r.error(ValidadorMantenimiento.Campo.COSTE))
     }
 
     @Test

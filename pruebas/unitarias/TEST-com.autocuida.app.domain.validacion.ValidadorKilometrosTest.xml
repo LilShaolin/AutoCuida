@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.autocuida.app.domain.validacion.ValidadorKilometrosTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-12T17:56:15.798Z" hostname="DESKTOP-RD60M01" time="0.012">
+<testsuite name="com.autocuida.app.domain.validacion.ValidadorKilometrosTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-15T00:42:48.829Z" hostname="DESKTOP-RD60M01" time="0.017">
   <properties/>
-  <testcase name="negativo_esInvalido" classname="com.autocuida.app.domain.validacion.ValidadorKilometrosTest" time="0.01"/>
-  <testcase name="retrocesoComoCorreccion_esValidoSiNoBajaDelHistorial" classname="com.autocuida.app.domain.validacion.ValidadorKilometrosTest" time="0.0"/>
-  <testcase name="retrocesoSinMarcarCorreccion_esInvalido" classname="com.autocuida.app.domain.validacion.ValidadorKilometrosTest" time="0.0"/>
+  <testcase name="negativo_esInvalido" classname="com.autocuida.app.domain.validacion.ValidadorKilometrosTest" time="0.014"/>
+  <testcase name="retrocesoComoCorreccion_esValidoSiNoBajaDelHistorial" classname="com.autocuida.app.domain.validacion.ValidadorKilometrosTest" time="0.001"/>
+  <testcase name="retrocesoSinMarcarCorreccion_esInvalido" classname="com.autocuida.app.domain.validacion.ValidadorKilometrosTest" time="0.001"/>
   <testcase name="valorMayorOIgual_esValido" classname="com.autocuida.app.domain.validacion.ValidadorKilometrosTest" time="0.0"/>
   <testcase name="correccionPorDebajoDelHistorial_esInvalida" classname="com.autocuida.app.domain.validacion.ValidadorKilometrosTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

@@ -29,11 +29,13 @@ data class ResumenVehiculo(
 
     companion object {
 
-        /** Orden de urgencia: primero el estado más grave y, dentro de él, lo que antes vence. */
+        /**
+         * Orden de urgencia: primero el estado más grave y, dentro de él, lo que antes vence. Los km y
+         * los días se comparan en la misma escala con [CalculadoraMantenimiento.margenRelativo].
+         */
         val ORDEN_URGENCIA: Comparator<VencimientoEvaluado> =
             compareByDescending<VencimientoEvaluado> { it.evaluacion.estado }
-                .thenBy { it.evaluacion.kmRestantes ?: Int.MAX_VALUE }
-                .thenBy { it.evaluacion.diasRestantes ?: Long.MAX_VALUE }
+                .thenBy { CalculadoraMantenimiento.margenRelativo(it.evaluacion) ?: Double.MAX_VALUE }
 
         fun construir(
             vehiculos: List<Vehiculo>,

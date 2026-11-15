@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copia de seguridad automática de Android (Android 11 e inferiores): incluye la base de datos local. -->
+<!--
+    Copia de seguridad automática de Android (Android 11 e inferiores): solo la base de datos de
+    AutoCuida y su registro WAL. Se excluye la base de datos interna de WorkManager, que se vuelve a
+    programar al abrir la aplicación. El archivo -shm no se copia: SQLite lo reconstruye.
+-->
 <full-backup-content>
-    <include domain="database" path="." />
+    <include domain="database" path="autocuida.db" />
+    <include domain="database" path="autocuida.db-wal" />
 </full-backup-content>

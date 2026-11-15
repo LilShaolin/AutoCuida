@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import androidx.navigation.fragment.findNavController
 import com.autocuida.app.R
 import com.autocuida.app.data.entity.TipoMantenimiento
 import com.autocuida.app.databinding.FragmentTiposBinding
 import com.autocuida.app.ui.comun.EventoUi
 import com.autocuida.app.ui.comun.contenedor
 import com.autocuida.app.ui.comun.mostrarMensaje
+import com.autocuida.app.ui.comun.navegar
 import com.autocuida.app.ui.comun.recolectar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -57,7 +57,7 @@ class TiposFragment : Fragment() {
     }
 
     private fun abrirEditor(tipoId: Long) {
-        findNavController().navigate(R.id.action_tipos_to_editarTipo, bundleOf(EditarTipoDialogFragment.ARG_TIPO_ID to tipoId))
+        navegar(R.id.action_tipos_to_editarTipo, bundleOf(EditarTipoDialogFragment.ARG_TIPO_ID to tipoId))
     }
 
     private fun confirmarEliminacion(tipo: TipoMantenimiento) {

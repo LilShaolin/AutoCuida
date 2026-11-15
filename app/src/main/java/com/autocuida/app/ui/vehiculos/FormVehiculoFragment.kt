@@ -19,6 +19,7 @@ import com.autocuida.app.ui.comun.EventoUi
 import com.autocuida.app.ui.comun.contenedor
 import com.autocuida.app.ui.comun.mensaje
 import com.autocuida.app.ui.comun.recolectar
+import com.autocuida.app.ui.comun.reengancharSelectorFecha
 import com.autocuida.app.ui.comun.seleccionarFecha
 import com.autocuida.app.util.Fechas
 import com.autocuida.app.domain.validacion.ErrorValidacion
@@ -27,6 +28,10 @@ import com.google.android.material.textfield.TextInputLayout
 
 /** Pantalla 2: alta y edición de vehículos. */
 class FormVehiculoFragment : Fragment() {
+
+    private companion object {
+        const val SELECTOR_FECHA_ITV = "selector_fecha_itv_vehiculo"
+    }
 
     private var _binding: FragmentFormVehiculoBinding? = null
     private val binding get() = _binding!!
@@ -49,10 +54,13 @@ class FormVehiculoFragment : Fragment() {
             if (viewModel.esEdicion) R.string.titulo_editar_vehiculo else R.string.titulo_nuevo_vehiculo
         )
 
+        val alElegirFechaItv: (Long) -> Unit = { viewModel.seleccionarFechaItv(it) }
+        reengancharSelectorFecha(SELECTOR_FECHA_ITV, alElegirFechaItv)
         val abrirSelector = View.OnClickListener {
-            seleccionarFecha(getString(R.string.campo_fecha_itv), viewModel.estado.value.fechaItv) {
-                viewModel.seleccionarFechaItv(it)
-            }
+            seleccionarFecha(
+                SELECTOR_FECHA_ITV, getString(R.string.campo_fecha_itv), viewModel.estado.value.fechaItv,
+                alSeleccionar = alElegirFechaItv
+            )
         }
         binding.etFechaItv.setOnClickListener(abrirSelector)
         binding.tilFechaItv.setEndIconOnClickListener(abrirSelector)
@@ -72,7 +80,7 @@ class FormVehiculoFragment : Fragment() {
             }
             binding.etFechaItv.setText(estado.fechaItv?.let { Fechas.formatear(it) } ?: "")
             binding.botonGuardar.isEnabled = !estado.guardando
-            mostrarErrores(estado.errores)
+            mostrarErrores(estado.errores, estado.kmMaximoHistorial)
         }
 
         recolectar(viewModel.eventos) { evento ->
@@ -103,7 +111,8 @@ class FormVehiculoFragment : Fragment() {
 
     private var erroresMostrados: Map<Campo, ErrorValidacion>? = null
 
-    private fun mostrarErrores(errores: Map<Campo, ErrorValidacion>) {
+    /** @param kmReferencia kilómetros del historial que se citan si los km quedan por debajo de ellos. */
+    private fun mostrarErrores(errores: Map<Campo, ErrorValidacion>, kmReferencia: Int?) {
         if (errores == erroresMostrados) return
         erroresMostrados = errores
         val campos: Map<Campo, TextInputLayout> = mapOf(
@@ -115,7 +124,9 @@ class FormVehiculoFragment : Fragment() {
             Campo.KM to binding.tilKm,
             Campo.FECHA_ITV to binding.tilFechaItv
         )
-        campos.forEach { (campo, til) -> til.error = errores[campo]?.mensaje(requireContext()) }
+        campos.forEach { (campo, til) ->
+            til.error = errores[campo]?.mensaje(requireContext(), if (campo == Campo.KM) kmReferencia else null)
+        }
         campos.entries.firstOrNull { errores.containsKey(it.key) }?.value?.requestFocus()
     }
 

@@ -115,6 +115,8 @@ class DetalleVehiculoViewModel(
         viewModelScope.launch {
             try {
                 vehiculoRepository.eliminar(vehiculo)
+                // La revisión retira las notificaciones de los recordatorios eliminados en cascada.
+                avisos.revisarAhora()
                 _eventos.send(EventoUi.Eliminado(R.string.vehiculo_eliminado))
             } catch (e: Exception) {
                 _eventos.send(EventoUi.Mensaje(R.string.error_generico))

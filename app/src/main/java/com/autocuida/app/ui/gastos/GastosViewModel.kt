@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -27,7 +28,11 @@ class GastosViewModel(
     data class Filtros(
         val periodo: PeriodoGastos = PeriodoGastos.Anio(Fechas.hoy().year),
         val vehiculoId: Long? = null
-    )
+    ) {
+        /** Si el vehículo filtrado ya no existe (se ha eliminado), se vuelve a «Todos los vehículos». */
+        fun ajustadosA(vehiculosExistentes: Collection<Long>): Filtros =
+            if (vehiculoId != null && vehiculoId !in vehiculosExistentes) copy(vehiculoId = null) else this
+    }
 
     data class Datos(
         val total: Double = 0.0,
@@ -47,8 +52,15 @@ class GastosViewModel(
 
     private val filtros = MutableStateFlow(Filtros())
 
+    private val vehiculos = vehiculoRepository.observarTodos()
+
+    /** Filtros que se aplican realmente: descartan un vehículo que ya no existe. */
+    private val filtrosAplicados = combine(filtros, vehiculos) { f, lista ->
+        f.ajustadosA(lista.map { it.id })
+    }.distinctUntilChanged()
+
     @OptIn(ExperimentalCoroutinesApi::class)
-    private val datos = filtros.flatMapLatest { f ->
+    private val datos = filtrosAplicados.flatMapLatest { f ->
         combine(
             gastosRepository.observarTotal(f.periodo, f.vehiculoId),
             gastosRepository.observarPorTipo(f.periodo, f.vehiculoId),
@@ -63,11 +75,11 @@ class GastosViewModel(
     val estado: StateFlow<UiState> = combine(
         datos,
         gastosRepository.observarAnios(),
-        vehiculoRepository.observarTodos()
-    ) { (f, d), anios, vehiculos ->
+        vehiculos
+    ) { (f, d), anios, listaVehiculos ->
         // El año en curso siempre está disponible aunque todavía no tenga gastos.
         val aniosDisponibles = (anios + Fechas.hoy().year).distinct().sortedDescending()
-        UiState(cargando = false, filtros = f, anios = aniosDisponibles, vehiculos = vehiculos, datos = d)
+        UiState(cargando = false, filtros = f, anios = aniosDisponibles, vehiculos = listaVehiculos, datos = d)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), UiState())
 
     fun seleccionarPeriodo(periodo: PeriodoGastos) = filtros.update { it.copy(periodo = periodo) }

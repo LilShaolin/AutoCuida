@@ -92,6 +92,16 @@ class RecordatorioTest {
     }
 
     @Test
+    fun itvAntiguaRegistrada_noAdelantaLaFechaDelVehiculo() = runTest {
+        val id = nuevoVehiculo()
+        val actual = db.vehiculoDao().obtenerPorId(id)!!.fechaItv
+        val anterior = LocalDate.of(2025, 6, 1).toEpochDay()
+        mantenimientos.guardar(BaseDatosPrueba.mantenimiento(id, itv.id, LocalDate.of(2024, 6, 1)), nuevaFechaItv = anterior)
+        assertEquals(actual, db.vehiculoDao().obtenerPorId(id)!!.fechaItv)
+        assertEquals(actual, db.recordatorioDao().obtener(id, itv.id)!!.fechaLimite)
+    }
+
+    @Test
     fun cambiarIntervalo_recalculaYReiniciaElNivelAvisado() = runTest {
         val id = nuevoVehiculo()
         mantenimientos.guardar(BaseDatosPrueba.mantenimiento(id, aceite.id, LocalDate.of(2026, 1, 15), 45_000))

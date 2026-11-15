@@ -127,6 +127,16 @@ object CalculadoraMantenimiento {
         evaluaciones.map { it.estado }.filter { it != EstadoMantenimiento.SIN_REFERENCIA }.maxOrNull()
             ?: EstadoMantenimiento.SIN_REFERENCIA
 
+    /**
+     * Margen restante expresado en umbrales de aviso, para comparar vencimientos por km y por fecha:
+     * 1.000 km equivalen a 30 días. Con ambos límites se toma el menor. Es negativo si se ha superado
+     * y `null` sin referencia.
+     */
+    fun margenRelativo(evaluacion: EvaluacionVencimiento): Double? = listOfNotNull(
+        evaluacion.kmRestantes?.let { it.toDouble() / UMBRAL_KM },
+        evaluacion.diasRestantes?.let { it.toDouble() / UMBRAL_DIAS }
+    ).minOrNull()
+
     fun estadoPorKm(kmRestantes: Int): EstadoMantenimiento = when {
         kmRestantes < 0 -> EstadoMantenimiento.VENCIDO
         kmRestantes < UMBRAL_KM -> EstadoMantenimiento.PROXIMO

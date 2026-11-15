@@ -88,11 +88,25 @@ object Notificaciones {
             .build()
 
         return try {
-            NotificationManagerCompat.from(context)
-                .notify(BASE_ID_NOTIFICACION + detalle.recordatorio.id.toInt(), notificacion)
+            NotificationManagerCompat.from(context).notify(idNotificacion(detalle.recordatorio.id), notificacion)
             true
         } catch (e: SecurityException) {
             false
         }
     }
+
+    /**
+     * Retira los avisos que ya no corresponden: los de recordatorios eliminados (por ejemplo, al borrar
+     * el vehículo) y los que han vuelto a estar al día. Se conservan los de [vigentes].
+     */
+    fun retirarObsoletos(context: Context, vigentes: Set<Long>) {
+        val gestor = context.getSystemService(NotificationManager::class.java)
+        val idsVigentes = vigentes.map(::idNotificacion).toSet()
+        // Solo se tocan los avisos de vencimientos (grupo propio), nunca otras notificaciones del sistema.
+        gestor.activeNotifications
+            .filter { it.notification.group == GRUPO_VENCIMIENTOS && it.id !in idsVigentes }
+            .forEach { gestor.cancel(it.tag, it.id) }
+    }
+
+    private fun idNotificacion(recordatorioId: Long): Int = BASE_ID_NOTIFICACION + recordatorioId.toInt()
 }

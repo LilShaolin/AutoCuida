@@ -27,7 +27,9 @@ import com.autocuida.app.ui.comun.EventoUi
 import com.autocuida.app.ui.comun.contenedor
 import com.autocuida.app.ui.comun.mostrarInsignia
 import com.autocuida.app.ui.comun.mostrarMensaje
+import com.autocuida.app.ui.comun.navegar
 import com.autocuida.app.ui.comun.recolectar
+import com.autocuida.app.ui.comun.reengancharSelectorFecha
 import com.autocuida.app.ui.comun.seleccionarFecha
 import com.autocuida.app.ui.mantenimiento.FormMantenimientoFragment
 import com.autocuida.app.ui.mantenimiento.HistorialAdapter
@@ -43,6 +45,7 @@ class DetalleVehiculoFragment : Fragment() {
 
     companion object {
         const val ARG_VEHICULO_ID = "vehiculoId"
+        private const val SELECTOR_FECHA_ITV = "selector_fecha_itv_detalle"
     }
 
     private var _binding: FragmentDetalleVehiculoBinding? = null
@@ -79,12 +82,15 @@ class DetalleVehiculoFragment : Fragment() {
         binding.listaHistorial.addItemDecoration(separador())
 
         binding.botonKm.setOnClickListener {
-            findNavController().navigate(R.id.action_detalle_to_actualizarKm, bundleOf(ARG_VEHICULO_ID to viewModel.vehiculoId))
+            navegar(R.id.action_detalle_to_actualizarKm, bundleOf(ARG_VEHICULO_ID to viewModel.vehiculoId))
         }
+        val alElegirFechaItv: (Long) -> Unit = { viewModel.actualizarFechaItv(it) }
+        reengancharSelectorFecha(SELECTOR_FECHA_ITV, alElegirFechaItv)
         binding.botonItv.setOnClickListener {
-            seleccionarFecha(getString(R.string.campo_fecha_itv), viewModel.estado.value.vehiculo?.fechaItv) {
-                viewModel.actualizarFechaItv(it)
-            }
+            seleccionarFecha(
+                SELECTOR_FECHA_ITV, getString(R.string.campo_fecha_itv), viewModel.estado.value.vehiculo?.fechaItv,
+                alSeleccionar = alElegirFechaItv
+            )
         }
         binding.fabMantenimiento.setOnClickListener { abrirFormularioMantenimiento() }
         binding.scroll.setOnScrollChangeListener { _: View, _: Int, y: Int, _: Int, yAnterior: Int ->
@@ -195,7 +201,7 @@ class DetalleVehiculoFragment : Fragment() {
     }
 
     private fun abrirFormularioMantenimiento(mantenimientoId: Long = 0, tipoId: Long = 0) {
-        findNavController().navigate(
+        navegar(
             R.id.action_detalle_to_formMantenimiento,
             bundleOf(
                 FormMantenimientoFragment.ARG_VEHICULO_ID to viewModel.vehiculoId,
@@ -212,7 +218,7 @@ class DetalleVehiculoFragment : Fragment() {
 
         override fun onMenuItemSelected(item: MenuItem): Boolean = when (item.itemId) {
             R.id.accion_editar -> {
-                findNavController().navigate(R.id.action_detalle_to_formVehiculo, bundleOf(ARG_VEHICULO_ID to viewModel.vehiculoId))
+                navegar(R.id.action_detalle_to_formVehiculo, bundleOf(ARG_VEHICULO_ID to viewModel.vehiculoId))
                 true
             }
             R.id.accion_eliminar -> {

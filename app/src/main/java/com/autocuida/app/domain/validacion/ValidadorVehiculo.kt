@@ -26,7 +26,11 @@ object ValidadorVehiculo {
     fun normalizarMatricula(matricula: String): String =
         matricula.uppercase().filter { it.isLetterOrDigit() }
 
-    fun validar(entrada: Entrada, anioActual: Int): ResultadoValidacion<Campo> {
+    /**
+     * @param kmMaximoHistorial mayor kilometraje del historial del vehículo (solo en edición). Los km
+     * no pueden quedar por debajo, con el mismo criterio que la actualización de kilómetros.
+     */
+    fun validar(entrada: Entrada, anioActual: Int, kmMaximoHistorial: Int? = null): ResultadoValidacion<Campo> {
         val errores = mutableMapOf<Campo, ErrorValidacion>()
 
         validarTexto(entrada.marca)?.let { errores[Campo.MARCA] = it }
@@ -47,7 +51,14 @@ object ValidadorVehiculo {
 
         if (entrada.combustible.isBlank()) errores[Campo.COMBUSTIBLE] = ErrorValidacion.OBLIGATORIO
 
-        validarKm(entrada.km)?.let { errores[Campo.KM] = it }
+        val errorKm = validarKm(entrada.km)
+        if (errorKm != null) {
+            errores[Campo.KM] = errorKm
+        } else if (kmMaximoHistorial != null) {
+            // Se toma el máximo del historial como valor actual: bajar de él nunca es una corrección válida.
+            val r = ValidadorKilometros.validar(entrada.km, kmMaximoHistorial, kmMaximoHistorial, permitirCorreccion = true)
+            if (r is ValidadorKilometros.Resultado.Invalido) errores[Campo.KM] = r.error
+        }
 
         if (entrada.fechaItvEpochDay == null) errores[Campo.FECHA_ITV] = ErrorValidacion.OBLIGATORIO
 

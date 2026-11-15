@@ -31,6 +31,8 @@ class FormVehiculoViewModel(
     data class UiState(
         val original: Vehiculo? = null,
         val fechaItv: Long? = null,
+        /** Mayor kilometraje del historial (solo en edición): límite inferior de los km. */
+        val kmMaximoHistorial: Int? = null,
         val errores: Map<ValidadorVehiculo.Campo, ErrorValidacion> = emptyMap(),
         val guardando: Boolean = false
     )
@@ -48,7 +50,8 @@ class FormVehiculoViewModel(
         if (esEdicion) {
             viewModelScope.launch {
                 val vehiculo = repositorio.obtenerPorId(vehiculoId)
-                _estado.update { it.copy(original = vehiculo, fechaItv = vehiculo?.fechaItv) }
+                val kmMaximo = repositorio.kmMaximoHistorial(vehiculoId)
+                _estado.update { it.copy(original = vehiculo, fechaItv = vehiculo?.fechaItv, kmMaximoHistorial = kmMaximo) }
                 if (vehiculo == null) _eventos.send(EventoUi.Mensaje(R.string.vehiculo_no_encontrado))
             }
         }
@@ -59,8 +62,12 @@ class FormVehiculoViewModel(
     }
 
     fun guardar(entrada: ValidadorVehiculo.Entrada) {
-        if (_estado.value.guardando) return
-        val resultado = ValidadorVehiculo.validar(entrada.copy(fechaItvEpochDay = _estado.value.fechaItv), Fechas.hoy().year)
+        val actual = _estado.value
+        // En edición se espera a tener el vehículo y su historial para validar los kilómetros.
+        if (actual.guardando || (esEdicion && actual.original == null)) return
+        val resultado = ValidadorVehiculo.validar(
+            entrada.copy(fechaItvEpochDay = actual.fechaItv), Fechas.hoy().year, actual.kmMaximoHistorial
+        )
         if (!resultado.esValido) {
             _estado.update { it.copy(errores = resultado.errores) }
             return

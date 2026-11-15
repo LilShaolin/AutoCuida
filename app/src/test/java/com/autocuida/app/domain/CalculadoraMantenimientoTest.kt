@@ -213,4 +213,27 @@ class CalculadoraMantenimientoTest {
             CalculadoraMantenimiento.estadoGeneral(listOf(EvaluacionVencimiento(EstadoMantenimiento.SIN_REFERENCIA)))
         )
     }
+
+    // ---------- Margen relativo ----------
+
+    @Test
+    fun margenRelativo_igualaMilKmATreintaDias() {
+        val porKm = EvaluacionVencimiento(EstadoMantenimiento.AL_DIA, kmRestantes = 1_000)
+        val porDias = EvaluacionVencimiento(EstadoMantenimiento.AL_DIA, diasRestantes = 30)
+        assertEquals(1.0, CalculadoraMantenimiento.margenRelativo(porKm)!!, 0.0001)
+        assertEquals(1.0, CalculadoraMantenimiento.margenRelativo(porDias)!!, 0.0001)
+    }
+
+    @Test
+    fun margenRelativo_conAmbosLimites_tomaElMenor() {
+        val evaluacion = EvaluacionVencimiento(EstadoMantenimiento.PROXIMO, kmRestantes = 900, diasRestantes = 3)
+        assertEquals(0.1, CalculadoraMantenimiento.margenRelativo(evaluacion)!!, 0.0001)
+    }
+
+    @Test
+    fun margenRelativo_superado_esNegativoYSinReferencia_esNulo() {
+        val vencido = EvaluacionVencimiento(EstadoMantenimiento.VENCIDO, kmRestantes = -500)
+        assertEquals(-0.5, CalculadoraMantenimiento.margenRelativo(vencido)!!, 0.0001)
+        assertNull(CalculadoraMantenimiento.margenRelativo(EvaluacionVencimiento(EstadoMantenimiento.SIN_REFERENCIA)))
+    }
 }

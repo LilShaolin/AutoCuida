@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import androidx.navigation.fragment.findNavController
 import com.autocuida.app.R
 import com.autocuida.app.data.entity.Vehiculo
 import com.autocuida.app.databinding.FragmentGastosBinding
 import com.autocuida.app.domain.PeriodoGastos
 import com.autocuida.app.ui.comun.contenedor
+import com.autocuida.app.ui.comun.navegar
 import com.autocuida.app.ui.comun.recolectar
 import com.autocuida.app.ui.mantenimiento.FormMantenimientoFragment
 import com.autocuida.app.ui.mantenimiento.HistorialAdapter
@@ -50,7 +50,7 @@ class GastosFragment : Fragment() {
         val porTipo = GastoAgrupadoAdapter()
         val porVehiculo = GastoAgrupadoAdapter()
         val historial = HistorialAdapter(mostrarVehiculo = true) { item ->
-            findNavController().navigate(
+            navegar(
                 R.id.action_gastos_to_formMantenimiento,
                 bundleOf(
                     FormMantenimientoFragment.ARG_VEHICULO_ID to item.mantenimiento.vehiculoId,

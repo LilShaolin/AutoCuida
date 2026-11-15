@@ -29,7 +29,8 @@ class MantenimientoRepository(
     /**
      * Guarda el mantenimiento en una transacción:
      * - Si sus kilómetros superan los actuales del vehículo, se actualiza el cuentakilómetros.
-     * - Si es una ITV y se indica la fecha de la siguiente inspección, se actualiza la del vehículo.
+     * - Si es una ITV y se indica la fecha de la siguiente inspección, se actualiza la del vehículo
+     *   solo cuando es posterior a la actual: registrar una inspección antigua no adelanta el vencimiento.
      * - Se recalculan los recordatorios del vehículo.
      */
     suspend fun guardar(mantenimiento: Mantenimiento, nuevaFechaItv: Long? = null): Long = db.withTransaction {
@@ -43,7 +44,7 @@ class MantenimientoRepository(
         if (mantenimiento.km > vehiculo.kmActuales) {
             vehiculoDao.actualizarKm(vehiculo.id, mantenimiento.km)
         }
-        if (nuevaFechaItv != null) {
+        if (nuevaFechaItv != null && nuevaFechaItv > vehiculo.fechaItv) {
             vehiculoDao.actualizarFechaItv(vehiculo.id, nuevaFechaItv)
         }
         recordatorios.recalcularVehiculo(vehiculo.id)

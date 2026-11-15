@@ -29,7 +29,8 @@ class ActualizarKmViewModel(
     data class UiState(
         val vehiculo: Vehiculo? = null,
         val kmMaximoHistorial: Int? = null,
-        val error: ErrorValidacion? = null
+        val error: ErrorValidacion? = null,
+        val guardando: Boolean = false
     )
 
     private val _estado = MutableStateFlow(UiState())
@@ -51,17 +52,24 @@ class ActualizarKmViewModel(
 
     fun guardar(texto: String, esCorreccion: Boolean) {
         val actual = _estado.value
+        if (actual.guardando) return
         val vehiculo = actual.vehiculo ?: return
         when (val r = ValidadorKilometros.validar(texto, vehiculo.kmActuales, actual.kmMaximoHistorial, esCorreccion)) {
             is ValidadorKilometros.Resultado.Invalido -> _estado.update { it.copy(error = r.error) }
-            is ValidadorKilometros.Resultado.Valido -> viewModelScope.launch {
-                try {
-                    repositorio.actualizarKm(vehiculoId, r.km)
-                    // Los estados dependen de los kilómetros: se revisan los avisos de inmediato.
-                    avisos.revisarAhora()
-                    _eventos.send(EventoUi.Guardado(R.string.km_actualizados))
-                } catch (e: Exception) {
-                    _eventos.send(EventoUi.Mensaje(R.string.error_generico))
+            is ValidadorKilometros.Resultado.Valido -> {
+                // Se marca antes de lanzar la corrutina para ignorar una segunda pulsación.
+                _estado.update { it.copy(guardando = true, error = null) }
+                viewModelScope.launch {
+                    try {
+                        repositorio.actualizarKm(vehiculoId, r.km)
+                        // Los estados dependen de los kilómetros: se revisan los avisos de inmediato.
+                        avisos.revisarAhora()
+                        _eventos.send(EventoUi.Guardado(R.string.km_actualizados))
+                    } catch (e: Exception) {
+                        // Tras guardar el diálogo se cierra; solo se reactiva si hubo un error.
+                        _estado.update { it.copy(guardando = false) }
+                        _eventos.send(EventoUi.Mensaje(R.string.error_generico))
+                    }
                 }
             }
         }
