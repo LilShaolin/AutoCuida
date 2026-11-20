@@ -29,8 +29,15 @@ object ValidadorVehiculo {
     /**
      * @param kmMaximoHistorial mayor kilometraje del historial del vehículo (solo en edición). Los km
      * no pueden quedar por debajo, con el mismo criterio que la actualización de kilómetros.
+     * @param kmActualesOriginal kilómetros guardados del vehículo (solo en edición). Bajar de ellos es
+     * una corrección, que solo se admite desde «Actualizar km».
      */
-    fun validar(entrada: Entrada, anioActual: Int, kmMaximoHistorial: Int? = null): ResultadoValidacion<Campo> {
+    fun validar(
+        entrada: Entrada,
+        anioActual: Int,
+        kmMaximoHistorial: Int? = null,
+        kmActualesOriginal: Int? = null
+    ): ResultadoValidacion<Campo> {
         val errores = mutableMapOf<Campo, ErrorValidacion>()
 
         validarTexto(entrada.marca)?.let { errores[Campo.MARCA] = it }
@@ -54,10 +61,15 @@ object ValidadorVehiculo {
         val errorKm = validarKm(entrada.km)
         if (errorKm != null) {
             errores[Campo.KM] = errorKm
-        } else if (kmMaximoHistorial != null) {
-            // Se toma el máximo del historial como valor actual: bajar de él nunca es una corrección válida.
-            val r = ValidadorKilometros.validar(entrada.km, kmMaximoHistorial, kmMaximoHistorial, permitirCorreccion = true)
-            if (r is ValidadorKilometros.Resultado.Invalido) errores[Campo.KM] = r.error
+        } else {
+            val km = entrada.km.trim().toInt()
+            when {
+                // Bajar del máximo del historial nunca es válido.
+                kmMaximoHistorial != null && km < kmMaximoHistorial ->
+                    errores[Campo.KM] = ErrorValidacion.KM_INFERIORES_A_HISTORIAL
+                kmActualesOriginal != null && km < kmActualesOriginal ->
+                    errores[Campo.KM] = ErrorValidacion.KM_INFERIORES_A_ACTUALES
+            }
         }
 
         if (entrada.fechaItvEpochDay == null) errores[Campo.FECHA_ITV] = ErrorValidacion.OBLIGATORIO

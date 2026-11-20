@@ -40,11 +40,20 @@ enum class EstadoUi(
     }
 }
 
-/** Aplica a una insignia el texto, el icono y los colores del estado. */
-fun TextView.mostrarInsignia(estado: EstadoMantenimiento, @StringRes textoAlternativo: Int? = null) {
+/**
+ * Aplica a una insignia el texto, el icono y los colores del estado.
+ *
+ * @param textoLibre texto ya formado (por ejemplo, un recuento); si se indica, sustituye al del
+ * estado y se usa también como descripción para los lectores de pantalla.
+ */
+fun TextView.mostrarInsignia(
+    estado: EstadoMantenimiento,
+    @StringRes textoAlternativo: Int? = null,
+    textoLibre: CharSequence? = null
+) {
     val ui = EstadoUi.de(estado)
     val color = ContextCompat.getColor(context, ui.color)
-    text = context.getString(textoAlternativo ?: ui.texto)
+    text = textoLibre ?: context.getString(textoAlternativo ?: ui.texto)
     setTextColor(color)
     backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, ui.contenedor))
     val tamano = resources.getDimensionPixelSize(R.dimen.icono_s)
@@ -53,7 +62,7 @@ fun TextView.mostrarInsignia(estado: EstadoMantenimiento, @StringRes textoAltern
         setTint(color)
     }
     setCompoundDrawablesRelative(icono, null, null, null)
-    contentDescription = context.getString(R.string.cd_estado, text)
+    contentDescription = textoLibre ?: context.getString(R.string.cd_estado, text)
 }
 
 /** Aplica a un icono el símbolo y el color del estado. */

@@ -80,7 +80,12 @@ class FormVehiculoFragment : Fragment() {
             }
             binding.etFechaItv.setText(estado.fechaItv?.let { Fechas.formatear(it) } ?: "")
             binding.botonGuardar.isEnabled = !estado.guardando
-            mostrarErrores(estado.errores, estado.kmMaximoHistorial)
+            val kmReferencia = when (estado.errores[Campo.KM]) {
+                ErrorValidacion.KM_INFERIORES_A_HISTORIAL -> estado.kmMaximoHistorial
+                ErrorValidacion.KM_INFERIORES_A_ACTUALES -> estado.original?.kmActuales
+                else -> null
+            }
+            mostrarErrores(estado.errores, kmReferencia)
         }
 
         recolectar(viewModel.eventos) { evento ->
@@ -111,7 +116,7 @@ class FormVehiculoFragment : Fragment() {
 
     private var erroresMostrados: Map<Campo, ErrorValidacion>? = null
 
-    /** @param kmReferencia kilómetros del historial que se citan si los km quedan por debajo de ellos. */
+    /** @param kmReferencia kilómetros que se citan en el error de los km (historial o actuales). */
     private fun mostrarErrores(errores: Map<Campo, ErrorValidacion>, kmReferencia: Int?) {
         if (errores == erroresMostrados) return
         erroresMostrados = errores

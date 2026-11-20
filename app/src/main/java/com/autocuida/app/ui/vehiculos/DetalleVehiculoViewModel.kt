@@ -55,15 +55,22 @@ class DetalleVehiculoViewModel(
     private val _eventos = Channel<EventoUi>(Channel.BUFFERED)
     val eventos = _eventos.receiveAsFlow()
 
+    /** `true` tras eliminar el vehículo desde esta pantalla: su desaparición no es un error. */
+    @Volatile
+    var eliminado: Boolean = false
+        private set
+
+    // La fecha forma parte del cálculo: al cambiar de día los estados se recalculan.
+    private val filtroYFecha = combine(filtroTipo, Fechas.flujoHoy()) { filtro, hoy -> filtro to hoy }
+
     val estado: StateFlow<UiState> = combine(
         vehiculoRepository.observarPorId(vehiculoId),
         recordatorioRepository.observarPorVehiculo(vehiculoId),
         tipoRepository.observarTodos(),
         mantenimientoRepository.observarPorVehiculo(vehiculoId),
-        filtroTipo
-    ) { vehiculo, recordatorios, tipos, historial, filtro ->
+        filtroYFecha
+    ) { vehiculo, recordatorios, tipos, historial, (filtro, hoy) ->
         if (vehiculo == null) return@combine UiState(cargando = false)
-        val hoy = Fechas.hoy()
         val itv = CalculadoraMantenimiento.evaluarItv(LocalDate.ofEpochDay(vehiculo.fechaItv), hoy)
         val porTipo = recordatorios.associateBy { it.recordatorio.tipoId }
 
@@ -82,7 +89,7 @@ class DetalleVehiculoViewModel(
         UiState(
             cargando = false,
             vehiculo = vehiculo,
-            estadoGeneral = CalculadoraMantenimiento.estadoGeneral(vencimientos.map { it.evaluacion } + itv),
+            estadoGeneral = CalculadoraMantenimiento.estadoGeneralVehiculo(vencimientos.map { it.evaluacion }, itv),
             itv = itv,
             vencimientos = vencimientos,
             tiposFiltro = tipos.filter { it.id in tiposUsados },
@@ -112,6 +119,7 @@ class DetalleVehiculoViewModel(
 
     fun eliminarVehiculo() {
         val vehiculo = estado.value.vehiculo ?: return
+        eliminado = true
         viewModelScope.launch {
             try {
                 vehiculoRepository.eliminar(vehiculo)
@@ -119,6 +127,7 @@ class DetalleVehiculoViewModel(
                 avisos.revisarAhora()
                 _eventos.send(EventoUi.Eliminado(R.string.vehiculo_eliminado))
             } catch (e: Exception) {
+                eliminado = false
                 _eventos.send(EventoUi.Mensaje(R.string.error_generico))
             }
         }

@@ -214,6 +214,39 @@ class CalculadoraMantenimientoTest {
         )
     }
 
+    @Test
+    fun estadoGeneralVehiculo_sinNingunaReferencia_esSinReferenciaAunqueLaItvTengaEstado() {
+        val sinHistorial = List(5) { EvaluacionVencimiento(EstadoMantenimiento.SIN_REFERENCIA) }
+        val itvAlDia = CalculadoraMantenimiento.evaluarItv(LocalDate.of(2027, 2, 1), hoy)
+        val itvVencida = CalculadoraMantenimiento.evaluarItv(LocalDate.of(2026, 6, 1), hoy)
+        assertEquals(EstadoMantenimiento.SIN_REFERENCIA, CalculadoraMantenimiento.estadoGeneralVehiculo(sinHistorial, itvAlDia))
+        assertEquals(EstadoMantenimiento.SIN_REFERENCIA, CalculadoraMantenimiento.estadoGeneralVehiculo(sinHistorial, itvVencida))
+        assertEquals(EstadoMantenimiento.SIN_REFERENCIA, CalculadoraMantenimiento.estadoGeneralVehiculo(emptyList(), itvAlDia))
+    }
+
+    @Test
+    fun estadoGeneralVehiculo_conAlgunaReferencia_combinaMantenimientosEItv() {
+        val mantenimientos = listOf(
+            EvaluacionVencimiento(EstadoMantenimiento.AL_DIA),
+            EvaluacionVencimiento(EstadoMantenimiento.SIN_REFERENCIA)
+        )
+        val itvAlDia = CalculadoraMantenimiento.evaluarItv(LocalDate.of(2027, 2, 1), hoy)
+        val itvVencida = CalculadoraMantenimiento.evaluarItv(LocalDate.of(2026, 6, 1), hoy)
+        assertEquals(EstadoMantenimiento.AL_DIA, CalculadoraMantenimiento.estadoGeneralVehiculo(mantenimientos, itvAlDia))
+        assertEquals(EstadoMantenimiento.VENCIDO, CalculadoraMantenimiento.estadoGeneralVehiculo(mantenimientos, itvVencida))
+    }
+
+    @Test
+    fun contarAvisos_cuentaProximosYVencidos() {
+        val evaluaciones = listOf(
+            EvaluacionVencimiento(EstadoMantenimiento.AL_DIA),
+            EvaluacionVencimiento(EstadoMantenimiento.PROXIMO),
+            EvaluacionVencimiento(EstadoMantenimiento.VENCIDO),
+            EvaluacionVencimiento(EstadoMantenimiento.SIN_REFERENCIA)
+        )
+        assertEquals(2, CalculadoraMantenimiento.contarAvisos(evaluaciones))
+    }
+
     // ---------- Margen relativo ----------
 
     @Test

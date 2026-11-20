@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class EditarTipoViewModel(
-    estadoGuardado: SavedStateHandle,
+    private val estadoGuardado: SavedStateHandle,
     private val repositorio: TipoMantenimientoRepository,
     private val avisos: ProgramadorAvisos
 ) : ViewModel() {
@@ -38,7 +38,10 @@ class EditarTipoViewModel(
     private val _eventos = Channel<EventoUi>(Channel.BUFFERED)
     val eventos = _eventos.receiveAsFlow()
 
-    var camposRellenados = false
+    /** Indica que los campos ya se rellenaron; se conserva aunque se cierre el proceso. */
+    var camposRellenados: Boolean
+        get() = estadoGuardado[CLAVE_CAMPOS_RELLENADOS] ?: false
+        set(valor) { estadoGuardado[CLAVE_CAMPOS_RELLENADOS] = valor }
 
     init {
         if (esEdicion) viewModelScope.launch {
@@ -47,14 +50,18 @@ class EditarTipoViewModel(
     }
 
     fun guardar(entrada: ValidadorTipo.Entrada) {
-        val resultado = ValidadorTipo.validar(entrada)
+        // En edición se espera a tener el tipo para saber si es la ITV.
+        if (esEdicion && _estado.value.original == null) return
+        val esItv = _estado.value.original?.esItv == true
+        val resultado = ValidadorTipo.validar(entrada.copy(esItv = esItv))
         if (!resultado.esValido) {
             _estado.update { it.copy(errores = resultado.errores) }
             return
         }
         val tipo = (_estado.value.original ?: TipoMantenimiento(nombre = "", intervaloKm = null, intervaloMeses = null)).copy(
             nombre = entrada.nombre.trim(),
-            intervaloKm = entrada.intervaloKm.trim().toIntOrNull(),
+            // La ITV no usa intervalo por kilómetros.
+            intervaloKm = if (esItv) null else entrada.intervaloKm.trim().toIntOrNull(),
             intervaloMeses = entrada.intervaloMeses.trim().toIntOrNull()
         )
         viewModelScope.launch {
@@ -73,5 +80,9 @@ class EditarTipoViewModel(
                 _eventos.send(EventoUi.Mensaje(R.string.error_generico))
             }
         }
+    }
+
+    private companion object {
+        const val CLAVE_CAMPOS_RELLENADOS = "editar_tipo_campos_rellenados"
     }
 }

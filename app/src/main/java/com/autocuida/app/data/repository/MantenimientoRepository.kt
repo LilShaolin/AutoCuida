@@ -16,6 +16,12 @@ class MantenimientoRepository(
     /** Kilómetros que delimitan un registro en una fecha según el resto del historial. */
     data class LimitesKm(val maximoAnterior: Int?, val minimoPosterior: Int?)
 
+    /**
+     * @property fechaItvMantenida `true` si se indicó una próxima ITV que no es posterior a la del
+     * vehículo y, por tanto, no se aplicó.
+     */
+    data class ResultadoGuardado(val id: Long, val fechaItvMantenida: Boolean = false)
+
     fun observarPorVehiculo(vehiculoId: Long): Flow<List<MantenimientoDetalle>> =
         mantenimientoDao.observarPorVehiculo(vehiculoId)
 
@@ -33,7 +39,7 @@ class MantenimientoRepository(
      *   solo cuando es posterior a la actual: registrar una inspección antigua no adelanta el vencimiento.
      * - Se recalculan los recordatorios del vehículo.
      */
-    suspend fun guardar(mantenimiento: Mantenimiento, nuevaFechaItv: Long? = null): Long = db.withTransaction {
+    suspend fun guardar(mantenimiento: Mantenimiento, nuevaFechaItv: Long? = null): ResultadoGuardado = db.withTransaction {
         val id = if (mantenimiento.id == 0L) {
             mantenimientoDao.insertar(mantenimiento)
         } else {
@@ -44,11 +50,12 @@ class MantenimientoRepository(
         if (mantenimiento.km > vehiculo.kmActuales) {
             vehiculoDao.actualizarKm(vehiculo.id, mantenimiento.km)
         }
-        if (nuevaFechaItv != null && nuevaFechaItv > vehiculo.fechaItv) {
-            vehiculoDao.actualizarFechaItv(vehiculo.id, nuevaFechaItv)
+        val itvAplicable = nuevaFechaItv != null && nuevaFechaItv > vehiculo.fechaItv
+        if (itvAplicable) {
+            vehiculoDao.actualizarFechaItv(vehiculo.id, requireNotNull(nuevaFechaItv))
         }
         recordatorios.recalcularVehiculo(vehiculo.id)
-        id
+        ResultadoGuardado(id, fechaItvMantenida = nuevaFechaItv != null && !itvAplicable)
     }
 
     suspend fun eliminar(mantenimiento: Mantenimiento) = db.withTransaction {

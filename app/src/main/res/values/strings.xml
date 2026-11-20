@@ -91,6 +91,8 @@
     <string name="error_km_inferiores_anterior">Hay un mantenimiento anterior con más kilómetros (%s)</string>
     <string name="error_km_superiores_posterior">Hay un mantenimiento posterior con menos kilómetros (%s)</string>
     <string name="error_km_inferiores_historial">No puede ser inferior al mayor kilometraje del historial (%s)</string>
+    <string name="error_km_inferiores_actuales">No puede ser inferior a los kilómetros actuales (%s). Para corregir una lectura errónea, usa «Actualizar km» en el detalle.</string>
+    <string name="error_km_superiores_actuales">Un registro anterior a hoy no puede superar los kilómetros actuales del vehículo (%s). Actualiza antes los km con «Actualizar km».</string>
     <string name="error_km_retroceso">El valor es inferior al actual. Marca la casilla si es una corrección.</string>
     <string name="error_coste_negativo">El coste no puede ser negativo</string>
     <string name="error_coste_excesivo">El coste supera el máximo admitido</string>
@@ -156,11 +158,13 @@
     <string name="campo_proxima_itv">Fecha de la próxima ITV (opcional)</string>
     <string name="ayuda_proxima_itv">Si la indicas y es posterior a la actual, se actualizará la fecha de ITV del vehículo.</string>
     <string name="sufijo_euro">€</string>
-    <string name="ayuda_km_mantenimiento">Si superan los kilómetros actuales, se actualizará el cuentakilómetros.</string>
+    <string name="ayuda_km_mantenimiento">Si la fecha es hoy y superan los kilómetros actuales, se actualizará el cuentakilómetros.</string>
     <string name="mantenimiento_guardado">Mantenimiento guardado</string>
+    <string name="mantenimiento_guardado_itv_mantenida">Mantenimiento guardado. La fecha de ITV del vehículo es posterior a la indicada y se mantiene; puedes cambiarla con «Cambiar fecha».</string>
     <string name="mantenimiento_eliminado">Mantenimiento eliminado</string>
     <string name="eliminar_mantenimiento_titulo">¿Eliminar mantenimiento?</string>
     <string name="eliminar_mantenimiento_mensaje">El registro se eliminará y los vencimientos se recalcularán.</string>
+    <string name="eliminar_mantenimiento_itv_mensaje">El registro se eliminará y los vencimientos se recalcularán. La fecha de la próxima ITV del vehículo no cambia; si es necesario, ajústala con «Cambiar fecha» en el detalle.</string>
     <string name="mantenimiento_vehiculo">Vehículo: %s</string>
 
     <!-- Historial -->
@@ -226,6 +230,7 @@
     <string name="campo_intervalo_meses">Intervalo en meses</string>
     <string name="sufijo_meses">meses</string>
     <string name="ayuda_intervalos">Deja vacío el intervalo que no quieras usar. Se necesita al menos uno.</string>
+    <string name="ayuda_intervalo_itv">Obligatorio. Se usa para proponer la fecha de la siguiente inspección.</string>
     <string name="tipo_guardado">Tipo guardado</string>
     <string name="tipo_eliminado">Tipo eliminado</string>
     <string name="eliminar_tipo_titulo">¿Eliminar tipo?</string>
@@ -236,8 +241,8 @@
     <!-- Notificaciones -->
     <string name="canal_vencimientos_nombre">Vencimientos de mantenimiento</string>
     <string name="canal_vencimientos_descripcion">Avisos de mantenimientos e ITV próximos o vencidos</string>
-    <string name="notif_titulo_proximo">%1$s próximo · %2$s</string>
-    <string name="notif_titulo_vencido">%1$s vencido · %2$s</string>
+    <string name="notif_titulo_proximo">Mantenimiento próximo: %1$s · %2$s</string>
+    <string name="notif_titulo_vencido">Mantenimiento vencido: %1$s · %2$s</string>
     <string name="notif_titulo_itv_proxima">ITV próxima · %s</string>
     <string name="notif_titulo_itv_vencida">ITV vencida · %s</string>
     <string name="permiso_notif_titulo">Activar avisos</string>

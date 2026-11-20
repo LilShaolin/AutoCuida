@@ -23,6 +23,10 @@ Registro de las tareas realizadas, los problemas encontrados y las soluciones ap
 | 15/11/2026 | Revisión final del código | Registrar una ITV antigua adelantaba la fecha de la próxima ITV del vehículo. | Actualizarla solo si la nueva fecha es posterior a la guardada. | 5 min |
 | 15/11/2026 | Revisión final del código | Una doble pulsación rápida podía navegar dos veces o guardar dos registros, y un coste «1.500» se leía como 1,50 €. | Comprobar el destino antes de navegar, bloquear el botón mientras se guarda y tratar el punto seguido de tres cifras como separador de miles. | 15 min |
 | 15/11/2026 | Revisión final del código | Las notificaciones de un vehículo borrado o de un aviso ya resuelto seguían en la bandeja. | Retirar en cada revisión las notificaciones que ya no corresponden. Publicar la versión 1.0.1. | 15 min |
+| 20/11/2026 | Segunda revisión del código | Un vehículo sin ningún mantenimiento aparecía «Al día» porque la ITV contaba en el estado general. | Mostrar «Sin datos» hasta que algún tipo tenga referencia. | 15 min |
+| 20/11/2026 | Segunda revisión del código | Un canal de notificaciones desactivado hacía que el aviso se diera por enviado; al conceder el permiso no se revisaban los vencimientos. | Comprobar la importancia del canal y lanzar una revisión al conceder el permiso. | 15 min |
+| 20/11/2026 | Segunda revisión del código | Un registro con fecha pasada podía subir el cuentakilómetros y al editar el vehículo se podían bajar los km. | Validar ambos casos y remitir a «Actualizar km» para corregir lecturas. | 15 min |
+| 20/11/2026 | Segunda revisión del código | El resumen contaba vehículos en lugar de avisos y los títulos de las notificaciones no concordaban en género. | Contar cada vencimiento próximo o vencido y usar títulos neutros. Publicar la versión 1.0.2. | 15 min |
 
 ## Plantilla para nuevas entradas
 

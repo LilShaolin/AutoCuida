@@ -31,7 +31,9 @@ object ValidadorMantenimiento {
     data class Contexto(
         val hoyEpochDay: Long,
         val kmMaximoAnterior: Int?,
-        val kmMinimoPosterior: Int?
+        val kmMinimoPosterior: Int?,
+        /** Kilómetros actuales del vehículo: un registro anterior a hoy no puede superarlos. */
+        val kmActualesVehiculo: Int? = null
     )
 
     /** Número con puntos como separador de miles y sin decimales: "1.500", "12.000", "1.250.000". */
@@ -73,6 +75,10 @@ object ValidadorMantenimiento {
                     errores[Campo.KM] = ErrorValidacion.KM_INFERIORES_A_ANTERIOR
                 contexto.kmMinimoPosterior != null && km > contexto.kmMinimoPosterior ->
                     errores[Campo.KM] = ErrorValidacion.KM_SUPERIORES_A_POSTERIOR
+                // Solo un registro de hoy puede adelantar el cuentakilómetros.
+                contexto.kmActualesVehiculo != null && km > contexto.kmActualesVehiculo &&
+                    entrada.fechaEpochDay != null && entrada.fechaEpochDay < contexto.hoyEpochDay ->
+                    errores[Campo.KM] = ErrorValidacion.KM_SUPERIORES_A_ACTUALES
             }
         }
 

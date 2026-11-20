@@ -55,6 +55,11 @@ fun Fragment.mostrarMensaje(@StringRes texto: Int, larga: Boolean = false) {
     val actividad = requireActivity()
     val raiz = actividad.findViewById<View>(android.R.id.content)
     val snackbar = Snackbar.make(raiz, texto, if (larga) Snackbar.LENGTH_LONG else Snackbar.LENGTH_SHORT)
+    if (larga) {
+        // Los mensajes largos no se recortan a dos líneas y permanecen más tiempo en pantalla.
+        snackbar.view.findViewById<android.widget.TextView>(com.google.android.material.R.id.snackbar_text)?.maxLines = 5
+        snackbar.duration = DURACION_MENSAJE_LARGO_MS
+    }
     // Se espera a que termine una posible navegación (doble post) para anclar el mensaje encima
     // del botón flotante o de la barra inferior de la pantalla que quede visible, sin taparlos.
     raiz.post {
@@ -67,6 +72,8 @@ fun Fragment.mostrarMensaje(@StringRes texto: Int, larga: Boolean = false) {
         }
     }
 }
+
+private const val DURACION_MENSAJE_LARGO_MS = 6_000
 
 /** Vistas sobre las que se coloca un Snackbar, por orden de preferencia. */
 private val ANCLAJES_SNACKBAR = listOf(R.id.fab_anadir, R.id.fab_mantenimiento, R.id.navegacion)

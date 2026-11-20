@@ -103,7 +103,13 @@ class DetalleVehiculoFragment : Fragment() {
         recolectar(viewModel.estado) { estado ->
             val v = estado.vehiculo
             if (v == null) {
-                if (!estado.cargando) salir()
+                if (!estado.cargando) {
+                    // Por ejemplo, al abrir la notificación de un vehículo que ya se ha eliminado.
+                    if (!viewModel.eliminado && findNavController().currentDestination?.id == R.id.detalleVehiculoFragment) {
+                        mostrarMensaje(R.string.vehiculo_no_encontrado)
+                    }
+                    salir()
+                }
                 return@recolectar
             }
             ponerTitulo()

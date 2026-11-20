@@ -3,6 +3,7 @@ package com.autocuida.app.ui.tipos
 import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.createSavedStateHandle
@@ -59,6 +60,11 @@ class EditarTipoDialogFragment : DialogFragment() {
                 viewModel.camposRellenados = true
             }
             val contexto = requireContext()
+            // La ITV solo usa los meses, que son obligatorios: se oculta el intervalo por kilómetros.
+            val esItv = original?.esItv == true
+            binding.tilIntervaloKm.isVisible = !esItv
+            binding.tilIntervaloMeses.helperText =
+                getString(if (esItv) R.string.ayuda_intervalo_itv else R.string.ayuda_intervalos)
             binding.tilNombre.error = estado.errores[ValidadorTipo.Campo.NOMBRE]?.mensaje(contexto)
             binding.tilIntervaloKm.error = estado.errores[ValidadorTipo.Campo.INTERVALO_KM]?.mensaje(contexto)
             binding.tilIntervaloMeses.error = estado.errores[ValidadorTipo.Campo.INTERVALO_MESES]?.mensaje(contexto)

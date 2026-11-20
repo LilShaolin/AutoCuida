@@ -128,6 +128,26 @@ object CalculadoraMantenimiento {
             ?: EstadoMantenimiento.SIN_REFERENCIA
 
     /**
+     * Estado global de un vehículo a partir de sus mantenimientos (sin la ITV) y de su ITV.
+     * Si ningún mantenimiento tiene referencia, el estado es SIN_REFERENCIA: la ITV, que siempre
+     * tiene fecha, no basta para afirmar que el mantenimiento está al día.
+     */
+    fun estadoGeneralVehiculo(
+        mantenimientos: Collection<EvaluacionVencimiento>,
+        itv: EvaluacionVencimiento
+    ): EstadoMantenimiento =
+        if (mantenimientos.all { it.estado == EstadoMantenimiento.SIN_REFERENCIA }) EstadoMantenimiento.SIN_REFERENCIA
+        else estadoGeneral(mantenimientos + itv)
+
+    /** Indica si un estado requiere aviso (próximo o vencido). */
+    fun esAviso(estado: EstadoMantenimiento): Boolean =
+        estado == EstadoMantenimiento.PROXIMO || estado == EstadoMantenimiento.VENCIDO
+
+    /** Número de vencimientos próximos o vencidos. */
+    fun contarAvisos(evaluaciones: Collection<EvaluacionVencimiento>): Int =
+        evaluaciones.count { esAviso(it.estado) }
+
+    /**
      * Margen restante expresado en umbrales de aviso, para comparar vencimientos por km y por fecha:
      * 1.000 km equivalen a 30 días. Con ambos límites se toma el menor. Es negativo si se ha superado
      * y `null` sin referencia.

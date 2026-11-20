@@ -1,112 +1,113 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<testsuites tests="44" failures="0" errors="0" skipped="1" time="34.13" timestamp="2026-11-15T00:45:13" hostname="localhost">
-  <testsuite name="com.autocuida.app.data.GastosDaoTest" tests="7" failures="0" errors="0" skipped="0" time="0.49" timestamp="2026-11-15T00:45:13" hostname="localhost">
+<testsuites tests="45" failures="0" errors="0" skipped="1" time="27.258" timestamp="2026-11-20T18:24:56" hostname="localhost">
+  <testsuite name="com.autocuida.app.data.GastosDaoTest" tests="7" failures="0" errors="0" skipped="0" time="0.519" timestamp="2026-11-20T18:24:56" hostname="localhost">
     <properties>
       <property name="device" value="Pixel_6(AVD) - 13" />
       <property name="flavor" value="" />
       <property name="project" value=":app" />
     </properties>
-    <testcase name="aniosConGastosEHistorialDelPeriodo" classname="com.autocuida.app.data.GastosDaoTest" time="0.157" />
-    <testcase name="totalDelAnioSoloIncluyeEsePeriodo" classname="com.autocuida.app.data.GastosDaoTest" time="0.056" />
-    <testcase name="totalFiltradoPorVehiculo" classname="com.autocuida.app.data.GastosDaoTest" time="0.08" />
-    <testcase name="periodoSinRegistrosDevuelveCero" classname="com.autocuida.app.data.GastosDaoTest" time="0.029" />
-    <testcase name="serieMensualYAnual" classname="com.autocuida.app.data.GastosDaoTest" time="0.055" />
-    <testcase name="gastosPorTipoOrdenadosDeMayorAMenor" classname="com.autocuida.app.data.GastosDaoTest" time="0.058" />
-    <testcase name="gastosPorVehiculo" classname="com.autocuida.app.data.GastosDaoTest" time="0.055" />
+    <testcase name="aniosConGastosEHistorialDelPeriodo" classname="com.autocuida.app.data.GastosDaoTest" time="0.279" />
+    <testcase name="totalDelAnioSoloIncluyeEsePeriodo" classname="com.autocuida.app.data.GastosDaoTest" time="0.033" />
+    <testcase name="totalFiltradoPorVehiculo" classname="com.autocuida.app.data.GastosDaoTest" time="0.04" />
+    <testcase name="periodoSinRegistrosDevuelveCero" classname="com.autocuida.app.data.GastosDaoTest" time="0.046" />
+    <testcase name="serieMensualYAnual" classname="com.autocuida.app.data.GastosDaoTest" time="0.071" />
+    <testcase name="gastosPorTipoOrdenadosDeMayorAMenor" classname="com.autocuida.app.data.GastosDaoTest" time="0.044" />
+    <testcase name="gastosPorVehiculo" classname="com.autocuida.app.data.GastosDaoTest" time="0.006" />
   </testsuite>
-  <testsuite name="com.autocuida.app.data.MantenimientoDaoTest" tests="7" failures="0" errors="0" skipped="0" time="0.361" timestamp="2026-11-15T00:45:13" hostname="localhost">
+  <testsuite name="com.autocuida.app.data.MantenimientoDaoTest" tests="7" failures="0" errors="0" skipped="0" time="0.209" timestamp="2026-11-20T18:24:56" hostname="localhost">
     <properties>
       <property name="device" value="Pixel_6(AVD) - 13" />
       <property name="flavor" value="" />
       <property name="project" value=":app" />
     </properties>
-    <testcase name="borrarVehiculoEliminaEnCascadaMantenimientosYRecordatorios" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.055" />
-    <testcase name="insertarYConsultarHistorialConRelaciones" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.133" />
-    <testcase name="triggerRechazaCosteNegativo" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.03" />
-    <testcase name="claveForaneaRechazaTipoInexistente" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.028" />
-    <testcase name="ultimoPorTipo_eligeElMasRecientePorFechaYKm" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.056" />
+    <testcase name="borrarVehiculoEliminaEnCascadaMantenimientosYRecordatorios" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.033" />
+    <testcase name="insertarYConsultarHistorialConRelaciones" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.042" />
+    <testcase name="triggerRechazaCosteNegativo" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.044" />
+    <testcase name="claveForaneaRechazaTipoInexistente" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.007" />
+    <testcase name="ultimoPorTipo_eligeElMasRecientePorFechaYKm" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.044" />
     <testcase name="claveForaneaRechazaVehiculoInexistente" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.003" />
-    <testcase name="limitesDeKilometrosPorFecha" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.056" />
+    <testcase name="limitesDeKilometrosPorFecha" classname="com.autocuida.app.data.MantenimientoDaoTest" time="0.036" />
   </testsuite>
-  <testsuite name="com.autocuida.app.data.RecordatorioTest" tests="11" failures="0" errors="0" skipped="0" time="0.453" timestamp="2026-11-15T00:45:13" hostname="localhost">
+  <testsuite name="com.autocuida.app.data.RecordatorioTest" tests="12" failures="0" errors="0" skipped="0" time="0.457" timestamp="2026-11-20T18:24:56" hostname="localhost">
     <properties>
       <property name="device" value="Pixel_6(AVD) - 13" />
       <property name="flavor" value="" />
       <property name="project" value=":app" />
     </properties>
-    <testcase name="vehiculoNuevo_soloTieneRecordatorioDeItv" classname="com.autocuida.app.data.RecordatorioTest" time="0.031" />
-    <testcase name="itvAntiguaRegistrada_noAdelantaLaFechaDelVehiculo" classname="com.autocuida.app.data.RecordatorioTest" time="0.055" />
-    <testcase name="recalcularSinCambios_conservaElNivelAvisado" classname="com.autocuida.app.data.RecordatorioTest" time="0.055" />
-    <testcase name="registrarMantenimiento_creaRecordatorioConLosLimitesCalculados" classname="com.autocuida.app.data.RecordatorioTest" time="0.03" />
-    <testcase name="cambiarIntervalo_recalculaYReiniciaElNivelAvisado" classname="com.autocuida.app.data.RecordatorioTest" time="0.056" />
-    <testcase name="mantenimientoConMasKmQueElVehiculo_actualizaElCuentakilometros" classname="com.autocuida.app.data.RecordatorioTest" time="0.053" />
-    <testcase name="eliminarElUnicoMantenimiento_eliminaElRecordatorio" classname="com.autocuida.app.data.RecordatorioTest" time="0.055" />
-    <testcase name="repositorioDeVehiculos_detectaMatriculaDuplicada" classname="com.autocuida.app.data.RecordatorioTest" time="0.031" />
-    <testcase name="repositorioDeTipos_noEliminaTiposEnUsoNiLaItv" classname="com.autocuida.app.data.RecordatorioTest" time="0.029" />
-    <testcase name="itvRegistrada_actualizaLaFechaDelVehiculoYSuRecordatorio" classname="com.autocuida.app.data.RecordatorioTest" time="0.029" />
-    <testcase name="uniqueVehiculoTipoImpideDuplicados" classname="com.autocuida.app.data.RecordatorioTest" time="0.029" />
+    <testcase name="vehiculoNuevo_soloTieneRecordatorioDeItv" classname="com.autocuida.app.data.RecordatorioTest" time="0.044" />
+    <testcase name="itvAntiguaRegistrada_noAdelantaLaFechaDelVehiculo" classname="com.autocuida.app.data.RecordatorioTest" time="0.04" />
+    <testcase name="recalcularSinCambios_conservaElNivelAvisado" classname="com.autocuida.app.data.RecordatorioTest" time="0.042" />
+    <testcase name="registrarMantenimiento_creaRecordatorioConLosLimitesCalculados" classname="com.autocuida.app.data.RecordatorioTest" time="0.005" />
+    <testcase name="cambiarIntervalo_recalculaYReiniciaElNivelAvisado" classname="com.autocuida.app.data.RecordatorioTest" time="0.061" />
+    <testcase name="mantenimientoConMasKmQueElVehiculo_actualizaElCuentakilometros" classname="com.autocuida.app.data.RecordatorioTest" time="0.042" />
+    <testcase name="eliminarElUnicoMantenimiento_eliminaElRecordatorio" classname="com.autocuida.app.data.RecordatorioTest" time="0.043" />
+    <testcase name="repositorioDeVehiculos_detectaMatriculaDuplicada" classname="com.autocuida.app.data.RecordatorioTest" time="0.046" />
+    <testcase name="repositorioDeTipos_detectaNombreDuplicadoSinDistinguirMayusculasNiTildes" classname="com.autocuida.app.data.RecordatorioTest" time="0.006" />
+    <testcase name="repositorioDeTipos_noEliminaTiposEnUsoNiLaItv" classname="com.autocuida.app.data.RecordatorioTest" time="0.042" />
+    <testcase name="itvRegistrada_actualizaLaFechaDelVehiculoYSuRecordatorio" classname="com.autocuida.app.data.RecordatorioTest" time="0.046" />
+    <testcase name="uniqueVehiculoTipoImpideDuplicados" classname="com.autocuida.app.data.RecordatorioTest" time="0.04" />
   </testsuite>
-  <testsuite name="com.autocuida.app.data.TipoMantenimientoDaoTest" tests="7" failures="0" errors="0" skipped="0" time="0.158" timestamp="2026-11-15T00:45:13" hostname="localhost">
+  <testsuite name="com.autocuida.app.data.TipoMantenimientoDaoTest" tests="7" failures="0" errors="0" skipped="0" time="0.133" timestamp="2026-11-20T18:24:56" hostname="localhost">
     <properties>
       <property name="device" value="Pixel_6(AVD) - 13" />
       <property name="flavor" value="" />
       <property name="project" value=":app" />
     </properties>
-    <testcase name="tipoSinMantenimientosSePuedeBorrar" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.029" />
-    <testcase name="triggerRechazaActualizacionSinIntervalos" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.029" />
+    <testcase name="tipoSinMantenimientosSePuedeBorrar" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.005" />
+    <testcase name="triggerRechazaActualizacionSinIntervalos" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.043" />
     <testcase name="nombreDuplicadoLanzaExcepcion" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.004" />
-    <testcase name="tipoConUnSoloIntervaloEsValido" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.03" />
-    <testcase name="precargaCreaSeisTipos" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.032" />
-    <testcase name="restrictImpideBorrarTipoConMantenimientos" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.029" />
-    <testcase name="triggerRechazaTipoSinIntervalos" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.005" />
+    <testcase name="tipoConUnSoloIntervaloEsValido" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.004" />
+    <testcase name="precargaCreaSeisTipos" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.04" />
+    <testcase name="restrictImpideBorrarTipoConMantenimientos" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.006" />
+    <testcase name="triggerRechazaTipoSinIntervalos" classname="com.autocuida.app.data.TipoMantenimientoDaoTest" time="0.031" />
   </testsuite>
-  <testsuite name="com.autocuida.app.data.VehiculoDaoTest" tests="6" failures="0" errors="0" skipped="0" time="0.155" timestamp="2026-11-15T00:45:13" hostname="localhost">
+  <testsuite name="com.autocuida.app.data.VehiculoDaoTest" tests="6" failures="0" errors="0" skipped="0" time="0.095" timestamp="2026-11-20T18:24:56" hostname="localhost">
     <properties>
       <property name="device" value="Pixel_6(AVD) - 13" />
       <property name="flavor" value="" />
       <property name="project" value=":app" />
     </properties>
-    <testcase name="actualizarKmYFechaItv" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.03" />
-    <testcase name="triggerRechazaKilometrosNegativos" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.029" />
-    <testcase name="insertarYConsultarVehiculo" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.03" />
+    <testcase name="actualizarKmYFechaItv" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.005" />
+    <testcase name="triggerRechazaKilometrosNegativos" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.004" />
+    <testcase name="insertarYConsultarVehiculo" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.043" />
     <testcase name="matriculaDuplicadaLanzaExcepcion" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.004" />
-    <testcase name="eliminarVehiculo" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.03" />
-    <testcase name="existeMatricula_excluyeElPropioVehiculo" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.032" />
+    <testcase name="eliminarVehiculo" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.035" />
+    <testcase name="existeMatricula_excluyeElPropioVehiculo" classname="com.autocuida.app.data.VehiculoDaoTest" time="0.004" />
   </testsuite>
-  <testsuite name="com.autocuida.app.demo.CapturasDemostracion" tests="1" failures="0" errors="0" skipped="1" time="0.143" timestamp="2026-11-15T00:45:13" hostname="localhost">
+  <testsuite name="com.autocuida.app.demo.CapturasDemostracion" tests="1" failures="0" errors="0" skipped="1" time="0.134" timestamp="2026-11-20T18:24:56" hostname="localhost">
     <properties>
       <property name="device" value="Pixel_6(AVD) - 13" />
       <property name="flavor" value="" />
       <property name="project" value=":app" />
     </properties>
-    <testcase name="cargarDatosYCapturar" classname="com.autocuida.app.demo.CapturasDemostracion" time="0.143">
+    <testcase name="cargarDatosYCapturar" classname="com.autocuida.app.demo.CapturasDemostracion" time="0.134">
       <skipped />
     </testcase>
   </testsuite>
-  <testsuite name="com.autocuida.app.ui.FlujoPrincipalTest" tests="1" failures="0" errors="0" skipped="0" time="21.325" timestamp="2026-11-15T00:45:13" hostname="localhost">
+  <testsuite name="com.autocuida.app.ui.FlujoPrincipalTest" tests="1" failures="0" errors="0" skipped="0" time="16.204" timestamp="2026-11-20T18:24:56" hostname="localhost">
     <properties>
       <property name="device" value="Pixel_6(AVD) - 13" />
       <property name="flavor" value="" />
       <property name="project" value=":app" />
     </properties>
-    <testcase name="registrarVehiculoMantenimientoYKilometros" classname="com.autocuida.app.ui.FlujoPrincipalTest" time="21.325" />
+    <testcase name="registrarVehiculoMantenimientoYKilometros" classname="com.autocuida.app.ui.FlujoPrincipalTest" time="16.204" />
   </testsuite>
-  <testsuite name="com.autocuida.app.ui.FlujoTiposTest" tests="1" failures="0" errors="0" skipped="0" time="8.904" timestamp="2026-11-15T00:45:13" hostname="localhost">
+  <testsuite name="com.autocuida.app.ui.FlujoTiposTest" tests="1" failures="0" errors="0" skipped="0" time="6.638" timestamp="2026-11-20T18:24:56" hostname="localhost">
     <properties>
       <property name="device" value="Pixel_6(AVD) - 13" />
       <property name="flavor" value="" />
       <property name="project" value=":app" />
     </properties>
-    <testcase name="modificarIntervalosDeUnTipo" classname="com.autocuida.app.ui.FlujoTiposTest" time="8.904" />
+    <testcase name="modificarIntervalosDeUnTipo" classname="com.autocuida.app.ui.FlujoTiposTest" time="6.638" />
   </testsuite>
-  <testsuite name="com.autocuida.app.worker.RevisionVencimientosWorkerTest" tests="3" failures="0" errors="0" skipped="0" time="0.293" timestamp="2026-11-15T00:45:13" hostname="localhost">
+  <testsuite name="com.autocuida.app.worker.RevisionVencimientosWorkerTest" tests="3" failures="0" errors="0" skipped="0" time="0.602" timestamp="2026-11-20T18:24:56" hostname="localhost">
     <properties>
       <property name="device" value="Pixel_6(AVD) - 13" />
       <property name="flavor" value="" />
       <property name="project" value=":app" />
     </properties>
-    <testcase name="itvVencida_seNotificaUnaSolaVez" classname="com.autocuida.app.worker.RevisionVencimientosWorkerTest" time="0.084" />
-    <testcase name="eliminarVehiculo_retiraSusNotificaciones" classname="com.autocuida.app.worker.RevisionVencimientosWorkerTest" time="0.127" />
-    <testcase name="nuevaFechaItv_reiniciaElAvisoYDejaElEstadoAlDia" classname="com.autocuida.app.worker.RevisionVencimientosWorkerTest" time="0.082" />
+    <testcase name="itvVencida_seNotificaUnaSolaVez" classname="com.autocuida.app.worker.RevisionVencimientosWorkerTest" time="0.248" />
+    <testcase name="eliminarVehiculo_retiraSusNotificaciones" classname="com.autocuida.app.worker.RevisionVencimientosWorkerTest" time="0.279" />
+    <testcase name="nuevaFechaItv_reiniciaElAvisoYDejaElEstadoAlDia" classname="com.autocuida.app.worker.RevisionVencimientosWorkerTest" time="0.075" />
   </testsuite>
 </testsuites>

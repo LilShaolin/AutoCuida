@@ -72,6 +72,28 @@ class ValidadorVehiculoTest {
     }
 
     @Test
+    fun edicionConKmPorDebajoDeLosActuales_remiteAActualizarKm() {
+        val r = ValidadorVehiculo.validar(
+            valida.copy(km = "52000"), 2026, kmMaximoHistorial = 50_000, kmActualesOriginal = 60_000
+        )
+        assertEquals(ErrorValidacion.KM_INFERIORES_A_ACTUALES, r.error(ValidadorVehiculo.Campo.KM))
+    }
+
+    @Test
+    fun edicionPorDebajoDelHistorialYDeLosActuales_priorizaElHistorial() {
+        val r = ValidadorVehiculo.validar(
+            valida.copy(km = "40000"), 2026, kmMaximoHistorial = 50_000, kmActualesOriginal = 60_000
+        )
+        assertEquals(ErrorValidacion.KM_INFERIORES_A_HISTORIAL, r.error(ValidadorVehiculo.Campo.KM))
+    }
+
+    @Test
+    fun edicionConKmIgualesOSuperioresALosActuales_esValida() {
+        assertTrue(ValidadorVehiculo.validar(valida.copy(km = "60000"), 2026, null, kmActualesOriginal = 60_000).esValido)
+        assertTrue(ValidadorVehiculo.validar(valida.copy(km = "61000"), 2026, null, kmActualesOriginal = 60_000).esValido)
+    }
+
+    @Test
     fun edicionConKmNoNumericos_priorizaElErrorDeFormato() {
         val r = ValidadorVehiculo.validar(valida.copy(km = "12a"), 2026, kmMaximoHistorial = 120_000)
         assertEquals(ErrorValidacion.NUMERO_NO_VALIDO, r.error(ValidadorVehiculo.Campo.KM))
@@ -145,6 +167,24 @@ class ValidadorMantenimientoTest {
     fun kmSuperioresAUnMantenimientoPosterior_devuelveError() {
         val r = ValidadorMantenimiento.validar(entrada, ValidadorMantenimiento.Contexto(hoy, null, 48_000))
         assertEquals(ErrorValidacion.KM_SUPERIORES_A_POSTERIOR, r.error(ValidadorMantenimiento.Campo.KM))
+    }
+
+    @Test
+    fun registroAnteriorAHoyConMasKmQueElVehiculo_devuelveError() {
+        val r = ValidadorMantenimiento.validar(entrada, ValidadorMantenimiento.Contexto(hoy, null, null, kmActualesVehiculo = 49_000))
+        assertEquals(ErrorValidacion.KM_SUPERIORES_A_ACTUALES, r.error(ValidadorMantenimiento.Campo.KM))
+    }
+
+    @Test
+    fun registroDeHoyConMasKmQueElVehiculo_esValido() {
+        val deHoy = entrada.copy(fechaEpochDay = hoy)
+        assertTrue(ValidadorMantenimiento.validar(deHoy, ValidadorMantenimiento.Contexto(hoy, null, null, kmActualesVehiculo = 49_000)).esValido)
+    }
+
+    @Test
+    fun registroAnteriorAHoyConKmIgualesOInferioresAlVehiculo_esValido() {
+        assertTrue(ValidadorMantenimiento.validar(entrada, ValidadorMantenimiento.Contexto(hoy, null, null, kmActualesVehiculo = 50_000)).esValido)
+        assertTrue(ValidadorMantenimiento.validar(entrada, ValidadorMantenimiento.Contexto(hoy, null, null, kmActualesVehiculo = 80_000)).esValido)
     }
 
     @Test
@@ -223,6 +263,23 @@ class ValidadorTipoTest {
             ValidadorTipo.validar(ValidadorTipo.Entrada("X", "0", "")).error(ValidadorTipo.Campo.INTERVALO_KM))
         assertEquals(ErrorValidacion.INTERVALO_EXCESIVO,
             ValidadorTipo.validar(ValidadorTipo.Entrada("X", "", "241")).error(ValidadorTipo.Campo.INTERVALO_MESES))
+    }
+
+    @Test
+    fun itv_exigeMesesEIgnoraElIntervaloEnKm() {
+        val sinMeses = ValidadorTipo.validar(ValidadorTipo.Entrada("ITV", "10000", "", esItv = true))
+        assertEquals(ErrorValidacion.OBLIGATORIO, sinMeses.error(ValidadorTipo.Campo.INTERVALO_MESES))
+        assertNull(sinMeses.error(ValidadorTipo.Campo.INTERVALO_KM))
+        assertTrue(ValidadorTipo.validar(ValidadorTipo.Entrada("ITV", "abc", "12", esItv = true)).esValido)
+        assertEquals(ErrorValidacion.INTERVALO_EXCESIVO,
+            ValidadorTipo.validar(ValidadorTipo.Entrada("ITV", "", "241", esItv = true)).error(ValidadorTipo.Campo.INTERVALO_MESES))
+    }
+
+    @Test
+    fun normalizarNombre_ignoraMayusculasTildesYEspacios() {
+        assertEquals(ValidadorTipo.normalizarNombre("Neumáticos"), ValidadorTipo.normalizarNombre("  NEUMATICOS "))
+        assertEquals(ValidadorTipo.normalizarNombre("Líquido de frenos"), ValidadorTipo.normalizarNombre("liquido  DE frenos"))
+        assertTrue(ValidadorTipo.normalizarNombre("Aceite") != ValidadorTipo.normalizarNombre("Aceites"))
     }
 
     @Test

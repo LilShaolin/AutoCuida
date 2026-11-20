@@ -56,7 +56,8 @@ class TiposAdapter(
 
     companion object {
         fun textoIntervalos(contexto: android.content.Context, tipo: TipoMantenimiento): String {
-            val km = tipo.intervaloKm
+            // La ITV solo usa los meses aunque conserve un intervalo en km de versiones anteriores.
+            val km = tipo.intervaloKm.takeUnless { tipo.esItv }
             val meses = tipo.intervaloMeses
             return when {
                 km != null && meses != null -> contexto.resources.getQuantityString(R.plurals.tipo_cada_km_meses, meses, Formatos.km(km), meses)

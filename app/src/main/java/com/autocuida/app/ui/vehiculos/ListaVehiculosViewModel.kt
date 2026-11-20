@@ -19,13 +19,16 @@ class ListaVehiculosViewModel(
         val cargando: Boolean = true,
         val vehiculos: List<ResumenVehiculo> = emptyList()
     ) {
-        val avisos: Int get() = vehiculos.count { it.tieneAviso }
+        /** Vencimientos próximos o vencidos de todos los vehículos, incluida la ITV. */
+        val avisos: Int get() = vehiculos.sumOf { it.avisos }
     }
 
+    // La fecha forma parte del cálculo: al cambiar de día los estados se recalculan.
     val estado: StateFlow<UiState> = combine(
         vehiculoRepository.observarTodos(),
-        recordatorioRepository.observarTodos()
-    ) { vehiculos, recordatorios ->
-        UiState(cargando = false, vehiculos = ResumenVehiculo.construir(vehiculos, recordatorios, Fechas.hoy()))
+        recordatorioRepository.observarTodos(),
+        Fechas.flujoHoy()
+    ) { vehiculos, recordatorios, hoy ->
+        UiState(cargando = false, vehiculos = ResumenVehiculo.construir(vehiculos, recordatorios, hoy))
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), UiState())
 }

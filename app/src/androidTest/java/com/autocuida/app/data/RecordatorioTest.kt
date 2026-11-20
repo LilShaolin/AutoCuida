@@ -13,6 +13,7 @@ import com.autocuida.app.domain.EvaluadorAvisos
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -86,7 +87,8 @@ class RecordatorioTest {
     fun itvRegistrada_actualizaLaFechaDelVehiculoYSuRecordatorio() = runTest {
         val id = nuevoVehiculo()
         val nueva = LocalDate.of(2028, 5, 20).toEpochDay()
-        mantenimientos.guardar(BaseDatosPrueba.mantenimiento(id, itv.id, LocalDate.of(2026, 5, 20)), nuevaFechaItv = nueva)
+        val r = mantenimientos.guardar(BaseDatosPrueba.mantenimiento(id, itv.id, LocalDate.of(2026, 5, 20)), nuevaFechaItv = nueva)
+        assertFalse(r.fechaItvMantenida)
         assertEquals(nueva, db.vehiculoDao().obtenerPorId(id)!!.fechaItv)
         assertEquals(nueva, db.recordatorioDao().obtener(id, itv.id)!!.fechaLimite)
     }
@@ -96,7 +98,9 @@ class RecordatorioTest {
         val id = nuevoVehiculo()
         val actual = db.vehiculoDao().obtenerPorId(id)!!.fechaItv
         val anterior = LocalDate.of(2025, 6, 1).toEpochDay()
-        mantenimientos.guardar(BaseDatosPrueba.mantenimiento(id, itv.id, LocalDate.of(2024, 6, 1)), nuevaFechaItv = anterior)
+        val r = mantenimientos.guardar(BaseDatosPrueba.mantenimiento(id, itv.id, LocalDate.of(2024, 6, 1)), nuevaFechaItv = anterior)
+        // Se informa de que la fecha del vehículo se mantiene, para avisar al usuario.
+        assertTrue(r.fechaItvMantenida)
         assertEquals(actual, db.vehiculoDao().obtenerPorId(id)!!.fechaItv)
         assertEquals(actual, db.recordatorioDao().obtener(id, itv.id)!!.fechaLimite)
     }
@@ -127,7 +131,7 @@ class RecordatorioTest {
     @Test
     fun eliminarElUnicoMantenimiento_eliminaElRecordatorio() = runTest {
         val id = nuevoVehiculo()
-        val mId = mantenimientos.guardar(BaseDatosPrueba.mantenimiento(id, aceite.id))
+        val mId = mantenimientos.guardar(BaseDatosPrueba.mantenimiento(id, aceite.id)).id
         mantenimientos.eliminar(db.mantenimientoDao().obtenerPorId(mId)!!)
         assertNull(db.recordatorioDao().obtener(id, aceite.id))
     }
@@ -138,6 +142,12 @@ class RecordatorioTest {
         mantenimientos.guardar(BaseDatosPrueba.mantenimiento(id, aceite.id))
         assertEquals(TipoMantenimientoRepository.ResultadoEliminacion.EnUso(1), tipos.eliminar(aceite))
         assertEquals(TipoMantenimientoRepository.ResultadoEliminacion.Protegido, tipos.eliminar(itv))
+    }
+
+    @Test
+    fun repositorioDeTipos_detectaNombreDuplicadoSinDistinguirMayusculasNiTildes() = runTest {
+        val r = tipos.guardar(TipoMantenimiento(nombre = " NEUMATICOS ", intervaloKm = 5_000, intervaloMeses = null))
+        assertEquals(TipoMantenimientoRepository.ResultadoGuardado.NombreDuplicado, r)
     }
 
     @Test

@@ -5,6 +5,7 @@ import androidx.room.withTransaction
 import com.autocuida.app.data.db.AppDatabase
 import com.autocuida.app.data.dao.TipoMantenimientoDao
 import com.autocuida.app.data.entity.TipoMantenimiento
+import com.autocuida.app.domain.validacion.ValidadorTipo
 import kotlinx.coroutines.flow.Flow
 
 class TipoMantenimientoRepository(
@@ -34,7 +35,11 @@ class TipoMantenimientoRepository(
 
     /** Guarda el tipo y recalcula todos los recordatorios, ya que los intervalos pueden haber cambiado. */
     suspend fun guardar(tipo: TipoMantenimiento): ResultadoGuardado {
-        if (tipoDao.existeNombre(tipo.nombre, tipo.id)) return ResultadoGuardado.NombreDuplicado
+        // Se compara sin distinguir mayúsculas ni tildes: «Neumáticos» y «NEUMATICOS» son el mismo tipo.
+        val nombre = ValidadorTipo.normalizarNombre(tipo.nombre)
+        if (tipoDao.obtenerTodos().any { it.id != tipo.id && ValidadorTipo.normalizarNombre(it.nombre) == nombre }) {
+            return ResultadoGuardado.NombreDuplicado
+        }
         return try {
             db.withTransaction {
                 if (tipo.id == 0L) tipoDao.insertar(tipo) else tipoDao.actualizar(tipo)

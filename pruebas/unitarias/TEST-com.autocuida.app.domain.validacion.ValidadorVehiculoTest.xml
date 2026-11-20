@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-15T00:42:48.869Z" hostname="DESKTOP-RD60M01" time="0.004">
+<testsuite name="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-20T18:20:55.322Z" hostname="DESKTOP-RD60M01" time="0.006">
   <properties/>
-  <testcase name="camposObligatoriosVacios_devuelvenError" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.001"/>
+  <testcase name="camposObligatoriosVacios_devuelvenError" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.002"/>
   <testcase name="edicionSinHistorial_admiteCualquierKmValido" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.001"/>
-  <testcase name="kilometrosNegativosOExcesivos_devuelvenError" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.0"/>
+  <testcase name="edicionPorDebajoDelHistorialYDeLosActuales_priorizaElHistorial" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.0"/>
+  <testcase name="kilometrosNegativosOExcesivos_devuelvenError" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.001"/>
+  <testcase name="edicionConKmIgualesOSuperioresALosActuales_esValida" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.0"/>
   <testcase name="edicionConKmIgualesOSuperioresAlHistorial_esValida" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.0"/>
+  <testcase name="edicionConKmPorDebajoDeLosActuales_remiteAActualizarKm" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.0"/>
   <testcase name="anioFueraDeRango_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.001"/>
   <testcase name="matricula_seNormalizaSinEspaciosNiGuionesYEnMayusculas" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.0"/>
   <testcase name="edicionConKmNoNumericos_priorizaElErrorDeFormato" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.0"/>
-  <testcase name="edicionConKmPorDebajoDelHistorial_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.001"/>
+  <testcase name="edicionConKmPorDebajoDelHistorial_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.0"/>
   <testcase name="entradaCorrecta_esValida" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.0"/>
-  <testcase name="matriculaConFormatoIncorrecto_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.0"/>
+  <testcase name="matriculaConFormatoIncorrecto_devuelveError" classname="com.autocuida.app.domain.validacion.ValidadorVehiculoTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

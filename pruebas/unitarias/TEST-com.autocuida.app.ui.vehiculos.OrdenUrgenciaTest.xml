@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.autocuida.app.ui.vehiculos.OrdenUrgenciaTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-15T00:42:48.883Z" hostname="DESKTOP-RD60M01" time="0.006">
+<testsuite name="com.autocuida.app.ui.vehiculos.OrdenUrgenciaTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-20T18:20:55.336Z" hostname="DESKTOP-RD60M01" time="0.006">
   <properties/>
   <testcase name="sinReferencia_vaAlFinal" classname="com.autocuida.app.ui.vehiculos.OrdenUrgenciaTest" time="0.005"/>
-  <testcase name="conIgualEstado_unVencimientoPorFechaCercanoVaAntesQueUnoPorKmLejano" classname="com.autocuida.app.ui.vehiculos.OrdenUrgenciaTest" time="0.0"/>
-  <testcase name="primeroElEstadoMasGrave" classname="com.autocuida.app.ui.vehiculos.OrdenUrgenciaTest" time="0.001"/>
+  <testcase name="conIgualEstado_unVencimientoPorFechaCercanoVaAntesQueUnoPorKmLejano" classname="com.autocuida.app.ui.vehiculos.OrdenUrgenciaTest" time="0.001"/>
+  <testcase name="primeroElEstadoMasGrave" classname="com.autocuida.app.ui.vehiculos.OrdenUrgenciaTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

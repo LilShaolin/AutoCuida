@@ -145,7 +145,7 @@ class FormMantenimientoFragment : Fragment() {
         recolectar(viewModel.eventos) { evento ->
             when (evento) {
                 is EventoUi.Guardado -> {
-                    mostrarMensaje(evento.texto)
+                    mostrarMensaje(evento.texto, larga = evento.larga)
                     findNavController().navigateUp()
                 }
                 is EventoUi.Eliminado -> {
@@ -182,10 +182,13 @@ class FormMantenimientoFragment : Fragment() {
 
         override fun onMenuItemSelected(item: MenuItem): Boolean {
             if (item.itemId != R.id.accion_eliminar) return false
+            val estado = viewModel.estado.value
+            // Borrar una ITV no devuelve la fecha de ITV del vehículo a la anterior: se indica en el aviso.
+            val esItv = estado.tipos.firstOrNull { it.id == estado.original?.tipoId }?.esItv == true
             MaterialAlertDialogBuilder(requireContext())
                 .setIcon(R.drawable.ic_delete)
                 .setTitle(R.string.eliminar_mantenimiento_titulo)
-                .setMessage(R.string.eliminar_mantenimiento_mensaje)
+                .setMessage(if (esItv) R.string.eliminar_mantenimiento_itv_mensaje else R.string.eliminar_mantenimiento_mensaje)
                 .setNegativeButton(R.string.accion_cancelar, null)
                 .setPositiveButton(R.string.accion_eliminar) { _, _ -> viewModel.eliminar() }
                 .show()

@@ -22,10 +22,10 @@ data class ResumenVehiculo(
     val estado: EstadoMantenimiento,
     val itv: EvaluacionVencimiento,
     /** Vencimiento más urgente, o `null` si no hay ninguno calculado. */
-    val masUrgente: VencimientoEvaluado?
+    val masUrgente: VencimientoEvaluado?,
+    /** Vencimientos próximos o vencidos, incluida la ITV. */
+    val avisos: Int = 0
 ) {
-    val tieneAviso: Boolean
-        get() = estado == EstadoMantenimiento.PROXIMO || estado == EstadoMantenimiento.VENCIDO
 
     companion object {
 
@@ -45,12 +45,15 @@ data class ResumenVehiculo(
             val porVehiculo = recordatorios.groupBy { it.recordatorio.vehiculoId }
             return vehiculos.map { vehiculo ->
                 val evaluados = porVehiculo[vehiculo.id].orEmpty().map { it.aVencimiento(hoy) }
+                // La ITV se evalúa aparte con la fecha del vehículo; el resto son los mantenimientos.
+                val mantenimientos = evaluados.filterNot { it.esItv }.map { it.evaluacion }
                 val itv = CalculadoraMantenimiento.evaluarItv(LocalDate.ofEpochDay(vehiculo.fechaItv), hoy)
                 ResumenVehiculo(
                     vehiculo = vehiculo,
-                    estado = CalculadoraMantenimiento.estadoGeneral(evaluados.map { it.evaluacion } + itv),
+                    estado = CalculadoraMantenimiento.estadoGeneralVehiculo(mantenimientos, itv),
                     itv = itv,
-                    masUrgente = evaluados.minWithOrNull(ORDEN_URGENCIA)
+                    masUrgente = evaluados.minWithOrNull(ORDEN_URGENCIA),
+                    avisos = CalculadoraMantenimiento.contarAvisos(mantenimientos + itv)
                 )
             }
         }

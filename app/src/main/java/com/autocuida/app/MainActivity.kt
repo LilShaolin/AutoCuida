@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -19,6 +20,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.autocuida.app.databinding.ActivityMainBinding
+import com.autocuida.app.util.Notificaciones
+import com.autocuida.app.worker.PlanificadorRevisiones
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
@@ -37,10 +40,23 @@ class MainActivity : AppCompatActivity() {
         R.id.listaVehiculosFragment, R.id.gastosFragment, R.id.tiposFragment
     )
 
+    /** Si se podía notificar en la última comprobación; permite detectar que el usuario activa los avisos. */
+    private var podiaNotificar = false
+
+    private val preferencias by lazy { getSharedPreferences(PREFERENCIAS, MODE_PRIVATE) }
+
     private val solicitudPermiso = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { concedido ->
-        if (!concedido) {
+        if (concedido) {
+            preferencias.edit { putBoolean(PREF_DENEGACION_INFORMADA, false) }
+            // Se revisan al momento los vencimientos que no se pudieron avisar sin permiso.
+            podiaNotificar = Notificaciones.puedeNotificar(this)
+            PlanificadorRevisiones.revisarAhora(this)
+        } else if (!preferencias.getBoolean(PREF_DENEGACION_INFORMADA, false)) {
+            // Se informa una sola vez: si el permiso queda denegado, Android responde sin mostrar el
+            // diálogo en cada arranque y el mensaje se repetiría sin que el usuario haya hecho nada.
+            preferencias.edit { putBoolean(PREF_DENEGACION_INFORMADA, true) }
             Snackbar.make(binding.root, R.string.permiso_notif_denegado, Snackbar.LENGTH_LONG)
                 .setAction(R.string.accion_ajustes) { abrirAjustesNotificaciones() }
                 .show()
@@ -83,7 +99,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        podiaNotificar = Notificaciones.puedeNotificar(this)
         if (savedInstanceState == null) solicitarPermisoNotificaciones()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Si el usuario ha activado los avisos desde los ajustes, se revisan los vencimientos pendientes.
+        val puede = Notificaciones.puedeNotificar(this)
+        if (puede && !podiaNotificar) PlanificadorRevisiones.revisarAhora(this)
+        podiaNotificar = puede
     }
 
     override fun onSupportNavigateUp(): Boolean = navController.navigateUp() || super.onSupportNavigateUp()
@@ -109,6 +134,11 @@ class MainActivity : AppCompatActivity() {
                     .show()
             else -> solicitudPermiso.launch(permiso)
         }
+    }
+
+    private companion object {
+        const val PREFERENCIAS = "autocuida_preferencias"
+        const val PREF_DENEGACION_INFORMADA = "permiso_notificaciones_denegacion_informada"
     }
 
     private fun abrirAjustesNotificaciones() {

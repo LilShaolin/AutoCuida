@@ -25,6 +25,8 @@ fun ErrorValidacion.mensaje(context: Context, kmReferencia: Int? = null): String
         ErrorValidacion.KM_INFERIORES_A_ANTERIOR -> context.getString(R.string.error_km_inferiores_anterior, km)
         ErrorValidacion.KM_SUPERIORES_A_POSTERIOR -> context.getString(R.string.error_km_superiores_posterior, km)
         ErrorValidacion.KM_INFERIORES_A_HISTORIAL -> context.getString(R.string.error_km_inferiores_historial, km)
+        ErrorValidacion.KM_INFERIORES_A_ACTUALES -> context.getString(R.string.error_km_inferiores_actuales, km)
+        ErrorValidacion.KM_SUPERIORES_A_ACTUALES -> context.getString(R.string.error_km_superiores_actuales, km)
         ErrorValidacion.KM_RETROCESO -> context.getString(R.string.error_km_retroceso)
         ErrorValidacion.COSTE_NEGATIVO -> context.getString(R.string.error_coste_negativo)
         ErrorValidacion.COSTE_EXCESIVO -> context.getString(R.string.error_coste_excesivo)

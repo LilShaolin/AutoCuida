@@ -102,12 +102,13 @@ class CabeceraVehiculosAdapter : RecyclerView.Adapter<CabeceraVehiculosAdapter.C
     override fun onBindViewHolder(holder: CabeceraViewHolder, position: Int) {
         val r = holder.itemView.resources
         holder.b.resumenVehiculos.text = r.getQuantityString(R.plurals.resumen_vehiculos, vehiculos, vehiculos)
+        // El texto final (recuento) es también el que leen los lectores de pantalla.
         if (avisos > 0) {
-            holder.b.resumenAvisos.mostrarInsignia(EstadoMantenimiento.PROXIMO)
-            holder.b.resumenAvisos.text = r.getQuantityString(R.plurals.resumen_avisos, avisos, avisos)
+            holder.b.resumenAvisos.mostrarInsignia(
+                EstadoMantenimiento.PROXIMO, textoLibre = r.getQuantityString(R.plurals.resumen_avisos, avisos, avisos)
+            )
         } else {
-            holder.b.resumenAvisos.mostrarInsignia(EstadoMantenimiento.AL_DIA)
-            holder.b.resumenAvisos.text = r.getString(R.string.resumen_sin_avisos)
+            holder.b.resumenAvisos.mostrarInsignia(EstadoMantenimiento.AL_DIA, textoLibre = r.getString(R.string.resumen_sin_avisos))
         }
     }
 

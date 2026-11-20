@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.autocuida.app.domain.validacion.ValidadorTipoTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-15T00:42:48.862Z" hostname="DESKTOP-RD60M01" time="0.003">
+<testsuite name="com.autocuida.app.domain.validacion.ValidadorTipoTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-20T18:20:55.303Z" hostname="DESKTOP-RD60M01" time="0.014">
   <properties/>
-  <testcase name="intervaloCeroOExcesivo_esInvalido" classname="com.autocuida.app.domain.validacion.ValidadorTipoTest" time="0.002"/>
-  <testcase name="nombreObligatorio" classname="com.autocuida.app.domain.validacion.ValidadorTipoTest" time="0.001"/>
-  <testcase name="alMenosUnIntervaloEsObligatorio" classname="com.autocuida.app.domain.validacion.ValidadorTipoTest" time="0.0"/>
+  <testcase name="intervaloCeroOExcesivo_esInvalido" classname="com.autocuida.app.domain.validacion.ValidadorTipoTest" time="0.004"/>
+  <testcase name="nombreObligatorio" classname="com.autocuida.app.domain.validacion.ValidadorTipoTest" time="0.0"/>
+  <testcase name="itv_exigeMesesEIgnoraElIntervaloEnKm" classname="com.autocuida.app.domain.validacion.ValidadorTipoTest" time="0.001"/>
+  <testcase name="normalizarNombre_ignoraMayusculasTildesYEspacios" classname="com.autocuida.app.domain.validacion.ValidadorTipoTest" time="0.008"/>
+  <testcase name="alMenosUnIntervaloEsObligatorio" classname="com.autocuida.app.domain.validacion.ValidadorTipoTest" time="0.001"/>
   <testcase name="soloKmOSoloMeses_sonValidos" classname="com.autocuida.app.domain.validacion.ValidadorTipoTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

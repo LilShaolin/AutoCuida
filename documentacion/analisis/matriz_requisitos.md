@@ -1,6 +1,6 @@
 # Matriz de requisitos de AutoCuida
 
-Versión del producto: **1.0.1** (`versionCode 2`).
+Versión del producto: **1.0.2** (`versionCode 3`).
 
 Esta matriz vincula cada requisito funcional y no funcional con su implementación, los archivos afectados, los elementos de base de datos implicados, las pruebas asociadas y el lugar de la documentación en el que se describe. Las rutas de código son relativas a `app/src/main/java/com/autocuida/app/`.
 
@@ -36,7 +36,7 @@ Abreviaturas de documentación: **TE** = trabajo escrito (apartado), **MU** = ma
 | ID | Requisito | Implementación | Pruebas o comprobación | Documentación |
 |---|---|---|---|---|
 | RNF-01 | Almacenamiento local sin cuenta | Room/SQLite, sin permiso de Internet | Revisión del manifiesto combinado | TE 4.1 |
-| RNF-02 | Android 8.0 (API 26) mínimo | `minSdk = 26`, `java.time` nativo | 43 pruebas instrumentadas superadas en un emulador con API 26 | TE 7.5 |
+| RNF-02 | Android 8.0 (API 26) mínimo | `minSdk = 26`, `java.time` nativo | 44 pruebas instrumentadas superadas en un emulador con API 26 | TE 7.5 |
 | RNF-03 | Arquitectura MVVM por capas | Paquetes `data`, `domain`, `ui`, `worker`, `util` | Revisión de dependencias; el dominio se prueba en la JVM sin Android | TE 5.2 y 5.3 |
 | RNF-04 | Operaciones de datos fuera del hilo principal | Funciones `suspend` y `Flow` de Room | Room impide por defecto el acceso en el hilo principal | TE 5.2 |
 | RNF-05 | Consultas parametrizadas | Anotaciones `@Query` con parámetros | Revisión del código | TE 7.2 |

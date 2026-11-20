@@ -17,6 +17,7 @@ import com.autocuida.app.data.entity.RecordatorioDetalle
 import com.autocuida.app.data.entity.TipoMantenimiento
 import com.autocuida.app.domain.EstadoMantenimiento
 import com.autocuida.app.domain.EvaluacionVencimiento
+import com.autocuida.app.domain.EvaluadorAvisos
 
 /** Canal y construcción de las notificaciones locales de vencimientos. */
 object Notificaciones {
@@ -24,6 +25,7 @@ object Notificaciones {
     const val CANAL_VENCIMIENTOS = "vencimientos"
     private const val GRUPO_VENCIMIENTOS = "com.autocuida.app.VENCIMIENTOS"
     private const val BASE_ID_NOTIFICACION = 1_000
+    private const val EXTRA_NIVEL = "com.autocuida.app.NIVEL_AVISO"
 
     fun crearCanal(context: Context) {
         val canal = NotificationChannel(
@@ -34,12 +36,18 @@ object Notificaciones {
         context.getSystemService(NotificationManager::class.java).createNotificationChannel(canal)
     }
 
-    /** Indica si la aplicación puede mostrar notificaciones (permiso en Android 13+ y ajustes del usuario). */
+    /**
+     * Indica si la aplicación puede mostrar notificaciones: permiso en Android 13+, notificaciones de la
+     * aplicación activadas y canal de vencimientos no silenciado por el usuario. Si el canal está
+     * desactivado, el aviso no se marca como dado y se mostrará cuando se vuelva a activar.
+     */
     fun puedeNotificar(context: Context): Boolean {
         val permiso = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
             ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) ==
             PackageManager.PERMISSION_GRANTED
-        return permiso && NotificationManagerCompat.from(context).areNotificationsEnabled()
+        if (!permiso || !NotificationManagerCompat.from(context).areNotificationsEnabled()) return false
+        val canal = context.getSystemService(NotificationManager::class.java).getNotificationChannel(CANAL_VENCIMIENTOS)
+        return canal != null && canal.importance != NotificationManager.IMPORTANCE_NONE
     }
 
     /**
@@ -55,6 +63,8 @@ object Notificaciones {
     ): Boolean {
         if (!puedeNotificar(context)) return false
         val vencido = evaluacion.estado == EstadoMantenimiento.VENCIDO
+        val nivel = EvaluadorAvisos.nivelDe(evaluacion.estado)
+        val id = idNotificacion(detalle.recordatorio.id)
         val vehiculo = "${detalle.vehiculoDescripcion} (${detalle.vehiculoMatricula})"
         val titulo = if (detalle.tipoCodigo == TipoMantenimiento.CODIGO_ITV) {
             context.getString(if (vencido) R.string.notif_titulo_itv_vencida else R.string.notif_titulo_itv_proxima, vehiculo)
@@ -85,10 +95,17 @@ object Notificaciones {
             .setGroup(GRUPO_VENCIMIENTOS)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            // Repetir el mismo aviso (por ejemplo, si coinciden dos revisiones) no vuelve a sonar.
+            .setOnlyAlertOnce(true)
+            .addExtras(bundleOf(EXTRA_NIVEL to nivel))
             .build()
 
         return try {
-            NotificationManagerCompat.from(context).notify(idNotificacion(detalle.recordatorio.id), notificacion)
+            // Al empeorar (de próximo a vencido) se retira el aviso anterior para que el nuevo sí suene.
+            val gestor = context.getSystemService(NotificationManager::class.java)
+            val anterior = gestor.activeNotifications.firstOrNull { it.id == id }
+            if (anterior != null && anterior.notification.extras.getInt(EXTRA_NIVEL) < nivel) gestor.cancel(id)
+            NotificationManagerCompat.from(context).notify(id, notificacion)
             true
         } catch (e: SecurityException) {
             false
